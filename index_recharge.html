@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/global.css" />
+		<link rel="stylesheet" href="css/index_recharge.css" />
+		<link rel="stylesheet" href="css/swiper.min.css">
+		<style>
+			html,
+			body {
+				background-color: #fff;
+			}
+			
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<header class="mui-bar mui-bar-nav nav_header">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">充值记录</h1>
+			</header>
+
+			<div class="record_nav of_h">
+				<div class="record_list">
+					<img src="images/34px_34px_icon1.png" alt="" />
+					<span>等待确认</span>
+				</div>
+				<div class="record_list list_mid">
+					<img src="images/34px_34px_icon2.png" alt="" />
+					<span>已确认</span>
+				</div>
+				<div class="record_list">
+					<img src="images/34px_34px_icon3.png" alt="" />
+					<span>已取消</span>
+				</div>
+
+			</div>
+
+			<div class="recharge_list ">
+				<div class="recharge_list_content of_h">
+					<div class="recharge_list_left">
+						<div class="recharge_list_left_head">
+							测试商品100x2份
+						</div>
+						<div class="recharge_list_left_body">
+							20.00元
+						</div>
+					</div>
+					<div class="recharge_list_right">
+						<div class="recharge_list_right_head">
+							2016-05-06 12:55
+						</div>
+						<div class="recharge_list_right_body">
+							已确认
+						</div>
+					</div>
+				</div>
+
+				<div class="recharge_list_content of_h">
+					<div class="recharge_list_left">
+						<div class="recharge_list_left_head">
+							测试商品100x2份
+						</div>
+						<div class="recharge_list_left_body">
+							20.00元
+						</div>
+					</div>
+					<div class="recharge_list_right">
+						<div class="recharge_list_right_head">
+							2016-05-06 12:55
+						</div>
+						<div class="recharge_list_right_body">
+							已确认
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</body>
+	<script src="js/mui.min.js"></script>
+	<script src="js/swiper.min.js"></script>
+	<script>
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+	</script>
+	<script>
+		var swiper = new Swiper('.swiper-container', {
+			pagination: '.swiper-pagination',
+			paginationClickable: true,
+
+			slidesPerView: 3.5,
+
+		});
+	</script>
+
+	<script>
+		//各个屏幕大小适配
+		(function(doc, win) {
+			var docEl = doc.documentElement,
+				resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+				recalc = function() {
+					var clientWidth = docEl.clientWidth;
+					if(!clientWidth) return;
+					docEl.style.fontSize = 100 * (clientWidth / 375) + 'px';
+				};
+
+			if(!doc.addEventListener) return;
+			win.addEventListener(resizeEvt, recalc, false);
+			doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+
+</html>

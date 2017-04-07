@@ -1,0 +1,157 @@
+.card_detail_header{
+	background: #CB2920;
+}
+.card_detail_header a{
+	color: #ffffff;
+}
+.card_detail_header h1{
+	color: #ffffff;
+}
+.card_detail_nav{
+	margin-top: 44px;
+	overflow: hidden;
+}
+.card_detail_nav_left{
+	display: inline-block;
+	width: 50%;
+	float: left;
+	text-align: center;
+	background: #ffffff;
+	padding-top:7px;
+	padding-bottom: 7px;
+	border-bottom: 1px solid #e8e8e8;
+}
+.card_detail_nav_right{
+	display: inline-block;
+	width: 50%;
+	float: left;
+	text-align: center;
+	background: #ffffff;
+	padding-top:7px;
+	padding-bottom: 7px;
+	border-bottom: 1px solid #e8e8e8;
+	border-left: 1px solid #e8e8e8;
+}
+.nav_icon{
+	width: 27px;
+}
+.nav_text{
+	display: block;
+	color: #1c1c1c;
+	font-size: 13px;
+}
+.card_detail_bg{
+	margin-top: 5px;
+	background: #fff;
+}
+.mui-table-view-inverted:before{
+	background: #e8e8e8;
+}
+.mui-table-view-inverted:after{
+	background: #e8e8e8 !important;
+}
+.mui-table-view-inverted .mui-table-view-cell:after{
+	background: #e8e8e8;
+}
+.card_detail_name{
+	color: #1c1c1c !important;
+	padding-right:40px !important;
+}
+.card_detail_name span:nth-child(2){
+	float: right;
+	color: #a4a4a4;
+}
+.coupon_area .swiper-wrapper{
+	padding-left: 0.05rem;
+}
+.coupon_area .swiper-slide{
+	position: relative;
+	margin-top: 0.09rem;
+	/*margin-left:0.05rem;*/
+}
+.coupon_area .swiper-slide img{
+	width: 1.02rem;
+}
+.coupon_data_1{
+	color:#fff;
+	position: absolute;
+	top:0.1rem;
+	left: 0.1rem;
+}
+.coupon_data_1 span:nth-child(1){
+	font-size: 0.2rem;
+}
+.coupon_data_1 span:nth-child(2){
+	font-size: 0.15rem;
+}
+.coupon_data_2{
+	color:#ffffff;
+	position:absolute;
+	font-size: 0.1rem;
+	top:0.3rem;
+	left:0.1rem;
+}
+.coupon_data_3{
+	position: absolute;
+	color: #ffffff;
+	font-size: 0.1rem;
+	line-height: 0.15rem;
+	top:0.1rem;
+	left: 0.75rem;
+}
+.vip_text{
+	background: #fff;
+	font-size: 13px;
+	line-height: 39px;
+	padding-left:15px;
+	margin-top:7px;
+}
+.vip_area{
+	background: #ffffff !important;
+}
+.vip_area .mui-media-body{
+	font-size: 0.15rem !important;
+	line-height: 0.15rem !important;
+}
+.vip_area li img{
+	width: 0.32rem;
+}
+.vip_area .mui-media-body{
+	color: #1c1c1c;
+	font-size: 13px;
+}
+.shop_area{
+	background: #fff;
+	overflow: hidden;
+}
+.area_data_1{
+	display: inline-block;
+	width: 60%;
+	padding-left: 4%;
+	float: left;
+}
+.area_data_1 span{
+	display: block;
+}
+.area_data_1 span:nth-child(1){
+	font-size: 0.14rem;
+	line-height: 0.3rem;
+}
+.area_data_1 span:nth-child(2){
+	font-size: 0.11rem;
+	color: #a4a4a4;
+}
+.area_data_1 span:nth-child(3){
+	font-size: 0.11rem;
+	color: #a4a4a4;
+}
+.area_data_2{
+	display: inline-block;
+	float: left;
+	width: 40%;
+}
+.area_data_2 img{
+	width: 0.28rem;
+	margin-left: 0.3rem;
+	margin-top: 0.2rem;
+}

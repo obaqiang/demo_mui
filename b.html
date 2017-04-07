@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="css/mui.min.css">
+		<script src="js/mui.min.js"></script>
+	</head>
+
+	<body>
+		<h1>这是b页面</h1>
+	</body>
+	<script type="text/javascript">
+	mui.plusReady(function(){
+		//添加newId自定义事件监听
+		window.addEventListener('newsId', function(event) {
+			//获得事件参数
+			var id = event.detail.id;
+			console.log('测试传值:'+id);
+			//根据id向服务器请求新闻详情
+		})
+	})
+		
+	</script>
+
+</html>

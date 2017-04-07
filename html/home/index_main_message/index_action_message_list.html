@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" href="../../../css/mui.min.css">
+		<link rel="stylesheet" href="../../../css/global.css" />
+		<link rel="stylesheet" href="../../../css/index_action.css" />
+		<link rel="stylesheet" href="../../../css/swiper.min.css">
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<header class="mui-bar mui-bar-nav nav_header">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">活动</h1>
+			</header>
+
+		</div>
+	</body>
+	<script src="../../../js/mui.min.js"></script>
+	<script src="../../../js/config/web_config.js"></script>
+	<script src="../../../js/plugin/swiper.min.js"></script>
+	<script src="../../../js/jquery-1.11.3.js"></script>
+	<script src="../../../js/common/bdapp.js"></script>
+	<script>
+		if(navigator.userAgent.indexOf("Html5Plus") > 0) { //支持5+ API
+
+		}
+	</script>
+
+	<script>
+		if(navigator.userAgent.indexOf("Html5Plus") < 0) { //不支持5+ API
+			var activity_id = GetQueryString('bill_id');
+			var member_id = GetQueryString('member_id');
+			var token = GetQueryString('token');
+			var membergetactivity_url = test_url + '/api/ActivityCommon/MemberGetActivity';
+
+			
+			mui.init({
+				subpages: [{
+					url: link_url,
+					styles: {
+						top: '45px',
+						bottom: 0,
+						bounce: 'vertical'
+					}
+				}]
+			});
+		}
+	</script>
+
+	<script>
+		//各个屏幕大小适配
+		(function(doc, win) {
+			var docEl = doc.documentElement,
+				resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+				recalc = function() {
+					var clientWidth = docEl.clientWidth;
+					if(!clientWidth) return;
+					docEl.style.fontSize = 100 * (clientWidth / 375) + 'px';
+				};
+
+			if(!doc.addEventListener) return;
+			win.addEventListener(resizeEvt, recalc, false);
+			doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+
+</html>

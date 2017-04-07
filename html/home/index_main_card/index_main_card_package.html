@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" href="../../../css/mui.min.css">
+		<link rel="stylesheet" href="../../../css/global.css" />
+		<link rel="stylesheet" href="../../../css/index_main_card_package.css" />
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<header class="mui-bar mui-bar-nav nav_header">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">套餐管理</h1>
+				<img id="nav_icon_right" class="nav_icon_right" src="../../../images/56px_42px_fff.png" alt="" />
+			</header>
+
+			<ul class="nav_ul" style="display: none;">
+				<li>买赠</li>
+				<li>计时</li>
+				<li>储值</li>
+				<li>全部</li>
+			</ul>
+			<div class="package_area">
+				<!--<div class="package_list">
+					<div class="list_a">
+						买赠
+					</div>
+					<div class="list_b">
+						<div class="list_b_name">
+							超级优惠套餐
+						</div>
+						<div class="list_b_prize">
+							399.00元
+						</div>
+
+					</div>
+					<img class="list_img" src="../../../images/16px_26px_V.png" alt="" />
+
+				</div>
+				<div class="package_list">
+					<div class="list_a">
+						买赠
+					</div>
+					<div class="list_b">
+						<div class="list_b_name">
+							超级优惠套餐
+						</div>
+						<div class="list_b_prize">
+							399.00元
+						</div>
+
+					</div>
+					<img class="list_img" src="../../../images/16px_26px_V.png" alt="" />
+
+				</div>-->
+			</div>
+
+		</div>
+	</body>
+	<script src="../../../js/mui.min.js"></script>
+	<script src="../../../js/config/web_config.js"></script>
+	<script src="../../../js/jquery-1.11.3.js"></script>
+	<script src="../../../js/common/bdapp.js"></script>
+	<script>
+		if(navigator.userAgent.indexOf("Html5Plus") > 0) { //支持5+ API
+			mui.plusReady(function() {
+				mui.init({
+					swipeBack: true //启用右滑关闭功能
+				});
+
+				var self = plus.webview.currentWebview();
+				var store_id = self.store_id;
+				var cardtype_id = self.cardtype_id;
+				var token = self.token;
+
+				var getpacakges_url = test_url + '/api/recharge/GetPacakges';
+
+				function GetPacakges(getpacakges_url, store_id, cardtype_id, token) {
+					mui.ajax(getpacakges_url, {
+						data: {
+							store_id: store_id,
+							cardtype_id: cardtype_id,
+							token: token
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'get', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							console.log('获取套餐管理接口返回数据:' + JSON.stringify(data));
+
+							var Packages = data.Data.Packages;
+							for(var i = 0; i < Packages.length; i++) {
+								var package_name = Packages[i].package_name;
+								var money = Packages[i].money;
+								var type = Packages[i].type;
+								var type_text;
+								if(type == '001') {
+									type_text = '买赠';
+									type = 'one';
+								} else if(type == '002') {
+									type_text = '储值';
+									type = 'two';
+								} else if(type == '003') {
+									type_text = '计时';
+									type = 'three';
+								}
+
+								var package_div =
+									'<div class="package_list ' + type + '">' +
+									'<div class="list_a">' +
+									type_text +
+									'</div>' +
+									'<div class="list_b">' +
+									'<div class="list_b_name">' +
+									package_name +
+									'</div>' +
+									'<div class="list_b_prize">' +
+									money + '元' +
+									'</div>' +
+									'</div>' +
+									'<img class="list_img" src="../../../images/16px_26px_V.png" alt="" />' +
+									'</div>';
+								$('.package_area').append(package_div);
+
+							}
+
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							console.log(type);
+						}
+					});
+				}
+				GetPacakges(getpacakges_url, store_id, cardtype_id, token);
+
+				document.getElementById('nav_icon_right').addEventListener('tap', function() {
+					if($('.nav_ul').is(':visible') == true) {
+						$('.nav_ul').hide();
+					} else {
+						$('.nav_ul').show();
+
+					}
+				})
+
+				mui(".nav_ul").on('tap', 'li', function() {
+					console.log(1111);
+					var type_text = $(this).text();
+					console.log(type_text);
+					if(type_text == '买赠') {
+						console.log(1);
+						type = '001';
+						$('.package_list').hide();
+						$('.one').show();
+					} else if(type_text == '储值') {
+						console.log(2);
+						type = '002';
+						$('.package_list').hide();
+						$('.two').show();
+					} else if(type_text == '计时') {
+						console.log(3);
+						type = '003';
+						$('.package_list').hide();
+						$('.three').show();
+					} else {
+						$('.package_list').show();
+					}
+
+					$('.nav_ul li').removeClass('li_active');
+					$(this).addClass('li_active');
+					$('.nav_ul').hide();
+
+				})
+
+			})
+		}
+	</script>
+	<script>
+		if(navigator.userAgent.indexOf("Html5Plus") < 0) { //不支持5+ API
+			var store_id = GetQueryString('store_id');
+			var cardtype_id = GetQueryString('cardtype_id');
+			var token = GetQueryString('token');
+
+			var getpacakges_url = test_url + '/api/recharge/GetPacakges';
+
+			function GetPacakges(getpacakges_url, store_id, cardtype_id, token) {
+				mui.ajax(getpacakges_url, {
+					data: {
+						store_id: store_id,
+						cardtype_id: cardtype_id,
+						token: token
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'get', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+						console.log('获取套餐管理接口返回数据:' + JSON.stringify(data));
+
+						var Packages = data.Data.Packages;
+						if(Packages == '') {
+							var no_data_div =
+								'<div class="no_data">暂无数据</div>';
+							$('.package_area').append(no_data_div);
+						} else {
+							for(var i = 0; i < Packages.length; i++) {
+								var package_name = Packages[i].package_name;
+								var money = Packages[i].money;
+								var type = Packages[i].type;
+								var type_text;
+								if(type == '001') {
+									type_text = '买赠';
+									type = 'one';
+								} else if(type == '002') {
+									type_text = '储值';
+									type = 'two';
+								} else if(type == '003') {
+									type_text = '计时';
+									type = 'three';
+								}
+
+								var package_div =
+									'<div class="package_list ' + type + '">' +
+									'<div class="list_a">' +
+									type_text +
+									'</div>' +
+									'<div class="list_b">' +
+									'<div class="list_b_name">' +
+									package_name +
+									'</div>' +
+									'<div class="list_b_prize">' +
+									money + '元' +
+									'</div>' +
+									'</div>' +
+									//								'<img class="list_img" src="../../../images/16px_26px_V.png" alt="" />' +
+									'</div>';
+								$('.package_area').append(package_div);
+
+							}
+						}
+
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						console.log(type);
+					}
+				});
+			}
+			GetPacakges(getpacakges_url, store_id, cardtype_id, token);
+
+			document.getElementById('nav_icon_right').addEventListener('tap', function() {
+				if($('.nav_ul').is(':visible') == true) {
+					$('.nav_ul').hide();
+				} else {
+					$('.nav_ul').show();
+
+				}
+			})
+
+			mui(".nav_ul").on('tap', 'li', function() {
+				console.log(1111);
+				var type_text = $(this).text();
+				console.log(type_text);
+				if(type_text == '买赠') {
+					console.log(1);
+					type = '001';
+					$('.package_list').hide();
+					$('.one').show();
+				} else if(type_text == '储值') {
+					console.log(2);
+					type = '002';
+					$('.package_list').hide();
+					$('.two').show();
+				} else if(type_text == '计时') {
+					console.log(3);
+					type = '003';
+					$('.package_list').hide();
+					$('.three').show();
+				} else {
+					$('.package_list').show();
+				}
+
+				$('.nav_ul li').removeClass('li_active');
+				$(this).addClass('li_active');
+				$('.nav_ul').hide();
+
+			})
+		}
+	</script>
+
+	<script>
+		//各个屏幕大小适配
+		(function(doc, win) {
+			var docEl = doc.documentElement,
+				resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+				recalc = function() {
+					var clientWidth = docEl.clientWidth;
+					if(!clientWidth) return;
+					docEl.style.fontSize = 100 * (clientWidth / 375) + 'px';
+				};
+
+			if(!doc.addEventListener) return;
+			win.addEventListener(resizeEvt, recalc, false);
+			doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+
+</html>

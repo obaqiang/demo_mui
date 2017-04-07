@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/global.css" />
+		<link rel="stylesheet" href="css/index_coupon_detail.css" />
+		<!--<link rel="stylesheet" href="css/index_recharge.css" />-->
+		<link rel="stylesheet" href="css/index_coupon.css" />
+		<link rel="stylesheet" href="css/swiper.min.css">
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<header class="mui-bar mui-bar-nav nav_header">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">优惠券详情</h1>
+			</header>
+
+			<div class="coupon_detail_head of_h">
+				<img class="coupon_detail_img" src="images/yuantiao.jpg" alt="" />	
+			</div>
+			<div class="coupon_list of_h">
+				<div class="coupon_list_left">
+					<div class="coupon_list_left_prize">
+						20 元秒杀优惠券
+					</div>
+					<div class="coupon_list_left_time">
+						使用期限 2016-05-05 13:85
+					</div>
+					<div class="coupon_list_left_time">
+						限定以下产品满￥100可用
+					</div>
+				</div>
+				<img class="coupon_list_img" src="images/180px_180px_1.png" alt="" />
+				<div class="coupon_list_num">￥10.00</div>
+			</div>
+			
+			<div class="coupon_detail_title">
+				限定消费以下产品
+			</div>
+			
+			<div class="coupon_detail_goods">
+				<div class="coupon_detail_goods_list">
+					靖江猪肉干
+				</div>
+				<div class="coupon_detail_goods_list">
+					靖江猪肉干
+				</div>
+				<div class="coupon_detail_goods_list">
+					靖江猪肉干
+				</div>
+				<div class="coupon_detail_goods_list">
+					靖江猪肉干
+				</div>
+			</div>
+			
+			
+
+		</div>
+	</body>
+	<script src="js/mui.min.js"></script>
+	<script src="js/swiper.min.js"></script>
+	<script>
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+	</script>
+	<script>
+		var swiper = new Swiper('.swiper-container', {
+			pagination: '.swiper-pagination',
+			paginationClickable: true,
+
+			slidesPerView: 3.5,
+
+		});
+	</script>
+
+	<script>
+		//各个屏幕大小适配
+		(function(doc, win) {
+			var docEl = doc.documentElement,
+				resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+				recalc = function() {
+					var clientWidth = docEl.clientWidth;
+					if(!clientWidth) return;
+					docEl.style.fontSize = 100 * (clientWidth / 375) + 'px';
+				};
+
+			if(!doc.addEventListener) return;
+			win.addEventListener(resizeEvt, recalc, false);
+			doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+
+</html>

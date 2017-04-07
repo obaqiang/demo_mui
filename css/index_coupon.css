@@ -1,0 +1,64 @@
+.mui-badge {
+	font-size: 0.1rem;
+	line-height: 0.13rem !important;
+	position: absolute;
+	top: -2px;
+	left: 95%;
+	margin-left: -10px;
+	padding: 1px 5px;
+	color: #fff !important;
+	background: red;
+}
+.coupon_list{
+	background: #fff;
+	border-radius: 0.05rem;
+	width: 95%;
+	margin: 0.1rem auto;
+	position: relative;
+}
+.coupon_list_img{
+	display: block;
+	height: 0.9rem;
+	float: right;
+}
+.coupon_list_left{
+	float: left;
+	display: inline-block;
+	width: 70%;
+}
+.coupon_list_left div{
+	margin-top:0.06rem;
+	margin-left: 0.06rem;
+}
+.coupon_list_left_prize{
+	font-size: 0.13rem;
+	color: #1c1c1c;
+	font-weight: bold;
+	
+}
+.coupon_list_left_time{
+	color: #777777;
+	font-size: 0.12rem;
+	display: inline-block;
+	width: 2.5rem;
+	line-height: 0.15rem;
+}
+.coupon_list_left_limit{
+	font-size: 0.13rem;
+	font-weight: bold;
+}
+.coupon_list_num{
+	position: absolute;
+	right: 0.2rem;
+	top: 0.35rem;
+	color: #fff;
+}
+.mui-scroll-wrapper{
+	margin-top: 1rem;
+}
+/*.mui-bar-nav .mui-content .mui-pull-top-pocket{
+  top: 90px !important;
+}*/
+.coupon_area_div{
+	background: #efeff4;
+}

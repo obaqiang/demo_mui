@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" href="../../../css/mui.min.css">
+		<link rel="stylesheet" href="../../../css/global.css" />
+		<link rel="stylesheet" href="../../../css/index_recharge.css" />
+		<link rel="stylesheet" href="../../../css/swiper.min.css">
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content  ">
+			<header class="mui-bar mui-bar-nav nav_header">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">充值记录</h1>
+			</header>
+
+			<div class="record_nav of_h">
+				<div class="record_list" id="recharge_wait">
+					<img src="../../../images/34px_34px_icon1.png" alt="" />
+					<span>等待确认</span>
+				</div>
+				<div class="record_list list_mid" id="recharge_sure">
+					<img src="../../../images/34px_34px_icon2.png" alt="" />
+					<span>已确认</span>
+				</div>
+				<div class="record_list" id="recharge_cancel">
+					<img src="../../../images/34px_34px_icon3.png" alt="" />
+					<span>已取消</span>
+				</div>
+
+			</div>
+
+			<div class="mui-scroll-wrapper" id="index_recharge">
+				<div class="recharge_list mui-scroll">
+					<!--<div class="recharge_list_content of_h">
+					<div class="recharge_list_left">
+						<div class="recharge_list_left_head">
+							测试商品100x2份
+						</div>
+						<div class="recharge_list_left_body">
+							20.00元
+						</div>
+					</div>
+					<div class="recharge_list_right">
+						<div class="recharge_list_right_head">
+							2016-05-06 12:55
+						</div>
+						<div class="recharge_list_right_body">
+							已确认
+						</div>
+					</div>
+				</div>-->
+
+					<!--<div class="recharge_list_content of_h">
+					<div class="recharge_list_left">
+						<div class="recharge_list_left_head">
+							测试商品100x2份
+						</div>
+						<div class="recharge_list_left_body">
+							20.00元
+						</div>
+					</div>
+					<div class="recharge_list_right">
+						<div class="recharge_list_right_head">
+							2016-05-06 12:55
+						</div>
+						<div class="recharge_list_right_body">
+							已确认
+						</div>
+					</div>
+				</div>-->
+
+				</div>
+			</div>
+
+		</div>
+	</body>
+	<script src="../../../js/mui.min.js"></script>
+	<script src="../../../js/plugin/swiper.min.js"></script>
+	<script src="../../../js/jquery-1.11.3.js"></script>
+	<script src="../../../js/common/bdapp.js"></script>
+	<script src="../../../js/config/web_config.js"></script>
+	<script>
+		if(navigator.userAgent.indexOf("Html5Plus") > 0) { //支持5+ API
+			mui.plusReady(function() {
+				mui.init({
+					pullRefresh: {
+						container: '#index_recharge',
+						down: {
+
+							callback: pulldownRefresh
+						},
+						up: {
+							contentrefresh: '',
+							//						contentrefresh: '正在加载...',
+							callback: pullupRefresh
+						}
+					}
+				});
+
+				/**
+				 * 下拉刷新具体业务实现
+				 */
+				function pulldownRefresh() {
+					setTimeout(function() {
+						page_num = 1;
+						GetRecharges(getrecharges_url, store_id, vip_id, type, page_num, page_size, hasitems, token);
+						mui('#index_recharge').pullRefresh().endPulldownToRefresh(); //refresh completed
+					}, 1500);
+				}
+				//			var count = 0;
+				/**
+				 * 上拉加载具体业务实现
+				 */
+				function pullupRefresh() {
+					setTimeout(function() {
+
+						page_num++;
+						GetRecharges(getrecharges_url, store_id, vip_id, type, page_num, page_size, hasitems, token);
+						mui('#index_recharge').pullRefresh().endPullupToRefresh();
+
+					}, 1500);
+				}
+				if(mui.os.plus) {
+					mui.plusReady(function() {
+						setTimeout(function() {
+							mui('#index_recharge').pullRefresh().pullupLoading();
+						}, 1000);
+
+					});
+				} else {
+					mui.ready(function() {
+						mui('#index_recharge').pullRefresh().pullupLoading();
+					});
+				}
+
+				var self = plus.webview.currentWebview();
+				var store_id = self.store_id;
+				var vip_id = self.vip_id;
+				var token = self.token;
+				var type = 1;
+				var page_num = 1;
+				var page_size = 20;
+				var hasitems = 1;
+
+				var getrecharges_url = test_url + '/api/recharge/GetRecharges';
+
+				console.log(getrecharges_url + '?vip_id=' + vip_id + '&store_id=' + store_id + '&page_num=' + page_num + '&page_size=' + page_size + '&hasitems=' + hasitems + '&token=' + token);
+
+				function GetRecharges(getrecharges_url, store_id, vip_id, type, page_num, page_size, hasitems, token) {
+					mui.ajax(getrecharges_url, {
+						data: {
+							store_id: store_id,
+							vip_id: vip_id,
+							type: type,
+							page_num: page_num,
+							page_size: page_size,
+							hasitems: hasitems,
+							token: token
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'get', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							console.log('获取充值记录接口返回数据:' + JSON.stringify(data));
+
+							if(page_num == 1) {
+								$('.recharge_list').empty();
+							}
+							var Recharges = data.Data.Recharges;
+							var type_text;
+							if(type == 1) {
+								type_text = '等待确认';
+							} else if(type == 2) {
+								type_text = '已确认';
+							} else if(type == 4) {
+								type_text = '已取消';
+							}
+							if(Recharges == '' && page_num == 1) {
+
+								var no_data_div =
+									'<div class="no_data">暂无数据</div>';
+								$('.recharge_list').append(no_data_div);
+							} else {
+								for(var i = 0; i < Recharges.length; i++) {
+									var package_names = Recharges[i].package_names;
+									var add_time = Recharges[i].add_time;
+									add_time = unix_to_datetime(add_time);
+									var money_payable = Recharges[i].money_payable;
+									var recharge_div =
+										'<div class="recharge_list_content of_h">' +
+										'<div class="recharge_list_left">' +
+										'<div class="recharge_list_left_head">' +
+										package_names +
+										'</div>' +
+										'<div class="recharge_list_left_body">' +
+										money_payable + '元' +
+										'</div>' +
+										'</div>' +
+										'<div class="recharge_list_right">' +
+										'<div class="recharge_list_right_head">' +
+										add_time +
+										'</div>' +
+										'<div class="recharge_list_right_body">' +
+										type_text +
+										'</div>' +
+										'</div>' +
+										'</div>';
+									$('.recharge_list').append(recharge_div);
+
+								}
+							}
+
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							console.log(type);
+							console.log(errorThrown);
+						}
+					});
+				}
+				GetRecharges(getrecharges_url, store_id, vip_id, type, page_num, page_size, hasitems, token);
+				//		未使用
+				document.getElementById('recharge_wait').addEventListener('tap', function() {
+						type = 1;
+						page_num = 1;
+						GetRecharges(getrecharges_url, store_id, vip_id, type, page_num, page_size, hasitems, token);
+					})
+					//		已确认
+				document.getElementById('recharge_sure').addEventListener('tap', function() {
+						type = 2;
+						page_num = 1;
+						GetRecharges(getrecharges_url, store_id, vip_id, type, page_num, page_size, hasitems, token);
+					})
+					//		已取消
+				document.getElementById('recharge_cancel').addEventListener('tap', function() {
+					type = 3;
+					page_num = 1;
+					GetRecharges(getrecharges_url, store_id, vip_id, type, page_num, page_size, hasitems, token);
+				})
+
+			})
+		}
+	</script>
+
+	<script>
+		if(navigator.userAgent.indexOf("Html5Plus") < 0) { //不支持5+ API
+			mui.init({
+				pullRefresh: {
+					container: '#index_recharge',
+					down: {
+
+						callback: pulldownRefresh
+					},
+					up: {
+						contentrefresh: '',
+						//						contentrefresh: '正在加载...',
+						callback: pullupRefresh
+					}
+				}
+			});
+
+			/**
+			 * 下拉刷新具体业务实现
+			 */
+			function pulldownRefresh() {
+				setTimeout(function() {
+					page_num = 1;
+					GetRecharges(getrecharges_url, store_id, vip_id, type, page_num, page_size, hasitems, token);
+					mui('#index_recharge').pullRefresh().endPulldownToRefresh(); //refresh completed
+				}, 1500);
+			}
+			//			var count = 0;
+			/**
+			 * 上拉加载具体业务实现
+			 */
+			function pullupRefresh() {
+				setTimeout(function() {
+
+					page_num++;
+					GetRecharges(getrecharges_url, store_id, vip_id, type, page_num, page_size, hasitems, token);
+					mui('#index_recharge').pullRefresh().endPullupToRefresh();
+
+				}, 1500);
+			}
+			if(mui.os.plus) {
+				mui.plusReady(function() {
+					setTimeout(function() {
+						mui('#index_recharge').pullRefresh().pullupLoading();
+					}, 1000);
+
+				});
+			} else {
+				mui.ready(function() {
+					mui('#index_recharge').pullRefresh().pullupLoading();
+				});
+			}
+
+			var store_id = GetQueryString('store_id');
+			var vip_id = GetQueryString('vip_id');
+			var token = GetQueryString('token');
+			var type = 1;
+			var page_num = 1;
+			var page_size = 20;
+			var hasitems = 1;
+
+			var getrecharges_url = test_url + '/api/recharge/GetRecharges';
+
+			console.log(getrecharges_url + '?vip_id=' + vip_id + '&store_id=' + store_id + '&page_num=' + page_num + '&page_size=' + page_size + '&hasitems=' + hasitems + '&token=' + token);
+
+			function GetRecharges(getrecharges_url, store_id, vip_id, type, page_num, page_size, hasitems, token) {
+				mui.ajax(getrecharges_url, {
+					data: {
+						store_id: store_id,
+						vip_id: vip_id,
+						type: type,
+						page_num: page_num,
+						page_size: page_size,
+						hasitems: hasitems,
+						token: token
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'get', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+//						console.log('获取充值记录接口返回数据:' + JSON.stringify(data));
+						console.log(data);
+
+						if(page_num == 1) {
+							$('.recharge_list').empty();
+						}
+						var Recharges = data.Data.Recharges;
+						var type_text;
+						if(type == 1) {
+							type_text = '等待确认';
+						} else if(type == 2) {
+							type_text = '已确认';
+						} else if(type == 4) {
+							type_text = '已取消';
+						}
+						if(Recharges == '' && page_num == 1) {
+
+							var no_data_div =
+								'<div class="no_data">暂无数据</div>';
+							$('.recharge_list').append(no_data_div);
+						} else {
+							for(var i = 0; i < Recharges.length; i++) {
+								var package_names = Recharges[i].package_names;
+								var add_time = Recharges[i].add_time;
+								add_time = unix_to_datetime(add_time);
+								var total_money = Recharges[i].total_money;
+								var recharge_div =
+									'<div class="recharge_list_content of_h">' +
+									'<div class="recharge_list_left">' +
+									'<div class="recharge_list_left_head">' +
+									package_names +
+									'</div>' +
+									'<div class="recharge_list_left_body">' +
+									total_money + '元' +
+									'</div>' +
+									'</div>' +
+									'<div class="recharge_list_right">' +
+									'<div class="recharge_list_right_head">' +
+									add_time +
+									'</div>' +
+									'<div class="recharge_list_right_body">' +
+									type_text +
+									'</div>' +
+									'</div>' +
+									'</div>';
+								$('.recharge_list').append(recharge_div);
+
+							}
+						}
+
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						console.log(type);
+						console.log(errorThrown);
+					}
+				});
+			}
+			GetRecharges(getrecharges_url, store_id, vip_id, type, page_num, page_size, hasitems, token);
+			//		未使用
+			document.getElementById('recharge_wait').addEventListener('tap', function() {
+					type = 1;
+					page_num = 1;
+					GetRecharges(getrecharges_url, store_id, vip_id, type, page_num, page_size, hasitems, token);
+				})
+				//		已确认
+			document.getElementById('recharge_sure').addEventListener('tap', function() {
+					type = 2;
+					page_num = 1;
+					GetRecharges(getrecharges_url, store_id, vip_id, type, page_num, page_size, hasitems, token);
+				})
+				//		已取消
+			document.getElementById('recharge_cancel').addEventListener('tap', function() {
+				type = 3;
+				page_num = 1;
+				GetRecharges(getrecharges_url, store_id, vip_id, type, page_num, page_size, hasitems, token);
+			})
+
+		}
+	</script>
+
+	<script>
+		//各个屏幕大小适配
+		(function(doc, win) {
+			var docEl = doc.documentElement,
+				resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+				recalc = function() {
+					var clientWidth = docEl.clientWidth;
+					if(!clientWidth) return;
+					docEl.style.fontSize = 100 * (clientWidth / 375) + 'px';
+				};
+
+			if(!doc.addEventListener) return;
+			win.addEventListener(resizeEvt, recalc, false);
+			doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+
+</html>

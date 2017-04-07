@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/index_main_message.css" />
+		<link rel="stylesheet" href="css/index_main_message_detail.css" />
+		<style>
+			html,body {
+				background-color: #efeff4;
+			}
+			.title{
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav message_detail_header">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">结账详情</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view detail_ul">
+				 <li class="mui-table-view-cell detail_ul_head">
+				 	付款明细
+				 </li>
+		         <li class="mui-table-view-cell detail_ul_body">
+		         	<span>订单号</span>
+		         	<span>156813415613256612351</span>
+		         </li>
+		         <li class="mui-table-view-cell detail_ul_body">
+		         	<span>交易时间</span>
+		         	<span>2016-06-22 06:23</span>
+		         </li>
+		         <li class="mui-table-view-cell detail_ul_body">
+		         	<span>操作员</span>
+		         	<span>超级管理员</span>
+		         </li>
+		         <li class="mui-table-view-cell detail_ul_body">
+		         	<span>结账类型</span>
+		         	<span>正常</span>
+		         </li>
+		         <li class="mui-table-view-cell detail_ul_body">
+		         	<span>会员卡支付</span>
+		         	<span class="prize_text">-￥440.00</span>
+		         </li>
+		         <li class="mui-table-view-cell detail_ul_body">
+		         	<span>剩余套餐总计</span>
+		         	<span class="prize_text">￥4420.00</span>
+		         </li>
+			</ul>
+			
+			<ul class="mui-table-view detail_ul">
+				 <li class="mui-table-view-cell detail_ul_head">
+				 	使用明细
+				 </li>
+				 <li class="mui-table-view-cell detail_ul_body">
+		         	<span>超级豪华套餐</span>
+		         	<span class="prize_text">￥4420.00</span>
+		         </li>
+			</ul>
+			
+			<ul class="mui-table-view detail_ul">
+				 <li class="mui-table-view-cell detail_ul_head">
+				 	<img class="ul_img_icon" src="images/28px_28px_iconshop.png" alt="" />
+				 	<span>玲玲美食</span>
+				 	<span class="confirm_text">等待确认</span>
+				 </li>
+				 <li class="mui-table-view-cell detail_ul_body">
+				 	
+		         	<span>超级豪华套餐</span>
+		         	<span class="prize_text">￥4420.00</span>
+		         </li>
+			</ul>
+			
+			<div class="detail_list">
+				<img src="images/touxiang.jpg" alt="" />
+				<div class="detail_list_info">
+					<span>辣子鸡丁</span>
+					<span>$220.00</span>
+				</div>
+				<span class="detail_list_num">
+					x2
+				</span>
+			</div>
+			
+			<div class="detail_list">
+				<img src="images/touxiang.jpg" alt="" />
+				<div class="detail_list_info">
+					<span>辣子鸡丁</span>
+					<span>$220.00</span>
+				</div>
+				<span class="detail_list_num">
+					x2
+				</span>
+			</div>
+			
+			<div class="detail_sum">
+				共4件商品 合计：￥440.00元
+			</div>
+			<div class="detail_nav_bot">
+				<span>确定</span>
+				<span>取消</span>
+			</div>
+			
+			
+		</div>
+	</body>
+	<script src="js/mui.min.js"></script>
+	<script>
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+	</script>
+</html>

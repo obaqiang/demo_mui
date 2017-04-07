@@ -1,0 +1,83 @@
+.mui-content{
+	background: #fff;
+}
+.bill_head{
+	border: 1px solid #cb2920;
+	margin-top: 54px;
+	margin: 54px auto 0;
+	background: #fff;
+	font-size: 0.13rem;
+	overflow: hidden;
+	border-radius: 0.05rem;
+	width: 95%;
+	
+}
+.bill_head_left{
+	width: 50%;
+	float: left;
+	text-align: center;
+}
+.text_on{
+	background: #CB2920 !important;
+	color: #fff !important;
+}
+.bill_head_right{
+	width: 50%;
+	float: left;
+	text-align: center;
+	/*border-left: 1px solid #CB2920;*/
+	
+}
+.bill_month{
+	margin: 0.1rem auto 0;
+	text-align: center;
+}
+.bill_month span{
+	background: #efeff4;
+	font-size: 0.12rem;
+	line-height: 0.33rem;
+	display: inline-block;
+	padding-left: 0.1rem;
+	padding-right: 0.1rem;
+	color: #666666;
+}
+.bill_charge{
+	margin-top: 0.16rem;
+	margin-left: 0.2rem;
+}
+.bill_charge span:nth-child(1){
+	color: #666666;
+	font-size: 0.14rem;
+}
+.bill_charge span:nth-child(2){
+	color: #CB2920;
+	font-size: 0.19rem;
+}
+.bill_charge span:nth-child(3){
+	color: #666666;
+	font-size: 0.14rem;
+}
+.bill_table{
+	margin-top: 0.15rem;
+	width: 100%;
+}
+.bill_table th{
+	font-size: 0.13rem;
+	background: #efeff4;
+	line-height: 0.4rem;
+	font-weight: 100;
+	width: 33%;
+}
+.bill_table tr{
+	border-bottom: 1px solid #ddd;
+	
+}
+.bill_table tr:nth-child(1){
+	border-bottom: none;
+}
+.bill_table td{
+	text-align: center;
+	line-height: 0.4rem;
+	font-size: 0.14rem;
+	color: #1c1c1c;
+}

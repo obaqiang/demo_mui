@@ -1,0 +1,36 @@
+.deposit_content {
+	margin-top: 44px;
+}
+
+.deposit_list {
+	position: relative;
+}
+
+.deposit_list span {
+	font-size: 0.13rem;
+	line-height: 0.2rem;
+	margin-left: 0.6rem;
+	line-height: 0.4rem;
+}
+
+.deposit_list img {
+	width: 0.5rem;
+	border-radius: 50%;
+	display: block;
+	position: absolute;
+}
+.deposit_btn{
+	background: #CB2920;
+	position: fixed;
+	width: 100%;
+	bottom: 0;
+	text-align: center;
+	color: #fff;
+	height: 0.4rem;
+	line-height: 0.4rem;
+}
+.deposit_status{
+	color: #666666;
+	float: right;
+	margin-right: 0.6rem;
+}

@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>个人信息</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" href="../../../css/mui.min.css">
+		<link rel="stylesheet" href="../../../css/index_main_mine_personal.css" />
+		<link rel="stylesheet" href="../../../css/global.css">
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav mine_personal_header">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">修改头像</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view mui-table-view-chevron mui-table-view-inverted personal_bg">
+				<li class="mui-table-view-cell" id="head_change">
+					<a class="mui-navigate-right mine_list_head personal_head">
+						<span>头像</span>
+						<img class="personal_head_img img_upload" src="" alt="" />
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="nav_bottom" id="btn_sure">
+			确定
+		</div>
+
+	</body>
+	<script src="../../../js/mui.min.js"></script>
+	<script src="../../../js/config/web_config.js"></script>
+	<script src="../../../js/jquery-1.11.3.js"></script>
+	<script src="../../../js/common/bdapp.js"></script>
+	<script src="../../../js/plugin/qrcode.js"></script>
+	<script>
+		if(navigator.userAgent.indexOf("Html5Plus") > 0) { //支持5+ API
+			mui.plusReady(function() {
+				mui.init({
+					swipeBack: true //启用右滑关闭功能
+				});
+				var self = plus.webview.currentWebview();
+				var token = self.token;
+				var member_id = self.member_id;
+				var phone = self.phone;
+				var name = self.name;
+				var thumb = self.thumb;
+				$('.personal_head_img').attr('src', thumb);
+
+				//上传头像图片 
+				function uploadHead(imgPath) {
+
+					var mainImage = $('.img_upload')[0];
+					console.log(mainImage);
+
+					console.log("imgPath = " + imgPath);
+					mainImage.src = imgPath;
+					mainImage.style.width = "60px";
+					mainImage.style.height = "60px";
+
+					var image = new Image();
+					console.log('imgPath:' + imgPath);
+					image.src = imgPath;
+					image.onload = function() {
+						var imgData = getBase64Image(image);
+
+						/*在这里调用上传接口*/
+						//              mui.ajax("图片上传接口", { 
+						//                  data: { 
+						//                       
+						//                  }, 
+						//                  dataType: 'json', 
+						//                  type: 'post', 
+						//                  timeout: 10000, 
+						//                  success: function(data) { 
+						//                      console.log('上传成功'); 
+						//                  }, 
+						//                  error: function(xhr, type, errorThrown) { 
+						//                      mui.toast('网络异常，请稍后再试！'); 
+						//                  } 
+						//              }); 
+					}
+				}
+
+				function getImage() {
+					var c = plus.camera.getCamera();
+					c.captureImage(function(e) {
+						plus.io.resolveLocalFileSystemURL(e, function(entry) {
+							var s = entry.toLocalURL() + "?version=" + new Date().getTime();
+							uploadHead(s); /*上传图片*/
+						}, function(e) {
+							console.log("读取拍照文件错误：" + e.message);
+						});
+					}, function(s) {
+						console.log("error" + s);
+					}, {
+						filename: "_doc/head.png"
+					})
+				}
+
+				//本地相册选择 
+				function galleryImg() {
+					plus.gallery.pick(function(a) {
+						plus.io.resolveLocalFileSystemURL(a, function(entry) {
+							plus.io.resolveLocalFileSystemURL("_doc/", function(root) {
+								root.getFile("head.png", {}, function(file) {
+									//文件已存在 
+									file.remove(function() {
+										console.log("file remove success");
+										entry.copyTo(root, 'head.png', function(e) {
+												var e = e.fullPath + "?version=" + new Date().getTime();
+												uploadHead(e); /*上传图片*/
+												//变更大图预览的src 
+												//目前仅有一张图片，暂时如此处理，后续需要通过标准组件实现 
+											},
+											function(e) {
+												console.log('copy image fail:' + e.message);
+											});
+									}, function() {
+										console.log("delete image fail:" + e.message);
+									});
+								}, function() {
+									//文件不存在 
+									entry.copyTo(root, 'head.png', function(e) {
+											var path = e.fullPath + "?version=" + new Date().getTime();
+											uploadHead(path); /*上传图片*/
+										},
+										function(e) {
+											console.log('copy image fail:' + e.message);
+										});
+								});
+							}, function(e) {
+								console.log("get _www folder fail");
+							})
+						}, function(e) {
+							console.log("读取拍照文件错误：" + e.message);
+						});
+					}, function(a) {}, {
+						filter: "image"
+					})
+				};
+
+				var changethumbH5_url = yehongbing_url + '/api/member/ChangeThumbH5';
+
+				function ChangeThumbH5(changethumbH5_url, file_id, member_id, token) {
+					mui.ajax(changethumbH5_url, {
+						data: {
+							file_id: file_id,
+							id: member_id
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: {
+							'Content-Type': 'application/json',
+							'token': token
+						},
+						success: function(data) {
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							alert('里面的：' + member_id);
+							console.log('上传头像接口返回数据：' + JSON.stringify(data));
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							console.log(type);
+						}
+					});
+				}
+
+				var uploadfilebybase64_url = yehongbing_url + '/api/store/UploadFileByBase64';
+
+				function UploadFileByBase64(uploadfilebybase64_url, fileid, data, token, changethumbH5_url, file_id, member_id, content_status) {
+					mui.ajax(uploadfilebybase64_url, {
+						data: {
+							fileid: fileid,
+							data: data
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: {
+							'Content-Type': 'application/json',
+							'token': token
+						},
+						success: function(data) {
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							console.log('获取上传图片接口返回数据:' + JSON.stringify(data));
+							if(data.IsError == false && content_status == true) {
+								ChangeThumbH5(changethumbH5_url, file_id, member_id, token);
+							}
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							console.log(type);
+						}
+					});
+				}
+
+				document.getElementById('head_change').addEventListener('tap', function() {
+					if(mui.os.plus) {
+						var a = [{
+							title: "拍照"
+						}, {
+							title: "从手机相册选择"
+						}];
+						plus.nativeUI.actionSheet({
+							title: "修改用户头像",
+							cancel: "取消",
+							buttons: a
+						}, function(b) { /*actionSheet 按钮点击事件*/
+							switch(b.index) {
+								case 0:
+									break;
+								case 1:
+									getImage(); /*拍照*/
+									break;
+								case 2:
+									galleryImg(); /*打开相册*/
+									break;
+								default:
+									break;
+							}
+						})
+					}
+				}, false);
+
+				document.getElementById('btn_sure').addEventListener('tap', function() {
+					alert('需要得member_id：' + member_id);
+					var file_id = Date.parse(new Date()); //已时间戳作为图片名字,每次上传都会产生新id
+					var image = new Image();
+					image.src = $('.img_upload').attr('src');
+					image.onload = function() {
+						imgData = getBase64Image(image);
+						imgData = getBase64Image(image);
+						reg = /.{1024}/g,
+							rs = imgData.match(reg); //rs为分割后的数组
+						rs.push(imgData.substring(rs.join('').length));
+						var count = 0;
+						var content_status; //此值用来判断在图片上传全部完成之后进行AddFeedBackH5请求
+						for(var i = 0; i < rs.length; i++) {
+							count++;
+							//						console.log(rs[i]);
+							var data = rs[i];
+							fileid = file_id;
+							//						console.log('uploadfilebybase64_url:'+uploadfilebybase64_url);
+							//						console.log('fileid:'+fileid);
+							//						console.log('data:'+data);
+							//						console.log('token:'+token);
+							if(count == (rs.length)) {
+								content_status = true;
+							}
+							UploadFileByBase64(uploadfilebybase64_url, fileid, data, token, changethumbH5_url, file_id, member_id, content_status);
+							//						console.log('最后的rs：'+rs[rs.length-1]);
+						}
+
+					}
+
+				})
+			})
+		}
+	</script>
+	<script>
+		if(navigator.userAgent.indexOf("Html5Plus") < 0) { //不支持5+ API
+				mui.init({
+					swipeBack: true //启用右滑关闭功能
+				});
+				var token = GetQueryString('token');
+				var member_id = GetQueryString('member_id');
+				var phone = GetQueryString('phone');
+				var name = GetQueryString('name');
+				name = decodeURI(name);
+				var thumb = GetQueryString('thumb');
+				$('.personal_head_img').attr('src', thumb);
+
+				//上传头像图片 
+				function uploadHead(imgPath) {
+
+					var mainImage = $('.img_upload')[0];
+					console.log(mainImage);
+
+					console.log("imgPath = " + imgPath);
+					mainImage.src = imgPath;
+					mainImage.style.width = "60px";
+					mainImage.style.height = "60px";
+
+					var image = new Image();
+					console.log('imgPath:' + imgPath);
+					image.src = imgPath;
+					image.onload = function() {
+						var imgData = getBase64Image(image);
+
+						/*在这里调用上传接口*/
+						//              mui.ajax("图片上传接口", { 
+						//                  data: { 
+						//                       
+						//                  }, 
+						//                  dataType: 'json', 
+						//                  type: 'post', 
+						//                  timeout: 10000, 
+						//                  success: function(data) { 
+						//                      console.log('上传成功'); 
+						//                  }, 
+						//                  error: function(xhr, type, errorThrown) { 
+						//                      mui.toast('网络异常，请稍后再试！'); 
+						//                  } 
+						//              }); 
+					}
+				}
+
+				function getImage() {
+					var c = plus.camera.getCamera();
+					c.captureImage(function(e) {
+						plus.io.resolveLocalFileSystemURL(e, function(entry) {
+							var s = entry.toLocalURL() + "?version=" + new Date().getTime();
+							uploadHead(s); /*上传图片*/
+						}, function(e) {
+							console.log("读取拍照文件错误：" + e.message);
+						});
+					}, function(s) {
+						console.log("error" + s);
+					}, {
+						filename: "_doc/head.png"
+					})
+				}
+
+				//本地相册选择 
+				function galleryImg() {
+					plus.gallery.pick(function(a) {
+						plus.io.resolveLocalFileSystemURL(a, function(entry) {
+							plus.io.resolveLocalFileSystemURL("_doc/", function(root) {
+								root.getFile("head.png", {}, function(file) {
+									//文件已存在 
+									file.remove(function() {
+										console.log("file remove success");
+										entry.copyTo(root, 'head.png', function(e) {
+												var e = e.fullPath + "?version=" + new Date().getTime();
+												uploadHead(e); /*上传图片*/
+												//变更大图预览的src 
+												//目前仅有一张图片，暂时如此处理，后续需要通过标准组件实现 
+											},
+											function(e) {
+												console.log('copy image fail:' + e.message);
+											});
+									}, function() {
+										console.log("delete image fail:" + e.message);
+									});
+								}, function() {
+									//文件不存在 
+									entry.copyTo(root, 'head.png', function(e) {
+											var path = e.fullPath + "?version=" + new Date().getTime();
+											uploadHead(path); /*上传图片*/
+										},
+										function(e) {
+											console.log('copy image fail:' + e.message);
+										});
+								});
+							}, function(e) {
+								console.log("get _www folder fail");
+							})
+						}, function(e) {
+							console.log("读取拍照文件错误：" + e.message);
+						});
+					}, function(a) {}, {
+						filter: "image"
+					})
+				};
+
+				var changethumbH5_url = yehongbing_url + '/api/member/ChangeThumbH5';
+
+				function ChangeThumbH5(changethumbH5_url, file_id, member_id, token) {
+					mui.ajax(changethumbH5_url, {
+						data: {
+							file_id: file_id,
+							id: member_id
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: {
+							'Content-Type': 'application/json',
+							'token': token
+						},
+						success: function(data) {
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							alert('里面的：' + member_id);
+							console.log('上传头像接口返回数据：' + JSON.stringify(data));
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							console.log(type);
+						}
+					});
+				}
+
+				var uploadfilebybase64_url = yehongbing_url + '/api/store/UploadFileByBase64';
+
+				function UploadFileByBase64(uploadfilebybase64_url, fileid, data, token, changethumbH5_url, file_id, member_id, content_status) {
+					mui.ajax(uploadfilebybase64_url, {
+						data: {
+							fileid: fileid,
+							data: data
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: {
+							'Content-Type': 'application/json',
+							'token': token
+						},
+						success: function(data) {
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							console.log('获取上传图片接口返回数据:' + JSON.stringify(data));
+							if(data.IsError == false && content_status == true) {
+								ChangeThumbH5(changethumbH5_url, file_id, member_id, token);
+							}
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							console.log(type);
+						}
+					});
+				}
+
+				document.getElementById('head_change').addEventListener('tap', function() {
+					if(mui.os.plus) {
+						var a = [{
+							title: "拍照"
+						}, {
+							title: "从手机相册选择"
+						}];
+						plus.nativeUI.actionSheet({
+							title: "修改用户头像",
+							cancel: "取消",
+							buttons: a
+						}, function(b) { /*actionSheet 按钮点击事件*/
+							switch(b.index) {
+								case 0:
+									break;
+								case 1:
+									getImage(); /*拍照*/
+									break;
+								case 2:
+									galleryImg(); /*打开相册*/
+									break;
+								default:
+									break;
+							}
+						})
+					}
+				}, false);
+
+				document.getElementById('btn_sure').addEventListener('tap', function() {
+					alert('需要得member_id：' + member_id);
+					var file_id = Date.parse(new Date()); //已时间戳作为图片名字,每次上传都会产生新id
+					var image = new Image();
+					image.src = $('.img_upload').attr('src');
+					image.onload = function() {
+						imgData = getBase64Image(image);
+						imgData = getBase64Image(image);
+						reg = /.{1024}/g,
+							rs = imgData.match(reg); //rs为分割后的数组
+						rs.push(imgData.substring(rs.join('').length));
+						var count = 0;
+						var content_status; //此值用来判断在图片上传全部完成之后进行AddFeedBackH5请求
+						for(var i = 0; i < rs.length; i++) {
+							count++;
+							//						console.log(rs[i]);
+							var data = rs[i];
+							fileid = file_id;
+							//						console.log('uploadfilebybase64_url:'+uploadfilebybase64_url);
+							//						console.log('fileid:'+fileid);
+							//						console.log('data:'+data);
+							//						console.log('token:'+token);
+							if(count == (rs.length)) {
+								content_status = true;
+							}
+							UploadFileByBase64(uploadfilebybase64_url, fileid, data, token, changethumbH5_url, file_id, member_id, content_status);
+							//						console.log('最后的rs：'+rs[rs.length-1]);
+						}
+
+					}
+
+				})
+		}
+	</script>
+	<script>
+		//各个屏幕大小适配
+		(function(doc, win) {
+			var docEl = doc.documentElement,
+				resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+				recalc = function() {
+					var clientWidth = docEl.clientWidth;
+					if(!clientWidth) return;
+					docEl.style.fontSize = 100 * (clientWidth / 375) + 'px';
+				};
+
+			if(!doc.addEventListener) return;
+			win.addEventListener(resizeEvt, recalc, false);
+			doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+
+</html>

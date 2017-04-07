@@ -1,0 +1,43 @@
+.package_list{
+	background: #fff;
+	height: 0.6rem;
+	border-bottom: 1px solid #dddddd;
+}
+.list_head{
+	margin-top: 44px;
+}
+.list_a{
+	border: 1px solid #929292;
+	display: inline-block;
+	font-size: 0.1rem;
+	padding: 0.01rem 0.05rem;
+	margin-left: 0.08rem;
+	border-radius: 0.03rem;
+}
+.list_b{
+	display: inline-block;
+	position: relative;
+	top: 0.1rem;
+	left: 0.1rem;
+}
+.list_b_name{
+	color: #1c1c1c;
+	font-size: 0.14rem;
+}
+.list_b_prize{
+	color: #cb2920;
+	font-size: 0.12rem;
+}
+.list_img{
+	float: right;
+	width: 0.08rem;
+	margin-top: 0.2rem;
+	margin-right: 0.1rem;
+}
+.li_active{
+	background: #CB2920;
+	color: #fff;
+}
+.package_area{
+	margin-top: 44px;
+}

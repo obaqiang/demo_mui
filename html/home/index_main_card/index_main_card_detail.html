@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" href="../../../css/mui.min.css">
+		<link rel="stylesheet" href="../../../css/global.css" />
+		<link rel="stylesheet" href="../../../css/index_main_card_detail.css" />
+		<link rel="stylesheet" href="../../../css/swiper.min.css">
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<header class="mui-bar mui-bar-nav nav_header">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">个人信息</h1>
+			</header>
+			<div class="card_detail_nav">
+				<div class="card_detail_nav_left" id="products_all">
+					<img class="nav_icon" src="../../../images/54px_54px_icon1.png" alt="" />
+					<span class="nav_text">全部商品</span>
+				</div>
+				<div class="card_detail_nav_right" id="package_charge">
+					<img class="nav_icon" src="../../../images/54px_54px_icon2.png" alt="" />
+					<span class="nav_text">套餐充值</span>
+				</div>
+			</div>
+
+			<ul class="mui-table-view mui-table-view-chevron mui-table-view-inverted card_detail_bg">
+				<li class="mui-table-view-cell" id="account">
+					<a class="mui-navigate-right mine_list_head card_detail_name">
+						<span>余额</span>
+						<span class="detail_name_text" id='balance'>￥0.00</span>
+					</a>
+				</li>
+				<li class="mui-table-view-cell" id="points_exchange">
+					<a class="mui-navigate-right mine_list_head card_detail_name">
+						<span>积分兑换</span>
+						<span class="detail_name_text" id='points'>0.00</span>
+					</a>
+				</li>
+
+			</ul>
+
+			<div class="coupon_area">
+				<div class="swiper-container">
+					<div class="swiper-wrapper">
+						<!--<div class="swiper-slide">
+							<img src="../../../images/204px_102px_quanbg.png" alt="" />
+							<div class="coupon_data_1">
+								<span>2000</span>
+								<span>元</span>
+							</div>
+							<span class="coupon_data_2">(满200可用)</span>
+							<span class="coupon_data_3">点击<br />领取</span>
+						</div>-->
+
+					</div>
+					<!-- Add Pagination -->
+					<!--<div class="swiper-pagination"></div>-->
+				</div>
+
+			</div>
+			<div class="vip_text">
+				会员专享
+			</div>
+			<ul class="mui-table-view mui-grid-view mui-grid-9 vip_area">
+				<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" id="index_action">
+					<!--<a href="#">-->
+					<img src="../../../images/64px_huodong.png" alt="" />
+					<div class="mui-media-body">活动</div>
+					<!--</a>-->
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" id="index_coupon">
+					<!--<a href="#">-->
+					<img src="../../../images/64px_youhuiquan.png" alt="" />
+					<div class="mui-media-body">优惠券</div>
+					<!--</a>-->
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" id="red_packet">
+					<!--<a href="#">-->
+					<img src="../../../images/64px_hongbao.png" alt="" />
+					<div class="mui-media-body">红包</div>
+					<!--</a>-->
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" id="index_prize_list">
+					<!--<a href="#">-->
+					<img src="../../../images/64px_jiangpin.png" alt="" />
+					<div class="mui-media-body">奖品</div>
+					<!--</a>-->
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" id="index_recharge">
+					<!--<a href="#">-->
+					<img src="../../../images/64px_chongzhi.png" alt="" />
+					<div class="mui-media-body">充值记录</div>
+					<!--</a>-->
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" id="purchase_history">
+					<!--<a href="#">-->
+					<img src="../../../images/64px_xiaofei.png" alt="" />
+					<div class="mui-media-body">消费记录</div>
+					<!--</a>-->
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" id="bill">
+					<!--<a href="#">-->
+					<img src="../../../images/64px_zhangdan.png" alt="" />
+					<div class="mui-media-body">账单</div>
+					<!--</a>-->
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" id="index_sign_statics">
+					<!--<a href="#">-->
+					<img src="../../../images/64px_qiandan.png" alt="" />
+					<div class="mui-media-body">签单</div>
+					<!--</a>-->
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" id="index_deposit">
+					<!--<a href="#">-->
+					<img src="../../../images/64px_tuoguuan.png" alt="" />
+					<div class="mui-media-body">托管</div>
+					<!--</a>-->
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" id="index_photo">
+					<!--<a href="#">-->
+					<img src="../../../images/64px_paizhao.png" alt="" />
+					<div class="mui-media-body">交易拍照</div>
+					<!--</a>-->
+				</li>
+			</ul>
+
+			<ul class="mui-table-view mui-table-view-chevron mui-table-view-inverted card_detail_bg">
+				<li class="mui-table-view-cell" id="see_shop_detail">
+					<a class="mui-navigate-right mine_list_head card_detail_name">
+						<span>商家简介</span>
+						<span class="detail_name_text">查看详情</span>
+					</a>
+				</li>
+
+			</ul>
+
+			<div class="shop_area">
+				<div class="area_data_1">
+					<span id='store_name'>店铺名字</span>
+					<span id="store_time">营业时间 00:00-00:00</span>
+					<span id="address">商家地址</span>
+				</div>
+				<div class="area_data_2">
+					<img id="map" src="../../../images/56px_56px_ditu.png" alt="" />
+					<img id="tel" src="../../../images/56px_56px_dianhua.png" alt="" />
+
+				</div>
+			</div>
+
+			<ul class="mui-table-view mui-table-view-chevron mui-table-view-inverted card_detail_bg">
+				<li class="mui-table-view-cell" id="feedbacks">
+					<a class="mui-navigate-right mine_list_head card_detail_name">
+						我要反馈
+					</a>
+				</li>
+
+			</ul>
+			<img style="width: 100%;" src="../../../images/750px_187px_background.png" alt="" />
+
+		</div>
+		<!--<div class="show_tel">
+			<span>13032119695</span>
+			<span>取消</span>
+		</div>-->
+
+	</body>
+	<script src="../../../js/mui.js"></script>
+
+	<script src="../../../js/plugin/swiper.min.js"></script>
+	<script src="../../../js/jquery-1.11.3.js"></script>
+	<script src="../../../js/common/bdapp.js"></script>
+	<script src="../../../js/config/web_config.js"></script>
+	<!--<script src="../../../js/no_h5_plus/index_main_card_detail.js"></script>-->
+	<script></script>
+	<script>
+		if(navigator.userAgent.indexOf("Html5Plus") > 0) { //支持5+ API
+			mui.plusReady(function() {
+				mui.init({
+					swipeBack: true //启用右滑关闭功能
+				});
+				var self = plus.webview.currentWebview();
+				var member_id = self.member_id;
+				var vip_id = self.vip_id;
+				var token = self.token;
+				var store_id = self.store_id;
+
+				//		测试post
+				//		function AddStoreShopInfo() {
+				//			mui.ajax('https://testapi.bdvip.net/api/Store/AddStoreShopInfo', {
+				//				data: {
+				//					shop_address: "\U6c5f\U82cf\U7701\U82cf\U5dde\U5e02\U6606\U5c71\U5e02\U5468\U5e02\U9547\U5965\U6377\U8def",
+				//					shop_id: 1,
+				//					shop_name: "\U54c8\U54c8",
+				//					shop_tel: 12345678910,
+				//					store_id: 483,
+				//					token:token
+				//				},
+				//				dataType: 'json', //服务器返回json格式数据
+				//				type: 'post', //HTTP请求类型
+				//				timeout: 10000, //超时时间设置为10秒；
+				//				headers: {
+				//					'Content-Type': 'application/json'
+				//				},
+				//				success: function(data) {
+				//					//服务器返回响应，根据响应结果，分析是否登录成功；
+				//					console.log('测试post:' + JSON.stringify(data));
+				//				},
+				//				error: function(xhr, type, errorThrown) {
+				//					//异常处理；
+				//					console.log(type);
+				//				}
+				//			});
+				//		}
+				//		AddStoreShopInfo();
+
+				//		for(var i = 0; i < 3; i++) {
+				//			var div = '<div class="swiper-slide">' +
+				//				'<img src="../../../images/204px_102px_quanbg.png" alt="" />' +
+				//				'<div class="coupon_data_1">' +
+				//				'<span>2000</span>' +http://192.168.1.162:8020/m/images/204px_102px_quanbg.png
+				//				'<span>元</span>' +
+				//				'</div>' +
+				//				'<span class="coupon_data_2">(满200可用)</span>' +
+				//				'<span class="coupon_data_3">点击<br />领取</span>' +
+				//				'</div>';
+				//			$('.swiper-wrapper').append(div);
+				//		}
+
+				isOnline();
+
+				var getvipinfo_url = test_url + '/api/member/getvipinfo';
+
+				function getvipinfo(getvipinfo_url, vip_id, token) {
+					mui.ajax(getvipinfo_url, {
+						data: {
+							vip_id: vip_id,
+							token: token
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'get', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							//获得服务器响应
+							console.log('获取会员卡详情接口接口返回数据:' + JSON.stringify(data));
+							var balance = '￥' + data.Data.Vip.end_money; //余额
+							var cardtype_id = data.Data.Vip.cardtype_id;
+							var points = data.Data.Vip.end_integral; //剩余积分
+							var vip_phone = data.Data.Vip.vip_phone;
+							var tel = data.Data.Store.tel;
+							var tel_status = tel.indexOf(',');
+							document.getElementById('tel').addEventListener('tap', function() {
+								if(tel_status > 0) { //此状态表示有两个号码
+
+									var see_tel = tel.split(',');
+									showTel(see_tel);
+									mui(".show_tel").on('tap', '.tel', function() {
+										var tel_href = $(this).text();
+										window.location.href = 'tel:' + tel_href;
+									})
+									document.getElementById('tel_cancel').addEventListener('tap', function() {
+										$('.show_tel').hide();
+									});
+								} else {
+									window.location.href = 'tel:' + tel;
+								}
+
+							});
+
+							$('#balance').text(balance);
+							$('#points').text(points);
+
+							var store_name = data.Data.Store.store_name; //店家名称
+							var open_time = data.Data.Store.open_time;
+							var close_time = data.Data.Store.close_time;
+							var store_time = '营业时间' + open_time + '——' + close_time;
+							var address = data.Data.Store.address;
+							var logo_img = data.Data.Store.logo_img;
+							$('#feedbacks').attr('logo_img', logo_img);
+							$('#store_name').text(store_name);
+							$('#store_time').text(store_time);
+							$('#address').text(address);
+
+							var location_lng = data.Data.Store.location_lng;
+							var location_lat = data.Data.Store.location_lat;
+
+							var map_url = 'http://uri.amap.com/marker?position=' + location_lng + ',' + location_lat;
+							document.getElementById('map').addEventListener('tap', function() {
+								var webview = mui.openWindow({
+									url: 'index_map.html',
+									id: 'index_map',
+									extras: {
+										map_url: map_url
+									},
+									createNew: true
+								});
+							});
+
+							//					点击积分兑换事件
+							document.getElementById('points_exchange').addEventListener('tap', function() {
+								var points = $('#points_exchange').text();
+								points = points.replace(/[^0-9]/ig, "");
+								var webview = mui.openWindow({
+									url: 'index_main_card_detail_points.html',
+									id: 'index_main_card_detail_points',
+									extras: {
+										points: points,
+										token: token,
+										vip_id: vip_id,
+										member_id: member_id
+									},
+									createNew: true
+								});
+							});
+
+							//					点击余额事件
+							document.getElementById('account').addEventListener('tap', function() {
+								isOnline();
+								var webview = mui.openWindow({
+									url: 'index_account.html',
+									id: 'index_account',
+									extras: {
+										token: token,
+										vip_id: vip_id,
+										store_id: store_id,
+										prize: data.Data.Vip.end_money
+									},
+									createNew: true
+								});
+							})
+
+							//					点击全部商品事件
+							document.getElementById('products_all').addEventListener('tap', function() {
+								var webview = mui.openWindow({
+									url: 'index_main_card_products.html',
+									id: 'index_main_card_products',
+									extras: {
+										token: token,
+										store_id: store_id,
+									},
+									createNew: true
+								});
+							})
+
+							//					套餐充值
+							document.getElementById('package_charge').addEventListener('tap', function() {
+								var webview = mui.openWindow({
+									url: 'index_main_card_package.html',
+									id: 'index_main_card_package',
+									extras: {
+										token: token,
+										store_id: store_id,
+										cardtype_id: cardtype_id
+									},
+									createNew: true
+								});
+							})
+
+							//					点击活动事件
+							document.getElementById('index_action').addEventListener('tap', function() {
+									//								console.log('token:'+token+'&store_id:'+store_id+'&vip_id:'+vip_id);
+									var webview = mui.openWindow({
+										url: 'index_action.html',
+										id: 'index_action',
+										extras: {
+											token: token,
+											store_id: store_id,
+											vip_id: vip_id
+										},
+										createNew: true,
+										waiting: {
+											autoShow: true,
+											//									title:'正在加载'
+										}
+									});
+								})
+								//					优惠券
+							document.getElementById('index_coupon').addEventListener('tap', function() {
+									var webview = mui.openWindow({
+										url: 'index_coupon.html',
+										id: 'index_coupon',
+										extras: {
+											token: token,
+											store_id: store_id,
+											vip_id: vip_id
+										},
+										createNew: true
+									});
+								})
+								//					红包
+							document.getElementById('red_packet').addEventListener('tap', function() {
+									var webview = mui.openWindow({
+										url: 'index_red_packets.html',
+										id: 'index_red_packets',
+										extras: {
+											token: token,
+											vip_id: vip_id
+										},
+										createNew: true
+									});
+								})
+								//					奖品
+							document.getElementById('index_prize_list').addEventListener('tap', function() {
+									var webview = mui.openWindow({
+										url: 'index_prize_list.html',
+										id: 'index_prize_list',
+										extras: {
+											token: token,
+											vip_id: vip_id
+										},
+										createNew: true
+									});
+								})
+								//					充值记录
+							document.getElementById('index_recharge').addEventListener('tap', function() {
+								var webview = mui.openWindow({
+									url: 'index_recharge.html',
+									id: 'index_recharge',
+									extras: {
+										token: token,
+										vip_id: vip_id,
+										store_id: store_id
+									},
+									createNew: true
+								});
+							})
+
+							//					账单
+							document.getElementById('bill').addEventListener('tap', function() {
+								var webview = mui.openWindow({
+									url: 'index_bill.html',
+									id: 'index_bill',
+									extras: {
+										token: token,
+										store_id: store_id,
+										vip_id: vip_id
+									},
+									createNew: true
+								});
+							})
+
+							//					签单
+							document.getElementById('index_sign_statics').addEventListener('tap', function() {
+									var webview = mui.openWindow({
+										url: 'index_sign_statics.html',
+										id: 'index_sign_statics',
+										extras: {
+											token: token,
+											store_id: store_id,
+											vip_id: vip_id
+										},
+										createNew: true
+									});
+								})
+								//					托管
+							document.getElementById('index_deposit').addEventListener('tap', function() {
+									var webview = mui.openWindow({
+										url: 'index_deposit.html',
+										id: 'index_deposit',
+										extras: {
+											token: token,
+											store_id: store_id,
+											member_id: member_id,
+											vip_id: vip_id
+										},
+										createNew: true
+									});
+								})
+								//					交易拍照
+							document.getElementById('index_photo').addEventListener('tap', function() {
+									var webview = mui.openWindow({
+										url: 'index_photo.html',
+										id: 'index_photo',
+										extras: {
+											token: token,
+											store_id: store_id,
+											vip_id: vip_id
+										},
+										createNew: true
+									});
+								})
+								//							消费记录
+							document.getElementById('purchase_history').addEventListener('tap', function() {
+									var webview = mui.openWindow({
+										url: 'index_purchase_history.html',
+										id: 'index_purchase_history',
+										extras: {
+											token: token,
+											vip_id: vip_id,
+											store_id: store_id
+										},
+										createNew: true
+									});
+								})
+								//						商家简介
+							document.getElementById('see_shop_detail').addEventListener('tap', function() {
+									var webview = mui.openWindow({
+										url: 'index_main_card_detail_shop.html',
+										id: 'index_main_card_detail_shop',
+										extras: {
+											data: data,
+										},
+									});
+								})
+								//						意见反馈
+							document.getElementById('feedbacks').addEventListener('tap', function() {
+								var logo_img = $(this).attr('logo_img');
+								var webview = mui.openWindow({
+									url: 'index_feedbacks.html',
+									id: 'index_feedbacks',
+									extras: {
+										store_id: store_id,
+										member_id: member_id,
+										token: token,
+										logo_img: logo_img
+									},
+								});
+							})
+
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							console.log(type);
+						}
+					});
+				}
+
+				//			会员卡详情接口
+				//			function getvipinfo(vip_id, token) {
+				//				mui.get(getvipinfo_url, {
+				//					vip_id: vip_id,
+				//					token: token
+				//				}, function(data) {
+				//
+				//				}, 'json');
+				//			};
+				getvipinfo(getvipinfo_url, vip_id, token);
+
+				var GetPickUpTickets_url = test_url + '/api/ticket/GetPickUpTickets';
+				//			优惠券显示接口
+				function GetPickUpTickets(GetPickUpTickets_url, vip_id, store_id, token) {
+					mui.ajax(GetPickUpTickets_url, {
+						data: {
+							vip_id: vip_id,
+							store_id: store_id,
+							token: token
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'get', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							console.log('获取载入会员卡优惠券显示接口接口返回数据:' + JSON.stringify(data));
+							var Tickets = data.Data.Tickets;
+							for(var i = 0; i < Tickets.length; i++) {
+								var ticket_money = Tickets[i].ticket_money;
+								var condition_money = Tickets[i].condition_money;
+								var ticket_id = Tickets[i].id;
+								var out_num = Tickets[i].out_num; //已领取数量
+								var avg_num = Tickets[i].avg_num; //限制领取数量
+								var selected = Tickets[i].selected; //等于1就是已领取 0就是未领取
+								if(selected == 0) {
+									var ticket_div = '<div class="swiper-slide" avg_num="' + avg_num + '" out_num="' + out_num + '" store_id="' + store_id + '" ticket_id="' + ticket_id + '">' +
+										'<img src="../../../images/204px_102px_quanbg.png" alt="" />' +
+										'<div class="coupon_data_1">' +
+										'<span>' + ticket_money + '</span>' +
+										'<span>元</span>' +
+										'</div>' +
+										'<span class="coupon_data_2">(满' + condition_money + '可用)</span>' +
+										'<span class="coupon_data_3">点击<br />领取</span>' +
+										'</div>';
+									$('.swiper-wrapper').append(ticket_div);
+								}
+
+							}
+							var swiper = new Swiper('.swiper-container', {
+								pagination: '.swiper-pagination',
+								paginationClickable: true,
+
+								slidesPerView: 3.5,
+
+							});
+
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							console.log('优惠券显示接口返回失败');
+						}
+					});
+				};
+				GetPickUpTickets(GetPickUpTickets_url, vip_id, store_id, token);
+
+				var pickupticket_url = test_url + '/api/ticket/PickupTicket';
+				//			领取优惠券接口
+				function PickupTicket(pickupticket_url, member_id, store_id, ticket_id, vip_id, token) {
+					mui.ajax(pickupticket_url, {
+						data: {
+							staff_id: member_id,
+							store_id: store_id,
+							ticket_id: ticket_id,
+							vip_id: vip_id
+
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: {
+							'Content-Type': 'application/json',
+							'token': token
+						},
+						success: function(data) {
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							console.log('获取领取优惠券接口返回数据:' + JSON.stringify(data));
+
+							if(data.ErrorCode == 0) {
+								var alert_text = '优惠券领取成功';
+							} else {
+								var alert_text = data.ErrorMessage;
+
+							}
+							Alert(alert_text);
+
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							console.log(type);
+						}
+					});
+				}
+				var out_num = $(this).attr('out_num');
+				var avg_num = $(this).attr('avg_num');
+				//			给领取优惠券增加点击事件
+				mui(".swiper-wrapper").on('tap', '.swiper-slide', function() {
+
+					//获取id
+					var store_id = $(this).attr('store_id');
+					var ticket_id = $(this).attr('ticket_id');
+					//				console.log('需要的staff_id:' + member_id);
+					//				console.log('需要的store_id：' + store_id);
+					//				console.log('需要的ticket_id:' + ticket_id);
+					//				console.log('需要的vip_id:' + vip_id);
+					//				console.log('需要的token:' + token);
+					console.log(pickupticket_url + '?member_id=' + member_id + '&store_id=' + store_id + '&ticket_id=' + ticket_id + '&vip_id=' + vip_id + '&token=' + token);
+					PickupTicket(pickupticket_url, member_id, store_id, ticket_id, vip_id, token);
+
+					if(out_num == avg_num) {
+						$(this).hide();
+						Alert('此优惠券已全部领取');
+					} else {
+						out_num++;
+					}
+
+				})
+
+			})
+		}
+	</script>
+
+	<script>
+		if(navigator.userAgent.indexOf("Html5Plus") < 0) { //不支持5+ API
+			var member_id = GetQueryString('member_id');
+			var vip_id = GetQueryString('vip_id');
+			var token = GetQueryString('token');
+			var store_id = GetQueryString('store_id');
+			var getvipinfo_url = test_url + '/api/member/getvipinfo';
+
+			function getvipinfo(getvipinfo_url, vip_id, token) {
+				mui.ajax(getvipinfo_url, {
+					data: {
+						vip_id: vip_id,
+						token: token
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'get', //HTTP请求类型
+					crossDomain: true,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						console.log(data);
+						var balance = '￥' + data.Data.Vip.end_money; //余额
+						var cardtype_id = data.Data.Vip.cardtype_id;
+						var points = data.Data.Vip.end_integral; //剩余积分
+						var vip_phone = data.Data.Vip.vip_phone;
+						var tel = data.Data.Store.tel;
+						var tel_status = tel.indexOf(',');
+						document.getElementById('tel').addEventListener('tap', function() {
+							if(tel_status > 0) { //此状态表示有两个号码
+
+								var see_tel = tel.split(',');
+								showTel(see_tel);
+								mui(".show_tel").on('tap', '.tel', function() {
+									var tel_href = $(this).text();
+									window.location.href = 'tel:' + tel_href;
+								})
+								document.getElementById('tel_cancel').addEventListener('tap', function() {
+									$('.show_tel').hide();
+								});
+							} else {
+								window.location.href = 'tel:' + tel;
+							}
+						});
+						$('#balance').text(balance);
+						$('#points').text(points);
+						var store_name = data.Data.Store.store_name; //店家名称
+						$('.mui-title').text(store_name);
+						var open_time = data.Data.Store.open_time;
+						var close_time = data.Data.Store.close_time;
+						var store_time = '营业时间' + open_time + '——' + close_time;
+						var address = data.Data.Store.address;
+						var logo_img = data.Data.Store.logo_img;
+						$('#feedbacks').attr('logo_img', logo_img);
+						$('#store_name').text(store_name);
+						$('#store_time').text(store_time);
+						$('#address').text(address);
+						var location_lng = data.Data.Store.location_lng;
+						var location_lat = data.Data.Store.location_lat;
+						var map_url = 'http://uri.amap.com/marker?position=' + location_lng + ',' + location_lat;
+						document.getElementById('map').addEventListener('tap', function() {
+							console.log(map_url);
+							window.location.href = 'index_map.html?map_url=' + map_url;
+						});
+						//					点击积分兑换事件
+						document.getElementById('points_exchange').addEventListener('tap', function() {
+							var points = $('#points_exchange').text();
+							points = points.replace(/[^0-9]/ig, "");
+							window.location.href = 'index_main_card_detail_points.html?points=' + points + '&token=' + token + '&vip_id=' + vip_id + '&member_id=' + member_id + '&store_id=' + store_id;
+						});
+						//					点击余额事件
+						document.getElementById('account').addEventListener('tap', function() {
+								isOnline();
+								var prize = data.Data.Vip.end_money;
+								window.location.href = 'index_account.html?token=' + token + '&vip_id=' + vip_id + '&store_id=' + store_id + '&prize=' + prize;
+							})
+							//					点击全部商品事件
+						document.getElementById('products_all').addEventListener('tap', function() {
+							window.location.href = 'index_main_card_products.html?token=' + token + '&store_id=' + store_id;
+						})
+
+						//					套餐充值
+						document.getElementById('package_charge').addEventListener('tap', function() {
+							window.location.href = 'index_main_card_package.html?token=' + token + '&store_id=' + store_id + '&cardtype_id=' + cardtype_id;
+						})
+
+						//					点击活动事件
+						document.getElementById('index_action').addEventListener('tap', function() {
+							window.location.href = 'index_action.html?token=' + token + '&store_id=' + store_id + '&vip_id=' + vip_id+'&member_id='+member_id;
+						})
+
+						//					优惠券
+						document.getElementById('index_coupon').addEventListener('tap', function() {
+								window.location.href = 'index_coupon.html?token=' + token + '&store_id=' + store_id + '&vip_id=' + vip_id;
+							})
+							//					红包
+						document.getElementById('red_packet').addEventListener('tap', function() {
+								window.location.href = 'index_red_packets.html?token=' + token + '&vip_id=' + vip_id;
+							})
+							//					奖品
+						document.getElementById('index_prize_list').addEventListener('tap', function() {
+								window.location.href = 'index_prize_list.html?token=' + token + '&vip_id=' + vip_id+'&store_id='+store_id;
+							})
+							//					充值记录
+						document.getElementById('index_recharge').addEventListener('tap', function() {
+								window.location.href = 'index_recharge.html?token=' + token + '&vip_id=' + vip_id + '&store_id=' + store_id;
+							})
+							//						消费记录
+						document.getElementById('purchase_history').addEventListener('tap', function() {
+								window.location.href = 'index_purchase_history.html?token=' + token + '&vip_id=' + vip_id + '&store_id=' + store_id;
+							})
+							//					账单
+						document.getElementById('bill').addEventListener('tap', function() {
+							window.location.href = 'index_bill.html?token=' + token + '&store_id=' + store_id + '&vip_id=' + vip_id;
+						})
+
+						//					托管
+						document.getElementById('index_deposit').addEventListener('tap', function() {
+								window.location.href = 'index_deposit.html?token=' + token + '&store_id=' + store_id + '&member_id=' + member_id + '&vip_id=' + vip_id;
+							})
+							//					交易拍照
+						document.getElementById('index_photo').addEventListener('tap', function() {
+								window.location.href = 'index_photo.html?token=' + token + '&store_id=' + store_id + '&vip_id=' + vip_id;
+							})
+							//					签单
+						document.getElementById('index_sign_statics').addEventListener('tap', function() {
+								window.location.href = 'index_sign_statics.html?token=' + token + '&store_id=' + store_id + '&vip_id=' + vip_id;
+
+							})
+							//						商家简介
+						document.getElementById('see_shop_detail').addEventListener('tap', function() {
+								window.location.href = 'index_main_card_detail_shop.html?vip_id=' + vip_id + '&token' + token;
+							})
+							//						意见反馈
+						document.getElementById('feedbacks').addEventListener('tap', function() {
+							var logo_img = $(this).attr('logo_img');
+							//							var webview = mui.openWindow({
+							//								url: 'index_feedbacks.html',
+							//								id: 'index_feedbacks',
+							//								extras: {
+							//									store_id: store_id,
+							//									member_id: member_id,
+							//									token: token,
+							//									logo_img: logo_img
+							//								},
+							//							});
+							window.location.href = 'index_feedbacks.html?store_id=' + store_id + '&member_id=' + member_id + '&token=' + token + '&logo_img=' + logo_img;
+						})
+
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						console.log(type);
+					}
+				})
+			}
+			getvipinfo(getvipinfo_url, vip_id, token);
+
+			var GetPickUpTickets_url = test_url + '/api/ticket/GetPickUpTickets';
+			//			优惠券显示接口
+			function GetPickUpTickets(GetPickUpTickets_url, vip_id, store_id, token) {
+				mui.ajax(GetPickUpTickets_url, {
+					data: {
+						vip_id: vip_id,
+						store_id: store_id,
+						token: token
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'get', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+						//						console.log('获取载入会员卡优惠券显示接口接口返回数据:' + JSON.stringify(data));
+						//						console.log(data);
+						var Tickets = data.Data.Tickets;
+						for(var i = 0; i < Tickets.length; i++) {
+							var ticket_money = Tickets[i].ticket_money;
+							var condition_money = Tickets[i].condition_money;
+							var ticket_id = Tickets[i].id;
+							var out_num = Tickets[i].out_num; //已领取数量
+							var avg_num = Tickets[i].avg_num; //限制领取数量
+							var selected = Tickets[i].selected; //等于1就是已领取 0就是未领取
+							if(selected == 0) {
+								var ticket_div = '<div class="swiper-slide" avg_num="' + avg_num + '" out_num="' + out_num + '" store_id="' + store_id + '" ticket_id="' + ticket_id + '">' +
+									'<img src="../../../images/204px_102px_quanbg.png" alt="" />' +
+									'<div class="coupon_data_1">' +
+									'<span>' + ticket_money + '</span>' +
+									'<span>元</span>' +
+									'</div>' +
+									'<span class="coupon_data_2">(满' + condition_money + '可用)</span>' +
+									'<span class="coupon_data_3">点击<br />领取</span>' +
+									'</div>';
+								$('.swiper-wrapper').append(ticket_div);
+							}
+
+						}
+						var swiper = new Swiper('.swiper-container', {
+							pagination: '.swiper-pagination',
+							paginationClickable: true,
+
+							slidesPerView: 3.5,
+
+						});
+
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						console.log('优惠券显示接口返回失败');
+					}
+				});
+			};
+			GetPickUpTickets(GetPickUpTickets_url, vip_id, store_id, token);
+
+			var pickupticket_url = test_url + '/api/ticket/PickupTicket';
+			//			领取优惠券接口
+			function PickupTicket(pickupticket_url, member_id, store_id, ticket_id, vip_id, token) {
+				mui.ajax(pickupticket_url, {
+					data: {
+						staff_id: member_id,
+						store_id: store_id,
+						ticket_id: ticket_id,
+						vip_id: vip_id
+
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					headers: {
+						'Content-Type': 'application/json',
+						'token': token
+					},
+					success: function(data) {
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+						console.log('获取领取优惠券接口返回数据:' + JSON.stringify(data));
+
+						if(data.ErrorCode == 0) {
+							var alert_text = '优惠券领取成功';
+						} else {
+							var alert_text = data.ErrorMessage;
+
+						}
+						Alert(alert_text);
+
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						console.log(type);
+					}
+				});
+			}
+
+			//			给领取优惠券增加点击事件
+			mui(".swiper-wrapper").on('tap', '.swiper-slide', function() {
+
+				//获取id
+				var store_id = $(this).attr('store_id');
+				var ticket_id = $(this).attr('ticket_id');
+				//				console.log('需要的staff_id:' + member_id);
+				//				console.log('需要的store_id：' + store_id);
+				//				console.log('需要的ticket_id:' + ticket_id);
+				//				console.log('需要的vip_id:' + vip_id);
+				//				console.log('需要的token:' + token);
+				console.log(pickupticket_url + '?member_id=' + member_id + '&store_id=' + store_id + '&ticket_id=' + ticket_id + '&vip_id=' + vip_id + '&token=' + token);
+				PickupTicket(pickupticket_url, member_id, store_id, ticket_id, vip_id, token);
+				var out_num = $(this).attr('out_num');
+				var avg_num = $(this).attr('avg_num');
+				out_num++;
+				$(this).attr('out_num',out_num);
+//				console.log(out_num);
+//				console.log(avg_num);
+				if(out_num == avg_num) {
+					$(this).hide();
+					Alert('此优惠券已全部领取');
+				} else {
+					out_num++;
+				}
+
+			})
+
+		}
+	</script>
+
+	<script>
+		//各个屏幕大小适配
+		(function(doc, win) {
+			var docEl = doc.documentElement,
+				resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+				recalc = function() {
+					var clientWidth = docEl.clientWidth;
+					if(!clientWidth) return;
+					docEl.style.fontSize = 100 * (clientWidth / 375) + 'px';
+				};
+
+			if(!doc.addEventListener) return;
+			win.addEventListener(resizeEvt, recalc, false);
+			doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+
+</html>

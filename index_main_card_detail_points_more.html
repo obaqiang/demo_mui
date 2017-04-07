@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/global.css" />
+		<link rel="stylesheet" href="css/index_main_card_detail.css" />
+		<link rel="stylesheet" href="css/index_main_card_detail_points.css" />
+		<link rel="stylesheet" href="css/index_main_card_detail_points_more.css" />
+		<link rel="stylesheet" href="css/swiper.min.css">
+		<style>
+			html,
+			body {
+				background-color: #fff;
+			}
+			
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content bg_ff">
+			<header class="mui-bar mui-bar-nav nav_header">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">积分</h1>
+			</header>
+			<div class="points_more_body">
+				<div class="points_more_list of_h">
+					<div class="more_list_left">
+						+10
+					</div>
+					<div class="more_list_right">
+						<div>
+							结账赠送产品积分
+						</div>
+						<div>
+							2016-04-16 10:00
+						</div>
+					</div>
+
+				</div>
+				<div class="points_more_list of_h">
+					<div class="more_list_left">
+						+10
+					</div>
+					<div class="more_list_right">
+						<div>
+							结账赠送产品积分
+						</div>
+						<div>
+							2016-04-16 10:00
+						</div>
+					</div>
+
+				</div>
+				<div class="points_more_list of_h">
+					<div class="more_list_left">
+						+10
+					</div>
+					<div class="more_list_right">
+						<div>
+							结账赠送产品积分
+						</div>
+						<div>
+							2016-04-16 10:00
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+	</body>
+	<script src="js/mui.min.js"></script>
+	<script src="js/swiper.min.js"></script>
+	<script>
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+	</script>
+	<script>
+		var swiper = new Swiper('.swiper-container', {
+			pagination: '.swiper-pagination',
+			paginationClickable: true,
+
+			slidesPerView: 3.5,
+
+		});
+	</script>
+	<script>
+		//各个屏幕大小适配
+		(function(doc, win) {
+			var docEl = doc.documentElement,
+				resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+				recalc = function() {
+					var clientWidth = docEl.clientWidth;
+					if(!clientWidth) return;
+					docEl.style.fontSize = 100 * (clientWidth / 375) + 'px';
+				};
+
+			if(!doc.addEventListener) return;
+			win.addEventListener(resizeEvt, recalc, false);
+			doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+
+</html>

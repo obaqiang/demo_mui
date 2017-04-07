@@ -1,0 +1,138 @@
+.detail_head{
+	margin-top: 44px;
+}
+.detail_a{
+	border-bottom: 1px solid #eeeeee;
+	background: #fff;
+	line-height: 0.39rem;
+}
+.detail_a_name{
+	color: #1c1c1c;
+	font-size: 0.15rem;
+	margin-left: 0.11rem;
+}
+.detail_a_content{
+	color: #666666;
+	font-size: 0.14rem;
+	float: right;
+	margin-right: 0.11rem;
+}
+.detail_b{
+	font-size: 0.15rem;
+	color: #1c1c1c;
+	line-height: 0.35rem;
+	margin-left: 0.11rem;
+}
+.detail_c{
+	background: #fff;
+}
+.a{
+	font-size: 0.15rem;
+	color: #666666;
+	line-height: 0.5rem;
+	margin-left: 0.1rem;
+}
+.b{
+	border: 1px solid #d1d1d1;
+	display: inline-block;
+	padding: 0.04rem 0.2rem;
+	color: #cb2920;
+	font-size: 0.14rem;
+	border-radius: 0.05rem;
+}
+.c{
+	font-size: 0.15rem;
+	color: #666666;
+	margin-right: 0.2rem;
+}
+.d{
+	color: #666666;
+	margin-left: 0.1rem;
+	font-size: 0.15rem;
+	line-height: 0.5rem;
+}
+.e{
+	border: 1px solid #d1d1d1;
+	display: inline-block;
+	padding: 0.04rem 0.1rem;
+	color: #cb2920;
+	font-size: 0.14rem;
+	border-radius: 0.05rem;
+}
+.detail_c_right{
+	float: right;
+	margin-right: 0.11rem;
+	
+}
+.detail_d{
+	background: #fff;
+	border-bottom: 1px solid #c8c7cc;
+}
+.detail_d_left{
+	display: inline-block;
+	margin-left: 0.1rem;
+	
+}
+.left_a{
+	color: #1c1c1c;
+	font-size: 0.15rem;
+	line-height: 0.3rem;
+}
+.left_b{
+	color: #cb2920;
+	font-size: 0.14rem;
+	line-height: 0.3rem;
+}
+.detail_d_right{
+	display: inline-block;
+	float: right;
+}
+.right_a{
+	line-height: 0.6rem;
+	color: #666666;
+}
+.right_b{
+	border: 1px solid #d1d1d1;
+	display: inline-block;
+	padding: 0.04rem 0.1rem;
+	color: #cb2920;
+	font-size: 0.14rem;
+	border-radius: 0.05rem;
+	margin-right: 0.11rem;
+}
+.detail_e{
+	height: 0.35rem;
+}
+.detail_f{
+	background: #fff;
+}
+.detail_f_left{
+	color: #1c1c1c;
+	font-size: 0.15rem;
+	line-height: 0.5rem;
+	margin-left: 0.11rem;
+}
+.detail_f_right{
+	display: inline-block;
+	float: right;
+	margin-right: 0.11rem;
+}
+.right_min{
+	color: #CB2920;
+	border: 1px solid #cecece;
+	display: inline-block;
+	width: 0.25rem;
+	height: 0.25rem;text-align: center;
+	border-radius: 0.1rem;
+}
+.right_plus{
+	color: #CB2920;
+	border: 1px solid #cecece;
+	display: inline-block;
+	width: 0.25rem;
+	height: 0.25rem;text-align: center;
+	border-radius: 0.1rem;
+}
+.right_num{
+	line-height: 0.5rem;
+}

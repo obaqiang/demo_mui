@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/global.css" />
+		<link rel="stylesheet" href="css/index_bill.css" />
+		<link rel="stylesheet" href="css/index_red_packets.css" />
+		<link rel="stylesheet" href="css/swiper.min.css">
+		<style>
+			html,
+			body {
+				background-color: #fff;
+			}
+			
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<header class="mui-bar mui-bar-nav nav_header">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">已领红包</h1>
+			</header>
+			
+			<div class="packets_head">
+				<span>
+					红包剩余金额:
+				</span>
+				<span class="head_num">50.40</span>
+				<span>元</span>
+			</div>
+			
+			<div class="bill_month">
+				<span>7月</span>
+				<span>8月</span>
+				<span>9月</span>
+				<span>10月</span>
+				<span>11月</span>
+				<span>全部</span>
+			</div>
+			
+			<div class="bill_charge">
+				<span>合计充值：</span>
+				<span>60.40</span>
+				<span>元</span>
+				<div class="packets_right">
+					<span>已用金额</span>
+					<span>0.00</span>
+					<span>元</span>
+				</div>
+			</div>
+			
+			
+			<table class="bill_table" border="0" cellspacing="" cellpadding="">
+				<tr>
+					<th>名称</th>
+					<th>金额</th>
+					<th>时间</th>
+				</tr>
+
+				<tr>
+					<td>10.00元</td>
+					<td>领取</td>
+					<td>
+						<span>2016-11-22</span><br />
+						<span>13:22:52</span>
+					</td>
+				</tr>
+
+				<tr>
+					<td>10.00元</td>
+					<td>领取</td>
+					<td>
+						<span>2016-11-22</span><br />
+						<span>13:22:52</span>
+					</td>
+				</tr>
+
+			</table>
+
+
+		</div>
+	</body>
+	<script src="js/mui.min.js"></script>
+	<script src="js/swiper.min.js"></script>
+	<script>
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+	</script>
+
+	<script>
+		//各个屏幕大小适配
+		(function(doc, win) {
+			var docEl = doc.documentElement,
+				resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+				recalc = function() {
+					var clientWidth = docEl.clientWidth;
+					if(!clientWidth) return;
+					docEl.style.fontSize = 100 * (clientWidth / 375) + 'px';
+				};
+
+			if(!doc.addEventListener) return;
+			win.addEventListener(resizeEvt, recalc, false);
+			doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+
+</html>

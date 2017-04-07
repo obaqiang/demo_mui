@@ -1,0 +1,106 @@
+.action_accordin {
+	margin-top: 44px;
+	background: #fff;
+	position: relative;
+	z-index: 10;
+}
+
+.action_accordin_left {
+	float: left;
+	text-align: center;
+	width: 50%;
+	font-size: 0.13rem;
+	border-left: 1px solid #d0d0d0;
+	margin-top: 0.1rem;
+	margin-bottom: 0.1rem;
+}
+
+.action_accordin_right {
+	float: right;
+	text-align: center;
+	width: 50%;
+	font-size: 0.13rem;
+	border-left: 1px solid #d0d0d0;
+	margin-top: 0.1rem;
+}
+
+.action_accordin_icon {
+	width: 0.08rem;
+	position: relative;
+	top: -0.02rem;
+}
+
+.action_accordin_list {
+	position: absolute;
+	border-top: 1px solid #d0d0d0;
+	width: 100%;
+	background: #fff;
+	z-index: 10;
+}
+
+.action_accordin_list div {
+	font-size: 0.13rem;
+	border-bottom: 1px solid #d0d0d0;
+	padding-left: 0.3rem;
+	/*margin-left: 0.45rem;*/
+	line-height: 0.44rem;
+}
+
+.action_content {
+	text-align: center;
+	background: #fff;
+	margin-top: 0.04rem;
+	padding-top: 0.04rem;
+	position: relative;
+}
+
+.action_content_img {
+	width: 95%;
+	display: block;
+	margin: auto;
+	height: 1.2rem;
+}
+
+.action_content_img_over {
+	position: absolute;
+	display: block;
+	width: 0.6rem;
+	right: 0;
+	top: 0;
+}
+
+.action_content_des {
+	height: 0.5rem;
+	line-height: 0.5rem;
+}
+
+.des_left {
+	float: left;
+	font-size: 0.18rem;
+	margin-left: 0.1rem;
+}
+
+.des_right {
+	float: right;
+	font-size: 0.11rem;
+	margin-right: 0.1rem;
+	color: #777777;
+}
+
+.action_already {
+	position: absolute;
+	display: inline-block;
+	font-size: 0.13rem;
+	color: #fff;
+	bottom: 0.5rem;
+	right: 0.1rem;
+	background-color: rgba(0, 0, 0, 0.4);  
+	padding: 0.02rem;
+}
+.mui-scroll-wrapper{
+	top: 90px !important;
+}
+.li_active{
+	background: #CB2920;
+	color: #fff;
+}

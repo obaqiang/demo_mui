@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" href="../../../css/mui.min.css">
+		<link rel="stylesheet" href="../../../css/global.css" />
+		<link rel="stylesheet" href="../../../css/index_action.css" />
+		<link rel="stylesheet" href="../../../css/swiper.min.css">
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<header class="mui-bar mui-bar-nav nav_header">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">活动</h1>
+			</header>
+
+			<div class="action_accordin of_h">
+				<div class="action_accordin_left" id="act_left">
+					<span class="act_left_text">全部活动</span>
+					<img class="action_accordin_icon" src="../../../images/16px_10px_g.png" alt="" />
+				</div>
+				<div class="action_accordin_right" id="act_right">
+					<span class="act_right_text">所有类型</span>
+					<img class="action_accordin_icon" src="../../../images/16px_10px_g.png" alt="" />
+				</div>
+
+			</div>
+			<div class="action_accordin_list" style="display: none;">
+				<div class="li_active">全部活动</div>
+				<div>进行中</div>
+				<div>未开始</div>
+			</div>
+
+			<div class="mui-scroll-wrapper" id="action">
+				<div class="mui-scroll">
+					<!--<div class="action_content ">
+						<img class="action_content_img" src="../../../images/710px_305px_banner.png" alt="" />
+						<img class="action_content_img_over" src="../../../images/120px_120px_over.png" alt="" />
+						<div class="action_already">已参与</div>
+						<div class="action_content_des of_h">
+							<div class="des_left">
+								店庆快来
+							</div>
+							<div class="des_right">
+								分享朋友即送100积分
+							</div>
+						</div>
+					</div>-->
+
+				</div>
+			</div>
+
+		</div>
+	</body>
+	<script src="../../../js/mui.min.js"></script>
+	<script src="../../../js/config/web_config.js"></script>
+	<script src="../../../js/plugin/swiper.min.js"></script>
+	<script src="../../../js/jquery-1.11.3.js"></script>
+	<script src="../../../js/common/bdapp.js"></script>
+	<script>
+		if(navigator.userAgent.indexOf("Html5Plus") > 0) { //支持5+ API
+			mui.plusReady(function() {
+				mui.init({
+					pullRefresh: {
+						container: '#action',
+						down: {
+
+							callback: pulldownRefresh
+						},
+						up: {
+							contentrefresh: '',
+							//						contentrefresh: '正在加载...',
+							callback: pullupRefresh
+						}
+					}
+				});
+
+				/**
+				 * 下拉刷新具体业务实现
+				 */
+				function pulldownRefresh() {
+					setTimeout(function() {
+						page_num = 1;
+						GetActivityCommonList(getactivitycommonlist_url, store_id, vip_id, activity_type, activity_status, page_num, page_size, token);
+						mui('#action').pullRefresh().endPulldownToRefresh(); //refresh completed
+					}, 1500);
+				}
+				//			var count = 0;
+				/**
+				 * 上拉加载具体业务实现
+				 */
+				function pullupRefresh() {
+					setTimeout(function() {
+
+						page_num++;
+						GetActivityCommonList(getactivitycommonlist_url, store_id, vip_id, activity_type, activity_status, page_num, page_size, token);
+						mui('#action').pullRefresh().endPullupToRefresh();
+
+					}, 1500);
+				}
+				//			if(mui.os.plus) {
+				//				mui.plusReady(function() {
+				//					setTimeout(function() {
+				//						mui('#action').pullRefresh().pullupLoading();
+				//					}, 1000);
+				//
+				//				});
+				//			} else {
+				//				mui.ready(function() {
+				//					mui('#action').pullRefresh().pullupLoading();
+				//				});
+				//			}
+
+				var self = plus.webview.currentWebview();
+				var token = self.token;
+				var store_id = self.store_id;
+				var vip_id = self.vip_id;
+				//      var store_id=688;
+				//      var vip_id=4612;
+
+				var getactivitycommonlist_url = test_url + '/api/ActivityCommon/GetActivityCommonList';
+				var page_num = 1;
+				var page_size = 10;
+				var activity_type = '000';
+				var activity_status = 0;
+
+				console.log(getactivitycommonlist_url + '?' + 'store_id=' + store_id + '&vip_id=' + vip_id + '&activity_type=' + activity_type + '&activity_status=' + activity_status + '&page_num=' + page_num + '&page_size=' + page_size + '&token=' + token)
+
+				function GetActivityCommonList(getactivitycommonlist_url, store_id, vip_id, activity_type, activity_status, page_num, page_size, token) {
+					mui.ajax(getactivitycommonlist_url, {
+						data: {
+							store_id: store_id,
+							vip_id: vip_id,
+							activity_type: activity_type,
+							activity_status: activity_status,
+							page_num: page_num,
+							page_size: page_size,
+							token: token
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'get', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							console.log('获取全部活动接口返回数据:' + JSON.stringify(data));
+							if(page_num == 1) {
+								$('.mui-scroll').empty();
+							}
+							var ActivityCommonList = data.Data.ActivityCommonList;
+							for(var i = 0; i < ActivityCommonList.length; i++) {
+								var thumb = ActivityCommonList[i].thumb;
+								var title = ActivityCommonList[i].title;
+								var status = ActivityCommonList[i].status;
+								var status_img;
+								if(status == 4) { //已结束
+									status_img = '../../../images/120px_120px_over.png';
+								} else if(status == 1) { //未发布
+
+								} else if(status == 3) { //已暂停
+									status_img = '../../../images/120px_120px_over.png';
+								} else if(status == 6) { //进行中
+									status_img = '../../../images/120px_120px_jinxingzhong.png';
+								} else if(status == 5) { //未开始
+									status_img = '../../../images/120px_120px_weikaishi.png';
+								}
+
+								var is_play = ActivityCommonList[i].is_play;
+								var is_play_text;
+								if(is_play == 0) {
+									is_play_text = '未参与';
+								} else if(is_play == 1) {
+									is_play_text = '已参与';
+								}
+								var link_urlV2 = ActivityCommonList[i].link_urlV2;
+
+								if(!link_urlV2) {
+									var link_url = ActivityCommonList[i].link_url;
+								} else {
+									var link_url = link_urlV2;
+								}
+								var content = ActivityCommonList[i].content;
+								var action_div =
+									'<div class="action_content" link_url="' + link_url + '">' +
+									'<img class="action_content_img" src="' + thumb + '" alt="" />' +
+									'<img class="action_content_img_over" src="' + status_img + '" alt="" />' +
+									'<div class="action_already">' + is_play_text + '</div>' +
+									'<div class="action_content_des of_h">' +
+									'<div class="des_left">' +
+									title + '</div>' +
+									'<div class="des_right">' +
+									content + '</div>' +
+									'</div>' +
+									'</div>';
+								$('.mui-scroll').append(action_div);
+							}
+
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							console.log(type);
+						}
+					});
+				}
+
+				mui(".mui-scroll").on('tap', '.action_content', function() {
+					var link_url = $(this).attr('link_url');
+					var webview = mui.openWindow({
+						url: 'index_action_list.html',
+						extras: {
+							link_url: link_url
+						}
+					});
+				})
+
+				//			全部活动按钮
+				var act_left_status = false;
+				document.getElementById('act_left').addEventListener('tap', function() {
+					isOnline();
+					if(act_left_status == false) {
+						var act_div =
+							'<div>全部活动</div>' +
+							'<div>进行中</div>' +
+							'<div>未开始</div>';
+						$('.action_accordin_list').empty();
+						$('.action_accordin_list').append(act_div);
+						$('.action_accordin_list').show();
+						$('#act_left .action_accordin_icon').attr('src', '../../../images/16px_10px_red.png');
+						act_left_status = true;
+					} else {
+						$('.action_accordin_list').hide();
+						$('#act_left .action_accordin_icon').attr('src', '../../../images/16px_10px_g.png');
+						act_left_status = false;
+					}
+
+				})
+
+				//			所有类型按钮
+				var act_right_status = false;
+				document.getElementById('act_right').addEventListener('tap', function() {
+					isOnline();
+					if(act_right_status == false) {
+						var act_div =
+							'<div>全部</div>' +
+							'<div>红包</div>' +
+							'<div>转盘</div>';
+						$('.action_accordin_list').empty();
+						$('.action_accordin_list').append(act_div);
+						$('.action_accordin_list').show();
+						$('#act_right .action_accordin_icon').attr('src', '../../../images/16px_10px_red.png');
+						act_right_status = true;
+					} else {
+						$('.action_accordin_list').hide();
+						$('#act_right .action_accordin_icon').attr('src', '../../../images/16px_10px_g.png');
+						act_right_status = false;
+					}
+
+				})
+
+				//		全部活动和所有类型下小按钮绑定事件
+				mui(".action_accordin_list").on('tap', 'div', function() {
+					var act_text = $(this).text();
+					page_num = 1;
+					if(act_text == '全部活动') {
+						activity_status = 0;
+						$('.act_left_text').text(act_text);
+						$('#act_left .action_accordin_icon').attr('src', '../../../images/16px_10px_g.png');
+					} else if(act_text == '进行中') {
+						activity_status = 6;
+						$('.act_left_text').text(act_text);
+						$('#act_left .action_accordin_icon').attr('src', '../../../images/16px_10px_g.png');
+					} else if(act_text == '未开始') {
+						activity_status = 5;
+						$('.act_left_text').text(act_text);
+						$('#act_left .action_accordin_icon').attr('src', '../../../images/16px_10px_g.png');
+					} else if(act_text == '全部') {
+						activity_type = '000';
+						$('.act_right_text').text(act_text);
+						$('#act_right .action_accordin_icon').attr('src', '../../../images/16px_10px_g.png');
+					} else if(act_text == '红包') {
+						activity_type = '001';
+						$('.act_right_text').text(act_text);
+						$('#act_right .action_accordin_icon').attr('src', '../../../images/16px_10px_g.png');
+					} else if(act_text == '转盘') {
+						activity_type = '002';
+						$('.act_right_text').text(act_text);
+						$('#act_right .action_accordin_icon').attr('src', '../../../images/16px_10px_g.png');
+					}
+					GetActivityCommonList(getactivitycommonlist_url, store_id, vip_id, activity_type, activity_status, page_num, page_size, token);
+					$('.action_accordin_list').hide();
+				})
+
+				GetActivityCommonList(getactivitycommonlist_url, store_id, vip_id, activity_type, activity_status, page_num, page_size, token);
+
+			})
+		}
+	</script>
+
+	<script>
+		if(navigator.userAgent.indexOf("Html5Plus") < 0) { //不支持5+ API
+			mui.init({
+				pullRefresh: {
+					container: '#action',
+					down: {
+
+						callback: pulldownRefresh
+					},
+					up: {
+						contentrefresh: '',
+						//						contentrefresh: '正在加载...',
+						callback: pullupRefresh
+					}
+				}
+			});
+
+			/**
+			 * 下拉刷新具体业务实现
+			 */
+			function pulldownRefresh() {
+				setTimeout(function() {
+					page_num = 1;
+					GetActivityCommonList(getactivitycommonlist_url, store_id, vip_id, activity_type, activity_status, page_num, page_size, token);
+					mui('#action').pullRefresh().endPulldownToRefresh(); //refresh completed
+				}, 1500);
+			}
+			//			var count = 0;
+			/**
+			 * 上拉加载具体业务实现
+			 */
+			function pullupRefresh() {
+				setTimeout(function() {
+
+					page_num++;
+					GetActivityCommonList(getactivitycommonlist_url, store_id, vip_id, activity_type, activity_status, page_num, page_size, token);
+					mui('#action').pullRefresh().endPullupToRefresh();
+
+				}, 1500);
+			}
+
+			var token = GetQueryString('token');
+			var store_id = GetQueryString('store_id');
+			var vip_id = GetQueryString('vip_id');
+			var member_id = GetQueryString('member_id');
+			var getactivitycommonlist_url = test_url + '/api/ActivityCommon/GetActivityCommonList';
+			var page_num = 1;
+			var page_size = 10;
+			var activity_type = '000';
+			var activity_status = 0;
+
+			console.log(getactivitycommonlist_url + '?' + 'store_id=' + store_id + '&vip_id=' + vip_id + '&activity_type=' + activity_type + '&activity_status=' + activity_status + '&page_num=' + page_num + '&page_size=' + page_size + '&token=' + token)
+
+			function pinjie(ActivityCommonList) {
+				for(var i = 0; i < ActivityCommonList.length; i++) {
+					var thumb = ActivityCommonList[i].thumb;
+					var title = ActivityCommonList[i].title;
+					var status = ActivityCommonList[i].status;
+					var activity_id = ActivityCommonList[i].activity_id;
+					var status_img;
+					if(status == 4) { //已结束
+						status_img = '../../../images/120px_120px_over.png';
+					} else if(status == 1) { //未发布
+
+					} else if(status == 3) { //已暂停
+						status_img = '../../../images/120px_120px_over.png';
+					} else if(status == 6) { //进行中
+						status_img = '../../../images/120px_120px_jinxingzhong.png';
+					} else if(status == 5) { //未开始
+						status_img = '../../../images/120px_120px_weikaishi.png';
+					}
+
+					var is_play = ActivityCommonList[i].is_play;
+					var is_play_text;
+					if(is_play == 0) {
+						is_play_text = '未参与';
+					} else if(is_play == 1) {
+						is_play_text = '已参与';
+					}
+					var link_urlV2 = ActivityCommonList[i].link_urlV2;
+
+					if(!link_urlV2) {
+						var link_url = ActivityCommonList[i].link_url;
+					} else {
+						var link_url = link_urlV2;
+					}
+					var content = ActivityCommonList[i].content;
+					var action_div =
+						'<div class="action_content" activity_id="' + activity_id + '" link_url="' + link_url + '">' +
+						'<img class="action_content_img" src="' + thumb + '" alt="" />' +
+						'<img class="action_content_img_over" src="' + status_img + '" alt="" />' +
+						'<div class="action_already">' + is_play_text + '</div>' +
+						'<div class="action_content_des of_h">' +
+						'<div class="des_left">' +
+						title + '</div>' +
+						'<div class="des_right">' +
+						content + '</div>' +
+						'</div>' +
+						'</div>';
+					$('.mui-scroll').append(action_div);
+				}
+			}
+
+			function GetActivityCommonList(getactivitycommonlist_url, store_id, vip_id, activity_type, activity_status, page_num, page_size, token) {
+				mui.ajax(getactivitycommonlist_url, {
+					data: {
+						store_id: store_id,
+						vip_id: vip_id,
+						activity_type: activity_type,
+						activity_status: activity_status,
+						page_num: page_num,
+						page_size: page_size,
+						token: token
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'get', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+						//						console.log('获取全部活动接口返回数据:' + JSON.stringify(data));
+						console.log(data);
+						if(page_num == 1) {
+							$('.mui-scroll').empty();
+						}
+						var ActivityCommonList = data.Data.ActivityCommonList;
+						var ActivityCommonList_one = []; //进行中
+						var ActivityCommonList_two = []; //未开始
+						var ActivityCommonList_three = []; //已结束
+						for(var i = 0; i < ActivityCommonList.length; i++) {
+							var status = ActivityCommonList[i].status;
+							if(status == 4) { //已结束
+								ActivityCommonList_three.push(ActivityCommonList[i]);
+							} else if(status == 1) { //未发布
+
+							} else if(status == 3) { //已暂停
+								
+							} else if(status == 6) { //进行中
+								ActivityCommonList_one.push(ActivityCommonList[i]);
+							} else if(status == 5) { //未开始
+								ActivityCommonList_two.push(ActivityCommonList[i]);
+							}
+						}
+
+						pinjie(ActivityCommonList_one);
+						pinjie(ActivityCommonList_two);
+						pinjie(ActivityCommonList_three);
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						console.log(type);
+					}
+				});
+			}
+
+			var MemberGetActivity_url = test_url + '/api/ActivityCommon/MemberGetActivity';
+
+			function MemberGetActivity(MemberGetActivity_url, activity_id, member_id, token) {
+				mui.ajax(MemberGetActivity_url, {
+					data: {
+						activity_id: activity_id,
+						member_id: member_id,
+						token: token
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'get', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+						var url_one = data.Data.link_urlV2;
+						var url_two = data.Data.link_url;
+						var link_url;
+						if(url_one && url_one != '') {
+							link_url = url_one;
+						} else {
+							link_url = url_two;
+						}
+						console.log(link_url);
+						window.location.href = link_url + '&member_id=' + member_id;
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						console.log(type);
+					}
+				});
+			}
+
+			mui(".mui-scroll").on('tap', '.action_content', function() {
+				var link_url = $(this).attr('link_url');
+				var activity_id = $(this).attr('activity_id');
+				MemberGetActivity(MemberGetActivity_url, activity_id, member_id, token);
+			})
+
+			//			全部活动按钮
+			var act_left_status = false;
+			document.getElementById('act_left').addEventListener('tap', function() {
+				isOnline();
+				if(act_left_status == false) {
+					var act_div =
+						'<div>全部活动</div>' +
+						'<div>进行中</div>' +
+						'<div>未开始</div>';
+					$('.action_accordin_list').empty();
+					$('.action_accordin_list').append(act_div);
+					$('.action_accordin_list').show();
+					$('#act_left .action_accordin_icon').attr('src', '../../../images/16px_10px_red.png');
+					act_left_status = true;
+				} else {
+					$('.action_accordin_list').hide();
+					$('#act_left .action_accordin_icon').attr('src', '../../../images/16px_10px_g.png');
+					act_left_status = false;
+				}
+
+			})
+
+			//			所有类型按钮
+			var act_right_status = false;
+			document.getElementById('act_right').addEventListener('tap', function() {
+				isOnline();
+				if(act_right_status == false) {
+					var act_div =
+						'<div>全部</div>' +
+						'<div>红包</div>' +
+						'<div>转盘</div>' +
+						'<div>文章</div>' +
+						'<div>报名</div>';
+					$('.action_accordin_list').empty();
+					$('.action_accordin_list').append(act_div);
+					$('.action_accordin_list').show();
+					$('#act_right .action_accordin_icon').attr('src', '../../../images/16px_10px_red.png');
+					act_right_status = true;
+				} else {
+					$('.action_accordin_list').hide();
+					$('#act_right .action_accordin_icon').attr('src', '../../../images/16px_10px_g.png');
+					act_right_status = false;
+				}
+
+			})
+
+			//		全部活动和所有类型下小按钮绑定事件
+			mui(".action_accordin_list").on('tap', 'div', function() {
+				var act_text = $(this).text();
+				page_num = 1;
+				if(act_text == '全部活动') {
+					activity_status = 0;
+					$('.act_left_text').text(act_text);
+					$('#act_left .action_accordin_icon').attr('src', '../../../images/16px_10px_g.png');
+				} else if(act_text == '进行中') {
+					activity_status = 6;
+					$('.act_left_text').text(act_text);
+					$('#act_left .action_accordin_icon').attr('src', '../../../images/16px_10px_g.png');
+				} else if(act_text == '未开始') {
+					activity_status = 5;
+					$('.act_left_text').text(act_text);
+					$('#act_left .action_accordin_icon').attr('src', '../../../images/16px_10px_g.png');
+				} else if(act_text == '全部') {
+					activity_type = '000';
+					$('.act_right_text').text(act_text);
+					$('#act_right .action_accordin_icon').attr('src', '../../../images/16px_10px_g.png');
+				} else if(act_text == '红包') {
+					activity_type = '001';
+					$('.act_right_text').text(act_text);
+					$('#act_right .action_accordin_icon').attr('src', '../../../images/16px_10px_g.png');
+				} else if(act_text == '转盘') {
+					activity_type = '002';
+					$('.act_right_text').text(act_text);
+					$('#act_right .action_accordin_icon').attr('src', '../../../images/16px_10px_g.png');
+				} else if(act_text == '文章') {
+					activity_type = '003';
+					$('.act_right_text').text(act_text);
+					$('#act_right .action_accordin_icon').attr('src', '../../../images/16px_10px_g.png');
+				} else if(act_text == '报名') {
+					activity_type = '005';
+					$('.act_right_text').text(act_text);
+					$('#act_right .action_accordin_icon').attr('src', '../../../images/16px_10px_g.png');
+				}
+				console.log(activity_type);
+				GetActivityCommonList(getactivitycommonlist_url, store_id, vip_id, activity_type, activity_status, page_num, page_size, token);
+				$('.action_accordin_list').hide();
+			})
+
+			GetActivityCommonList(getactivitycommonlist_url, store_id, vip_id, activity_type, activity_status, page_num, page_size, token);
+
+		}
+	</script>
+
+	<script>
+		//各个屏幕大小适配
+		(function(doc, win) {
+			var docEl = doc.documentElement,
+				resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+				recalc = function() {
+					var clientWidth = docEl.clientWidth;
+					if(!clientWidth) return;
+					docEl.style.fontSize = 100 * (clientWidth / 375) + 'px';
+				};
+
+			if(!doc.addEventListener) return;
+			win.addEventListener(resizeEvt, recalc, false);
+			doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+
+</html>

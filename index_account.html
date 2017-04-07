@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/global.css" />
+		<link rel="stylesheet" href="css/index_account.css" />
+		<link rel="stylesheet" href="css/swiper.min.css">
+		<style>
+			html,
+			body {
+				background-color: #fff;
+			}
+			
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<header class="mui-bar mui-bar-nav nav_header">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">余额</h1>
+			</header>
+
+			<div class="account_head">
+				<div class="account_head_title">
+					<div class="title_num">
+						222212.00
+					</div>
+					<div class="title_unit">
+						余额总计（元）
+					</div>
+				</div>
+				
+				<div class="account_head_content of_h">
+					<div class="content_left">
+						<div class="content_num">
+							1500
+						</div>
+						<div class="content_des">
+							积分（个）
+						</div>
+					</div>
+					<div class="content_right">
+						<div class="content_num">
+							4
+						</div>
+						<div class="content_des">
+							套餐（种）
+						</div>
+					</div>
+				</div>
+				
+				
+			</div>
+			
+			<div class="account_list">
+				<div class="account_list_head">
+					储值套餐
+				</div>
+				<div class="account_list_body">
+					<span class="list_body_name">超级豪华套餐</span>
+					<img class="list_body_img" src="images/26px_16px.png" alt="" />
+					<span class="list_body_prize">￥110.00</span>
+					
+				</div>
+				<div class="account_list_body">
+					<span class="list_body_name">超级豪华套餐</span>
+					<img class="list_body_img" src="images/26px_16px.png" alt="" />
+					<span class="list_body_prize">￥110.00</span>
+					<div class="list_inner">
+						<div class="list_inner_left">
+							<div class="list_inner_left_name">
+								毛巾
+							</div>
+							<div class="list_inner_left_prize">
+								原价￥100
+							</div>
+						</div>
+						<div class="list_inner_right">
+							￥100.00
+						</div>
+					</div>
+					<div class="list_inner">
+						<div class="list_inner_left" >
+							<div class="list_inner_left_name">
+								毛巾
+							</div>
+							<div class="list_inner_left_prize">
+								原价￥100
+							</div>
+						</div>
+						<div class="list_inner_right">
+							￥100.00
+						</div>
+					</div>
+					
+					
+					
+				</div>
+			</div>
+
+			
+			
+			
+
+		</div>
+	</body>
+	<script src="js/mui.min.js"></script>
+	<script src="js/swiper.min.js"></script>
+	<script>
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+	</script>
+
+	<script>
+		//各个屏幕大小适配
+		(function(doc, win) {
+			var docEl = doc.documentElement,
+				resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+				recalc = function() {
+					var clientWidth = docEl.clientWidth;
+					if(!clientWidth) return;
+					docEl.style.fontSize = 100 * (clientWidth / 375) + 'px';
+				};
+
+			if(!doc.addEventListener) return;
+			win.addEventListener(resizeEvt, recalc, false);
+			doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+
+</html>

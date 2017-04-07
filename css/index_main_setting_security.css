@@ -1,0 +1,15 @@
+.setting_security_header{
+	background: #cb2920;
+}
+.setting_security_header h1{
+	color: #ffffff;
+}
+.setting_security_header a{
+	color: #ffffff;
+}
+.setting_ul{
+	margin-top: 0 !important;
+}
+.setting_ul a,span{
+	color:#1c1c1c !important;
+}

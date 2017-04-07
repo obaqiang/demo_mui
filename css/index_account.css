@@ -1,0 +1,89 @@
+.account_head{
+	background: #CB2920;
+	margin-top: 44px;
+	text-align: center;
+	color: #fff;
+}
+.title_num{
+	font-size: 0.23rem;
+}
+.title_unit{
+	font-size: 0.11rem;
+}
+.account_head_title{
+	padding-top: 0.2rem;
+}
+.content_left{
+	width: 50%;
+	float: left;
+}
+.account_head_content{
+	padding-top: 0.2rem;
+	padding-bottom: 0.1rem;
+}
+.content_right{
+	width: 50%;
+	float: left;
+}
+.content_num{
+	font-size: 0.15rem;
+}
+.content_des{
+	font-size: 0.11rem;
+}
+.account_list{
+	margin-top: 0.1rem;
+	background: #fff;
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+}
+.account_list_head{
+	color: #333333;
+	font-weight: bold;
+	margin-left: 0.11rem;
+	font-size: 0.14rem;
+	line-height: 0.4rem;
+}
+.account_list_body{
+	color: #1c1c1c;
+	margin-left:0.11rem;
+	font-size: 0.14rem;
+	border-top: 1px solid #ddd;
+	line-height: 0.4rem;
+}
+.list_body_name{
+
+}
+.list_body_prize{
+	float: right;
+	margin-right: 0.15rem;
+}
+.list_body_img{
+	float: right;
+	width: 0.13rem;
+	margin-right: 0.15rem;
+	margin-top: 0.15rem;
+}
+.list_inner{
+	border-top: 1px solid #ddd;
+	position: relative;
+}
+.list_inner_left{
+	color: #666666;
+	display: inline-block;
+	
+}
+.list_inner_left_name{
+	font-size: 0.13rem;
+	line-height: 0.25rem;
+}
+.list_inner_left_prize{
+	font-size: 0.13rem;
+	line-height: 0.25rem;
+}
+.list_inner_right{
+	color: #1c1c1c;
+	float: right;
+	line-height: 0.5rem;
+	margin-right:0.15rem;
+}

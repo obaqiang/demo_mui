@@ -1,0 +1,130 @@
+.of_h{
+	overflow: hidden;
+}
+.nav_header{
+	background: #CB2920;
+}
+.nav_header a{
+	color: #ffffff;
+}
+.nav_header h1{
+	color: #ffffff;
+}
+.nav_icon_right{
+	width: 0.28rem;
+	float: right;
+	margin: 10px;
+}
+.bg_ff{
+	background: #fff;
+}
+.record_nav{
+	margin-top: 44px;
+	background: #fff;
+	padding-top: 0.1rem;
+	padding-bottom: 0.1rem;
+	position: relative;
+	z-index: 200;
+}
+.record_list{
+	display: inline-block;
+	width: 33%;
+	float: left;
+	text-align: center;
+	position: relative;
+}
+.record_list img{
+	width: 0.17rem;
+}
+.record_list span{
+	width: 0.14rem;
+	color: #777777;
+	line-height: 0.3rem;
+}
+.list_mid{
+	border-left: 1px solid #d0d0d0;
+	border-right:1px solid #d0d0d0;
+}
+.mui-bar-nav{
+	box-shadow: none !important;
+}
+.nav_ul{
+	position: absolute;
+	top: 40px;
+	right:0;
+	background: #f4f4f4;
+	padding: 0;
+	margin: 0;
+}
+.nav_ul li{
+	list-style: none;
+	width: 0.82rem;
+	text-align: center;
+	height: 0.36rem;
+	line-height: 0.36rem;
+	font-size: 0.14rem;
+	border-bottom: 1px solid #e4e4e4;
+	
+}
+.nav_bottom{
+	background: #CB2920;
+	line-height: 0.5rem;
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	text-align: center;
+	color: #fff;
+	font-size: 0.17rem;
+}
+
+.type_wait{
+	color: #fb7115;
+}
+.alert_bl{
+	text-align: center;
+	position: fixed;
+	width: 100%;
+	top: 2rem;
+	z-index: 10;
+}
+.alert_bl span{
+	background: #000000;
+	display: inline-block;
+	opacity:0.5;
+	color: #fff;
+	font-size: 0.12rem;
+	border-radius: 0.1rem;
+	padding: 0.1rem 0.2rem;
+}
+.bg_cb{
+	background: #CB2920 !important;
+	color: #fff !important;
+}
+.bd_h{
+	display: none;
+}
+.show_tel{
+	text-align: center;
+	position: fixed;
+	width: 100%;
+	top: 2rem;
+	z-index: 10;
+}
+.show_tel span{
+	background: #000000;
+	display: block;
+	width: 70%;
+	height:0.5rem;
+	margin: auto;
+	opacity:0.5;
+	color: #fff;
+	font-size: 0.2rem;
+	border-radius: 0.1rem;
+	padding: 0.1rem 0.2rem;
+}
+.no_data{
+	text-align: center;
+	font-size: 0.12rem;
+	margin-top: 1rem;
+	background: #efeff4;
+}

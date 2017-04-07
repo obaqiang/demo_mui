@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" href="../../../css/mui.min.css">
+		<link rel="stylesheet" href="../../../css/index_main_setting_security_login_pwd.css" />
+		<link rel="stylesheet" type="text/css" href="../../../css/global.css" />
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav nav_header">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">修改密码</h1>
+		</header>
+		<div class="mui-content">
+			<div class="list">
+				<span>原密码:</span>
+				<input type="password" id="old_pwd" placeholder="请输入原有密码" />
+			</div>
+			<div class="list">
+				<span>新密码:</span>
+				<input type="password" id="new_pwd" placeholder="请输入新密码" />
+			</div>
+			<div class="list">
+				<span>确认新密码:</span>
+				<input type="password" id="sure_pwd" placeholder="请再输入一次新密码" />
+			</div>
+			<div class="nav_bottom" id='nav_bottom'>
+				确认
+			</div>
+
+		</div>
+	</body>
+	<script src="../../../js/mui.min.js"></script>
+	<script src="../../../js/config/web_config.js"></script>
+	<script src="../../../js/jquery-1.11.3.js"></script>
+	<script src="../../../js/common/bdapp.js"></script>
+	<script src="../../../js/plugin/qrcode.js"></script>
+	<script>
+		if(navigator.userAgent.indexOf("Html5Plus") > 0) { //支持5+ API
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+
+			var self = plus.webview.currentWebview();
+			var phone = self.phone;
+			var token = self.token;
+			//		console.log(JSON.stringify(phone));
+
+			var old_pwd_status = false;
+			var new_pwd_status = false;
+			var sure_pwd_status = false;
+			$('input').blur(function() {
+				if($(this).is('#old_pwd')) {
+					if(!(/^[0-9A-Za-z]{6,}$/.test(this.value))) {
+						Alert('密码长度不少于6位,并且由数字和字符组成');
+					} else {
+						old_pwd_status = true;
+					}
+				}
+				if($(this).is('#new_pwd')) {
+					if(!(/^[0-9A-Za-z]{6,}$/.test(this.value))) {
+						Alert('密码长度不少于6位,并且由数字和字符组成');
+					} else {
+						new_pwd_status = true;
+					}
+				}
+				if($(this).is('#sure_pwd')) {
+					var new_pwd = $('#new_pwd').val();
+					var sure_pwd = $('#sure_pwd').val();
+					if(new_pwd == sure_pwd) {
+						sure_pwd_status = true;
+					} else {
+						Alert('两次新密码输入不同，请重试');
+					}
+				}
+
+			})
+
+			var changepwd_url = test_url + '/api/member/ChangePwd';
+
+			function ChangePwd(changepwd_url, phone, oldpwd, pwd, token) {
+				mui.ajax(changepwd_url, {
+					data: {
+						phone: phone,
+						oldpwd: oldpwd,
+						pwd: pwd,
+						token: token
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'get', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+						console.log(changepwd_url + '@' + phone + '@' + oldpwd + '@' + pwd + '@' + token);
+						console.log('获取修改密码接口返回数据:' + JSON.stringify(data));
+						if(data.IsError == false) {
+							Alert('密码修改成功');
+						} else {
+							var ErrorMessage = data.ErrorMessage;
+							Alert(ErrorMessage);
+
+						}
+
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						console.log(changepwd_url + '@' + phone + '@' + phone + '@' + oldpwd + '@' + pwd + '@' + token);
+						console.log(errorThrown);
+					}
+				});
+			}
+
+			document.getElementById('nav_bottom').addEventListener('tap', function() {
+				if(old_pwd_status == true && new_pwd_status == true && sure_pwd_status == true) {
+					var oldpwd = $('#old_pwd').val();
+					var pwd = $('#pwd').val();
+					ChangePwd(changepwd_url, phone, oldpwd, pwd, token);
+				} else {
+					Alert('新密码输入错误');
+				}
+
+			})
+		}
+	</script>
+	<script>
+		if(navigator.userAgent.indexOf("Html5Plus") < 0) { //不支持5+ API
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+
+			var phone = GetQueryString('phone');
+			var token = GetQueryString('token');
+			//		console.log(JSON.stringify(phone));
+
+			var old_pwd_status = false;
+			var new_pwd_status = false;
+			var sure_pwd_status = false;
+			$('input').blur(function() {
+				if($(this).is('#old_pwd')) {
+					if(!(/^[0-9A-Za-z]{6,}$/.test(this.value))) {
+						Alert('密码长度不少于6位,并且由数字和字符组成');
+					} else {
+						old_pwd_status = true;
+					}
+				}
+				if($(this).is('#new_pwd')) {
+					if(!(/^[0-9A-Za-z]{6,}$/.test(this.value))) {
+						Alert('密码长度不少于6位,并且由数字和字符组成');
+					} else {
+						new_pwd_status = true;
+					}
+				}
+				if($(this).is('#sure_pwd')) {
+					var new_pwd = $('#new_pwd').val();
+					var sure_pwd = $('#sure_pwd').val();
+					if(new_pwd == sure_pwd) {
+						sure_pwd_status = true;
+					} else {
+						Alert('两次新密码输入不同，请重试');
+					}
+				}
+
+			}).keyup(function() {
+				$(this).triggerHandler("blur");
+
+			}).focus(function() {
+				$(this).triggerHandler("blur");
+			}); //end blur
+
+			var changepwd_url = test_url + '/api/member/ChangePwd';
+
+			function ChangePwd(changepwd_url, phone, oldpwd, pwd, token) {
+				mui.ajax(changepwd_url, {
+					data: {
+						phone: phone,
+						oldpwd: oldpwd,
+						pwd: pwd,
+						token: token
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'get', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+						console.log(changepwd_url + '@' + phone + '@' + oldpwd + '@' + pwd + '@' + token);
+						//						console.log('获取修改密码接口返回数据:' + JSON.stringify(data));
+						console.log(data);
+						if(data.IsError == false) {
+							Alert('密码修改成功');
+						} else {
+							var ErrorMessage = data.ErrorMessage;
+							Alert(ErrorMessage);
+
+						}
+
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						console.log(changepwd_url + '@' + phone + '@' + phone + '@' + oldpwd + '@' + pwd + '@' + token);
+						console.log(errorThrown);
+					}
+				});
+			}
+
+			document.getElementById('nav_bottom').addEventListener('tap', function() {
+				if(old_pwd_status == true && new_pwd_status == true && sure_pwd_status == true) {
+					var oldpwd = $('#old_pwd').val();
+					var pwd = $('#sure_pwd').val();
+					console.log('旧密码：'+oldpwd);
+					console.log('新密码：'+pwd);
+					ChangePwd(changepwd_url, phone, oldpwd, pwd, token);
+				} else {
+					Alert('新密码输入错误');
+				}
+
+			})
+		}
+	</script>
+	<script>
+		//各个屏幕大小适配
+		(function(doc, win) {
+			var docEl = doc.documentElement,
+				resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+				recalc = function() {
+					var clientWidth = docEl.clientWidth;
+					if(!clientWidth) return;
+					docEl.style.fontSize = 100 * (clientWidth / 375) + 'px';
+				};
+
+			if(!doc.addEventListener) return;
+			win.addEventListener(resizeEvt, recalc, false);
+			doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+
+</html>

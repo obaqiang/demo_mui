@@ -1,0 +1,56 @@
+.points_detail{
+	margin-top: 44px !important;
+}
+.points_detail_list{
+	border-bottom: 1px solid #C8C7CC;
+	padding-left: 0.11rem;
+	background: #fff;
+	line-height: 0.39rem;
+}
+.points_detail_desc{
+	padding-left: 0.11rem;
+	background: #fff;
+	line-height: 0.39rem;
+}
+.points_detail_list_title{
+	display: inline-block;
+	float: left;
+	font-size: 0.14rem;
+}
+.points_detail_list_content{
+	display: inline-block;
+	float: right;
+	font-size: 0.13rem;
+	padding-right: 0.1rem;
+	color: #aaaaaa;
+}
+.points_detail_list_img{
+	width: 0.8rem;
+	float: right;
+	margin-top: 0.1rem;
+	margin-right: 0.1rem;
+	margin-bottom: 0.1rem;
+}
+.points_nav_bottom{
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	font-size: 0.15rem;
+	line-height: 0.4rem;
+	color: #fff;
+	background: #aaaaaa;
+	text-align: center;
+	text-align: center;
+}
+.points_nav_bottom_left{
+	text-align: center;
+	width: 50%;
+	float: left;
+	background: #cb2920;
+}
+.points_nav_bottom_right{
+	text-align: center;
+	width: 50%;
+	float: left;
+	background: #aaaaaa;
+}

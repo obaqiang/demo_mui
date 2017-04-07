@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" href="../../../css/mui.min.css">
+		<link rel="stylesheet" href="../../../css/index_main_setting_security.css" />
+		<link rel="stylesheet" href="../../../css/index_main_setting_message.css" />
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav setting_security_header">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">消息设置</h1>
+		</header>
+		<div class="mui-content">
+			<ul id="list" class="mui-table-view mui-table-view-chevron setting_ul_1">
+				<li class="mui-table-view-cell">
+					<span>接收BD卡消息</span>
+					<div class="mui-switch mui-switch-mini mui-active ">
+						<div class="mui-switch-handle"></div>
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<span>是否接收商家活动信息</span>
+					<div class="mui-switch mui-switch-mini mui-active ">
+						<div class="mui-switch-handle"></div>
+					</div>
+				</li>
+
+			</ul>
+			<ul id="list" class="mui-table-view mui-table-view-chevron setting_ul_2">
+				<li class="mui-table-view-cell">
+					<span>食味香</span>
+					<span class="if_get">接收</span>
+					<div class="mui-switch mui-switch-mini mui-active ">
+						<div class="mui-switch-handle"></div>
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<span>老朋友春饼</span>
+					<span class="if_get">接收</span>
+					<div class="mui-switch mui-switch-mini mui-active ">
+						<div class="mui-switch-handle"></div>
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<span>高端鮮花定制</span>
+					<span class="if_get">接收</span>
+					<div class="mui-switch mui-switch-mini mui-active ">
+						<div class="mui-switch-handle"></div>
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<span>開心島孕嬰童生活館</span>
+					<span class="if_get">接收</span>
+					<div class="mui-switch mui-switch-mini mui-active ">
+						<div class="mui-switch-handle"></div>
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<span>廬陽笑巴喜</span>
+					<span class="if_get">接收</span>
+					<div class="mui-switch mui-switch-mini mui-active ">
+						<div class="mui-switch-handle"></div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</body>
+	<script src="../../../js/mui.min.js"></script>
+	<script src="../../../js/config/web_config.js"></script>
+	<script src="../../../js/jquery-1.11.3.js"></script>
+	<script src="../../../js/common/bdapp.js"></script>
+	<script src="../../../js/plugin/qrcode.js"></script>
+	<script>
+	mui.plusReady(function() {
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+	})
+	</script>
+
+</html>

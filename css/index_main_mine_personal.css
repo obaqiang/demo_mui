@@ -1,0 +1,50 @@
+.personal_head_img{
+	float: right;
+	border-radius: 50%;
+	width: 61px;
+	
+}
+.personal_head{
+	padding-right: 40px !important;
+}
+.personal_head span{
+	color: #000000;
+	position: relative;
+	top: 20px;
+}
+.personal_name{
+	padding-right: 40px !important;
+	color: #000 !important;
+}
+.personal_name_text{
+	float: right;
+	color: #3b3f40;
+}
+.personal_bg{
+	background: #fff;
+	margin-top: 0px !important;
+}
+.mui-table-view-inverted .mui-table-view-cell:after{
+	background: #ededed;
+}
+.mui-table-view-inverted:after{
+	background: #ededed;
+}
+.mui-table-view-inverted:before{
+	background: #ededed;
+}
+.mine_personal_header{
+	background: #cb2920;
+}
+.mine_personal_header h1{
+	color: #ffffff;
+}
+.mine_personal_header a{
+	color: #ffffff;
+}
+.change_msg{
+	margin-left: 12px;
+	font-size: 12px;
+	line-height: 12px;
+	color: #afafaf;
+}

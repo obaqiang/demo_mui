@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" href="../../../css/mui.min.css">
+		<link rel="stylesheet" href="../../../css/global.css" />
+		<link rel="stylesheet" href="../../../css/index_main_card_detail.css" />
+		<link rel="stylesheet" href="../../../css/index_main_card_detail_points.css" />
+		<link rel="stylesheet" href="../../../css/swiper.min.css">
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content  mui-scroll-wrapper" id="detail_points">
+			<header class="mui-bar mui-bar-nav nav_header">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">积分</h1>
+			</header>
+
+			<div class="mui-scroll">
+				<div class="points_head of_h">
+					<div class="points_head_list" id="points_exchange">
+						<div>积分明细</div>
+						<img src="../../../images/44px_44px_icon1.png" alt="" />
+					</div>
+					<div class="points_head_list points_head_mid">
+						<div>当前积分</div>
+						<div class="points_head_num">0000</div>
+					</div>
+					<div class="points_head_list" id="points_record">
+						<div>兑换记录</div>
+						<img src="../../../images/44px_44px_icon2.png" alt="" />
+					</div>
+				</div>
+
+				<div class="points_goods">
+					积分产品
+				</div>
+				<ul class="mui-table-view mui-table-view-chevron" id='products_list'>
+					<!--<li class="mui-table-view-cell mui-media">
+					<a class="mui-navigate-right">
+						<img class="mui-media-object mui-pull-left" src="../../../images/cbd.jpg">
+						<div class="mui-media-body">
+							CBD
+							<p class='mui-ellipsis'>烤炉模式的城，到黄昏，如同打翻的调色盘一般.</p>
+						</div>
+					</a>
+				</li>-->
+					<!--<li class="mui-table-view-cell mui-media">
+					<a class='mui-navigate-right' href="javascript:;">
+						<img class="mui-media-object mui-pull-left" src="../../../images/yuantiao.jpg">
+						<div class="mui-media-body">
+							远眺
+							<p class='mui-ellipsis'>静静的看这个世界，最后终于疯了</p>
+						</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<a class="mui-navigate-right">
+						<img class="mui-media-object mui-pull-left" src="../../../images/shuijiao.jpg">
+						<div class="mui-media-body">
+							幸福
+							<p class='mui-ellipsis'>能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+						</div>
+					</a>
+				</li>-->
+				</ul>
+			</div>
+
+		</div>
+	</body>
+	<script src="../../../js/mui.min.js"></script>
+	<script src="../../../js/config/web_config.js"></script>
+	<script src="../../../js/jquery-1.11.3.js"></script>
+	<script src="../../../js/common/bdapp.js"></script>
+	<script>
+		if(navigator.userAgent.indexOf("Html5Plus") > 0) { //支持5+ API
+			mui.plusReady(function() {
+				mui.init({
+					pullRefresh: {
+						container: '#detail_points',
+						down: {
+
+							callback: pulldownRefresh
+						},
+						up: {
+							contentrefresh: '',
+							//						contentrefresh: '正在加载...',
+							callback: pullupRefresh
+						}
+					}
+				});
+				/**
+				 * 下拉刷新具体业务实现
+				 */
+				function pulldownRefresh() {
+					setTimeout(function() {
+
+						mui('#detail_points').pullRefresh().endPulldownToRefresh(); //refresh completed
+					}, 1500);
+				}
+				//			var count = 0;
+				/**
+				 * 上拉加载具体业务实现
+				 */
+				function pullupRefresh() {
+					setTimeout(function() {
+
+						page_num++;
+						GetIntProducts(store_id, type, page_num, page_size);
+						mui('#detail_points').pullRefresh().endPullupToRefresh();
+
+					}, 1500);
+				}
+				//			if(mui.os.plus) {
+				//				mui.plusReady(function() {
+				//					setTimeout(function() {
+				//						mui('#detail_points').pullRefresh().pullupLoading();
+				//					}, 1000);
+				//
+				//				});
+				//			} else {
+				//				mui.ready(function() {
+				//					mui('#detail_points').pullRefresh().pullupLoading();
+				//				});
+				//			}
+
+				var self = plus.webview.currentWebview();
+				var points = self.points;
+				var token = self.token;
+				var Vip_id = self.vip_id;
+				var member_id = self.member_id;
+				var store_id = self.store_id;
+				//			console.log('points:' + Vip_id);
+				$('.points_head_num').text(points);
+
+				var getintproducts_url = test_url + '/api/goods/GetIntProducts';
+				var type = 1;
+				var page_num = 1;
+				var page_size = 10;
+
+				//			积分请求接口
+				function GetIntProducts(store_id, type, page_num, page_size, token) {
+					mui.ajax(getintproducts_url, {
+						data: {
+							store_id: store_id,
+							type: type,
+							page_num: page_num,
+							page_size: page_size,
+							token: token
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'get', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							console.log('获取积分请求接口接口返回数据:' + JSON.stringify(data));
+
+							var products = data.Data.Products;
+							//						console.log('需要的：' + products);
+							for(var i = 0; i < products.length; i++) {
+
+								if(products.length == 0) {
+									$('.points_goods').hide();
+								}
+								var id = products[i].id;
+								var product_name = products[i].product_name;
+								var product_desc = products[i].product_desc;
+								var thumb = products[i].thumb;
+								var li = '<li class="mui-table-view-cell mui-media points_more" Vip_id="' + id + '">' +
+									'<a class="mui-navigate-right">' +
+									'<img class="mui-media-object mui-pull-left" src="' + thumb + '">' +
+									'<div class="mui-media-body">' +
+									product_name +
+									'<p class="mui-ellipsis">' + product_desc + '</p>' +
+									'</div>' +
+									'</a>' +
+									'</li>';
+								//							console.log('需要的li' + li);
+								$('#products_list').append(li);
+
+							}
+
+//							mui("#products_list").on('tap', '.points_more', function() {
+//								window.location.href='index_main_card_detail_points_detail.html';
+//							})
+
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							console.log(type);
+						}
+					});
+				}
+
+				isOnline();
+
+				GetIntProducts(store_id, type, page_num, page_size, token);
+
+				//			积分明细
+				document.getElementById('points_exchange').addEventListener('tap', function() {
+					var webview = mui.openWindow({
+						url: 'index_main_card_detail_points_more.html',
+						extras: {
+							token: token,
+							Vip_id: Vip_id
+						}
+					});
+				});
+				//			兑换记录
+				document.getElementById('points_record').addEventListener('tap', function() {
+					var webview = mui.openWindow({
+						url: 'index_main_card_detail_points_record.html',
+						extras: {
+							token: token,
+							Vip_id: Vip_id,
+							store_id: store_id,
+							member_id: member_id
+						}
+					});
+				});
+
+			})
+		}
+	</script>
+
+	<script>
+		if(navigator.userAgent.indexOf("Html5Plus") < 0) { //不支持5+ API
+			var points = GetQueryString('points');
+			var token = GetQueryString('token');
+			var Vip_id = GetQueryString('vip_id');
+			var member_id = GetQueryString('member_id');
+			var store_id = GetQueryString('store_id');
+			$('.points_head_num').text(points);
+
+			var getintproducts_url = test_url + '/api/goods/GetIntProducts';
+			var type = 1;
+			var page_num = 1;
+			var page_size = 10;
+			console.log(getintproducts_url + '?store_id=' + store_id + '&type=' + type + '&page_num=' + page_num + '&page_size=' + page_size + '&token=' + token);
+			//			积分请求接口
+			function GetIntProducts(store_id, type, page_num, page_size, token) {
+				mui.ajax(getintproducts_url, {
+					data: {
+						store_id: store_id,
+						type: type,
+						page_num: page_num,
+						page_size: page_size,
+						token: token
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'get', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+						console.log(data);
+						console.log('获取积分请求接口接口返回数据:' + JSON.stringify(data));
+
+						var products = data.Data.Products;
+						//						console.log('需要的：' + products);
+						for(var i = 0; i < products.length; i++) {
+
+							if(products.length == 0) {
+								$('.points_goods').hide();
+							}
+							var id = products[i].id;
+							var product_name = products[i].product_name;
+							var product_desc = products[i].product_desc;
+							var thumb = products[i].thumb;
+							var li = '<li class="mui-table-view-cell mui-media points_more" Vip_id="' + id + '">' +
+								'<a class="mui-navigate-right">' +
+								'<img class="mui-media-object mui-pull-left" src="' + thumb + '">' +
+								'<div class="mui-media-body">' +
+								product_name +
+								'<p class="mui-ellipsis">' + product_desc + '</p>' +
+								'</div>' +
+								'</a>' +
+								'</li>';
+							//							console.log('需要的li' + li);
+							$('#products_list').append(li);
+
+						}
+
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						console.log(type);
+					}
+				});
+			}
+
+			isOnline();
+
+			GetIntProducts(store_id, type, page_num, page_size, token);
+
+			//			积分明细
+			document.getElementById('points_exchange').addEventListener('tap', function() {
+				window.location.href = 'index_main_card_detail_points_more.html?token=' + token + '&Vip_id=' + Vip_id;
+
+			});
+
+			//			兑换记录
+			document.getElementById('points_record').addEventListener('tap', function() {
+				//				var webview = mui.openWindow({
+				//					url: 'index_main_card_detail_points_record.html',
+				//					extras: {
+				//						token: token,
+				//						Vip_id: Vip_id,
+				//						store_id: store_id,
+				//						member_id: member_id
+				//					}
+				//				});
+				window.location.href = 'index_main_card_detail_points_record.html?token=' + token + '&Vip_id=' + Vip_id + '&store_id=' + store_id + '&member_id=' + member_id;
+
+			});
+
+		}
+	</script>
+
+	<script>
+		//各个屏幕大小适配
+		(function(doc, win) {
+			var docEl = doc.documentElement,
+				resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+				recalc = function() {
+					var clientWidth = docEl.clientWidth;
+					if(!clientWidth) return;
+					docEl.style.fontSize = 100 * (clientWidth / 375) + 'px';
+				};
+
+			if(!doc.addEventListener) return;
+			win.addEventListener(resizeEvt, recalc, false);
+			doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+
+</html>

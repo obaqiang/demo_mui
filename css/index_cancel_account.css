@@ -1,0 +1,22 @@
+.account_head{
+	margin-top: 50px;
+	width: 100%;
+}
+.account_head_list{
+	display: inline-block;
+	width: 33%;
+	float: left;
+	text-align: center;
+}
+.account_head_list span{
+	display: block;
+	line-height: 0.2rem;
+}
+.list_title{
+	font-size: 0.13rem;
+	color: #1c1c1c;
+}
+.list_body{
+	font-size: 0.12rem;
+	color: #aaaaaa;
+}

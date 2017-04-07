@@ -1,0 +1,39 @@
+.setting_bg_list{
+	margin-top: 15px;
+	background: #fff;
+}
+.setting_list_head img{
+	width: 25px;
+	height: 25px;
+	margin-left: 10px;
+}
+.setting_list_head span{
+	font-size: 15px;
+	color: #3b3f40;
+	position: relative;
+	top:-5px;
+	left: 25px;
+}
+.mui-table-view-inverted .mui-table-view-cell:after{
+	background-color:#c8c7cc;
+}
+.mui-table-view-inverted:after{
+	background-color:#c8c7cc;
+}
+.mui-table-view-inverted:before{
+	background-color:#c8c7cc;
+}
+.mui-active{
+	background-color: #fff !important;
+}
+.setting_bg_list{
+	background: #fff;
+	margin-top: 0 !important;
+}
+.setting_out{
+	margin-top: 30px;
+	background: #ffffff;
+	text-align: center;
+	color: #1C1C1C;
+	line-height: 43px;
+}

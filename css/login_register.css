@@ -1,0 +1,72 @@
+.register_title{
+	color: #ffffff;
+	font-size: 0.33rem;
+	font-weight: bold;
+	display: block;
+	position: absolute;
+	top: 1.05rem;
+	left: 0.55rem;
+}
+.register_ex{
+	color: #ffffff;
+	font-size: 0.13rem;
+	display: block;
+	position: absolute;
+	top: 1.8rem;
+	left: 1.3rem;
+}
+.bg_register{
+	background: #d23c33;
+}
+.register_content{
+	width: 3.33rem;
+	background: #ffffff;
+	margin: auto;
+	border-radius: 0.05rem;
+}
+.content_name{
+	border-bottom: 1px solid #c9c9c9;
+	/*position: relative;*/
+	overflow: hidden;
+}
+.content_tel{
+	border-bottom: 1px solid #c9c9c9;
+	/*position: relative;*/
+	overflow: hidden;
+}
+.content_ver{
+	position: relative;
+	overflow: hidden;
+}
+.name_img{
+	margin:0.15rem 0.3rem;
+	width: 0.18rem;
+	float: left;
+	
+}
+.name_in{
+	float: left;
+	border: none !important;
+	outline: none;
+	margin-top: 0.17rem;
+	display: inline-block;
+	margin-bottom: 0 !important;
+	width: 50% !important;
+	margin-top: 0;
+	height: 0.56rem !important;
+}
+.btn_ver{
+	position: absolute;
+	top: 0.11rem;
+	right: 0.13rem;
+}
+.btn_reg{
+	text-align: center;
+	width: 3.33rem;
+	margin: 0.5rem auto 0.5rem;
+	background: #fff;
+	line-height: 0.48rem;
+	border-radius: 0.05rem;
+	font-size: 0.23rem;
+	color: #d23c33;
+}

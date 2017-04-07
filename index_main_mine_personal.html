@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>个人信息</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/index_main_mine_personal.css" />
+		<style>
+			html,body {
+				background-color: #efeff4;
+			}
+			.title{
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav mine_personal_header">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">个人信息</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view mui-table-view-chevron mui-table-view-inverted personal_bg">
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right mine_list_head personal_head">
+							<span>头像</span>
+							<img class="personal_head_img" src="images/touxiang.jpg" alt="" />
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right mine_list_head personal_name" id="personal_name">
+							<span>姓名</span>
+							<span class="personal_name_text">张晓晓</span>
+						</a>
+					</li>
+					
+			</ul>
+		</div>
+	</body>
+	<script src="js/mui.min.js"></script>
+	<script src="js/jquery-1.11.3.js"></script>
+	<script>
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+//		mui('.personal_name').on('tab',function(){
+//			var w = plus.webview.create( "index_main_mine_personal_change.html" );
+//			w.show(); // 显示窗口
+//		})
+		document.getElementById('personal_name').addEventListener('tap', function() {
+			var w = plus.webview.create( "index_main_mine_personal_change.html" );
+			w.show(); // 显示窗口
+		})
+	</script>
+</html>

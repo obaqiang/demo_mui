@@ -1,0 +1,84 @@
+.img-responsive{
+	width: 100%;
+}
+.head_msg{
+	text-align: center;
+	background: url(../images/750px_400px_background.png);
+	background-size:100%;
+	height: 200px;
+}
+.head_icon{
+	width: 78px;
+	height:78px;
+	border-radius: 50%;
+	margin-top: 22px;
+}
+.head_text{
+	color: #fff;
+	margin-top: 19px;
+	font-size: 16px;
+	line-height: 16px;
+}
+.head_data{
+	width: 100%;
+	height: 50px;
+	background-color: rgba(0, 0, 0, 0.2); 
+	margin-top: 10px;
+	overflow: hidden;
+}
+.head_tel{
+	width: 50%;
+	text-align: center;
+	color: #fff;
+	font-size: 10px;
+	line-height: 20px;
+	float: left;
+	margin-top: 5px;
+}
+.head_birth{
+	width: 50%;
+	text-align: center;
+	color: #fff;
+	font-size: 10px;
+	line-height: 20px;
+	float: left;
+	border-left: 1px solid #fff;
+	margin-top: 5px;
+}
+.mine_bg_list{
+	margin-top: 15px;
+	background: #fff;
+}
+.mine_list_head img{
+	width: 25px;
+	height: 25px;
+	margin-left: 10px;
+}
+.mine_list_head span{
+	font-size: 15px;
+	color: #3b3f40;
+	position: relative;
+	top:-5px;
+	left: 25px;
+}
+.mui-active{
+	background-color: #fff !important;
+}
+.mui-table-view-inverted .mui-table-view-cell:after{
+	background-color:#c8c7cc;
+}
+.mui-table-view-inverted:after{
+	background-color:#c8c7cc;
+}
+.mui-table-view-inverted:before{
+	background-color:#c8c7cc;
+}
+.mine_nav{
+	background: #cb2920;
+}
+.mine_nav h1{
+	color: #ffffff;
+}
+.mine_nav a{
+	color: #ffffff;
+}

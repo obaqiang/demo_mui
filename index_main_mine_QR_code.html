@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html style="background: #f5f5f5;">
+
+	<head>
+		<meta charset="utf-8">
+		<title>我的二维码</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/index_main_mine.css" />
+		<link rel="stylesheet" href="css/index_main_mine_QR_code.css" />
+		<style>
+			html,
+			body {
+				background-color: #f5f5f5;
+			}
+			
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+
+	<body style="background: #f5f5f5;">
+		<header class="mui-bar mui-bar-nav mine_nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">我的二维码</h1>
+		</header>
+		<div class="mui-content QR_code_bg">
+			<div class="QR_code_area">
+				<img src="images/364px_364px_fu.png" alt="" />
+				<img src="images/694px_82px_z.png" alt="" />
+				<div class="code_sao">
+					扫一扫，升级为商家会员
+				</div>
+				<div class="code_service">
+					提供给商家扫描
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="js/mui.min.js"></script>
+	<script>
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+	</script>
+
+</html>

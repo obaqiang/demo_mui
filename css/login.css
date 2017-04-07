@@ -1,0 +1,192 @@
+.login_vip {
+	background: #cb2920;
+}
+
+.login_vip h1 {
+	color: #fff;
+}
+
+.no_login_mask {
+	text-align: center;
+	margin: 0.32rem;
+}
+
+.bg_login {
+	background: #fff;
+}
+
+.no_line:before {
+	display: none;
+}
+
+.no_line:after {
+	display: none;
+}
+
+.new_line {
+	border-bottom: 1px solid #dcdcdc;
+	margin-left: 20px;
+	margin-right: 20px;
+	height: 45px !important;
+}
+
+.login_tel_icon {
+	width: 20px;
+	height: 25px;
+}
+
+.login_lock_icon {
+	width: 20px;
+	height: 25px;
+}
+
+.login_text {
+	font-size: 16px;
+	width: 85% !important;
+}
+
+.login_label {
+	padding: 8px 10px !important;
+	width: 10% !important;
+}
+
+.login_btn {
+	margin: 20px !important;
+}
+
+.login_btn_no {
+	font-size: 18px;
+	display: block;
+	width: 100%;
+	margin-bottom: 10px;
+	background: #dedfe0;
+	border: none;
+	padding: 10px;
+	color: #fff;
+}
+
+.login_btn_ok {
+	font-size: 18px;
+	display: block;
+	width: 100%;
+	margin-bottom: 10px;
+	background: #CB2920;
+	border: none;
+	padding: 10px;
+	color: #fff;
+}
+
+.login_nohook_icon {
+	width: 17px;
+	height: 17px;
+	float: left;
+	margin-left: 10px;
+	margin-top: 0.02rem;
+	display: inline-block;
+}
+
+.login_agree {
+	color: #777777;
+	font-size: 12px;
+	display: inline-block;
+	float: left;
+	margin-left: 0.1rem;
+}
+
+.login_service {
+	color: #ff9517;
+	font-size: 12px;
+	display: inline-block;
+	float: left;
+	margin-left: 10px;
+}
+
+.login_forget_pwd {
+	color: #777777;
+	font-size: 12px;
+	display: inline-block;
+	float: right;
+	margin-left: 10px;
+}
+
+.login_bottom_line {
+	background: #cfcfd2;
+	height: 1px;
+	margin-left: 12px;
+	margin-right: 12px;
+}
+
+.weixin_login {
+	position: absolute;
+	bottom: -20px;
+	text-align: center;
+	width: 100%;
+}
+
+.weixin_po {
+	width: 150px;
+	/*height: 100px;*/
+	background: #fff;
+	text-align: center;
+	margin: auto;
+}
+
+.weixin_icon {
+	width: 48px;
+	height: 48px;
+}
+
+.weixin_text {
+	display: block;
+	color: #6c6c6c;
+	font-size: 12px;
+}
+
+.login_alert {
+	z-index: 11;
+	background: #fff;
+	position: fixed;
+	line-height: 44px;
+}
+
+.login_alert img {
+	width: 0.2rem;
+	margin-top: 0.13rem;
+	margin-left: 0.1rem;
+	float: left;
+}
+
+.login_alert span {
+	font-size: 0.14rem;
+	margin-left: 0.1rem;
+}
+
+button:enabled:active {
+	color: #fff;
+	background: #CB2920;
+}
+
+.identify_img {
+	width: 0.57rem;
+	position: absolute;
+	right: 0.1rem;
+	top: 0.1rem;
+}
+
+.mui-icon-clear {
+	display: none !important;
+}
+
+.touxiang {
+	border-radius: 50%;
+	width: 0.8rem;
+	height: 0.8rem;
+}
+
+.login_register {
+	color: #777777;
+	font-size: 12px;
+	display: inline-block;
+	float: right;
+	margin-left: 0.1rem;
+}

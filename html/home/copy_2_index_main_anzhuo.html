@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link rel="stylesheet" href="../../css/index_main.css" />
+		<link rel="stylesheet" href="../../css/index_main_card.css" />
+		<link rel="stylesheet" href="../../css/index_main_message.css" />
+		<link rel="stylesheet" href="../../css/index_main_mine.css" />
+		<link rel="stylesheet" href="../../css/index_main_setting.css" />
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+		</style>
+		<script type="text/javascript" src="../../js/jquery-1.11.3.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav main_head">
+			<img class="main_head_icon" src="../../images/178px_44px_logo.png" alt="图片不存在" />
+			<div class="main_head_sao">
+				<img src="../../images/40px_40px_sao.png" alt="图片不存在" />
+				<span>扫一扫</span>
+			</div>
+
+			<div class="main_head_pay">
+				<img src="../../images/40px_40px_pay.png" alt="图片不存在" />
+				<span>付款码</span>
+			</div>
+
+			<div class="main_head_search">
+				<img src="../../images/26px_26px_iconQ.png" alt="" />
+				<input id="search" type="text" />
+			</div>
+			<!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
+			<!--<h1 id="title" class="mui-title">我的卡包</h1>-->
+		</header>
+		<header class="mui-bar mui-bar-nav main_nav" style="display: none;">
+			<!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
+			<h1 class="mui-title">个人中心</h1>
+		</header>
+		<nav class="mui-bar mui-bar-tab">
+			<a id="defaultTab" class="mui-tab-item mui-active" href="">
+				<span class="mui-icon mui-icon-home main_no_icon">
+					<img class="kabao_icon" src="../../images/48px_48px_card_red.png" alt="" />
+				</span>
+				<span class="mui-tab-label kabao_text">卡包</span>
+			</a>
+			<a class="mui-tab-item" href="">
+				<span class="mui-icon mui-icon-email main_no_icon">
+					<img class="message_icon" src="../../images/48px_48px_news_gray.png" alt="" />
+					<!--<span class="mui-badge">9</span>-->
+				</span>
+				<span class="mui-tab-label message_text">消息</span>
+			</a>
+			<a class="mui-tab-item" href="">
+				<span class="mui-icon mui-icon-contact main_no_icon">
+					<img class="mine_icon" src="../../images/48px_48px_me_gray.png" alt="图片不存在" />
+				</span>
+				<span class="mui-tab-label mine_text">我的</span>
+			</a>
+			<a class="mui-tab-item" href="">
+				<span class="mui-icon mui-icon-gear main_no_icon">
+					<img class="set_icon" src="../../images/48px_48px_set_gray.png" alt="图片不存在" />
+				</span>
+				<span class="mui-tab-label set_text">设置</span>
+			</a>
+		</nav>
+
+		<div class="mui-content  mui-scroll-wrapper index_main_card" id="index_main_card">
+			<!--下拉刷新容器-->
+			<div class="mui-scroll card_area">
+
+				<!--<div class="card_list">
+					<img class="card_in" src="../../images/460px_274px_card7.png" alt="" />
+					<img class="card_out" src="../../images/478px_300px_card1.png" alt="" />
+					<span class="card_shop_name">华雄美容美发（春晖路店）</span>
+					<span class="card_shop_num">NO.4651831851321</span>
+					<span class="card_shop_type">金卡</span>
+					<span class="card_shop_prize">储值88.88元</span>
+					<img class="card_shop_tel" src="../../images/50px_50px_icon_P.png" alt="" />
+				</div>
+				<div class="card_list_c">
+					<img class="card_out_c" src="../../images/478px_300px_card2.png" alt="" />
+					<img class="card_in_c" src="../../images/460px_274px_card7.png" alt="" />
+					<span class="card_shop_name_c">华雄美容美发（春晖路店）</span>
+					<span class="card_shop_num_c">NO.4651831851321</span>
+					<span class="card_shop_type_c">金卡</span>
+					<span class="card_shop_prize_c">储值88.88元</span>
+					<img class="card_shop_tel_c" src="../../images/50px_50px_icon_P.png" alt="" />
+				</div>-->
+
+			</div>
+
+		</div>
+		<div class="service_area" style="display: none;">
+			<img class="icon_close" id="icon_close" src="../../images/55px_55px_X.png" alt="图片不存在" />
+			<img class="icon_b" src="../../images/98px_98px_logo.png" alt="图片不存在" />
+			<div class="area_text">
+				<span>优惠信息实时共享</span><br />
+				<span>真正体验贵宾服务</span>
+			</div>
+			<div class="use_now">
+				立即使用
+			</div>
+
+		</div>
+
+		<div class="mui-content of_h index_main_message" style="display: none;">
+			<div class="message_head">
+				<div class="head_pay" id="message_left">
+					<img src="../../images/28px_28px_icon1.png" alt="" />
+					<span>支付消息</span>
+					<span id="TradeCount" class="mui-badge">...</span>
+				</div>
+				<div class="head_action" id="message_right">
+					<img src="../../images/28px_28px_icon2.png" alt="" />
+					<span>活动消息</span>
+					<span id="ActivityCount" class="mui-badge">...</span>
+				</div>
+			</div>
+			<div class="message_nav_wh"></div>
+			<div class="message_div">
+				<div class="message_time">
+					<span>7月13日 上午11:50</span>
+				</div>
+
+				<div class="message_square">
+					<div class="square_head">
+						等待确认
+					</div>
+					<div class="square_prize">
+						<span class="square_prize_num">220</span>
+						<span class="square_prize_unit">元</span>
+					</div>
+					<div class="square_body">
+						<div class="body_list">
+							<span>商家</span>
+							<span>:</span>
+							<span>玲玲美食</span>
+						</div>
+						<div class="body_list">
+							<span>操作员</span>
+							<span>:</span>
+							<span>超级管理员1</span>
+						</div>
+						<div class="body_list">
+							<span>交易时间</span>
+							<span>:</span>
+							<span>2015-06-22  10:23</span>
+						</div>
+
+					</div>
+
+					<div class="square_detial">
+						<span>查看详情</span>
+						<img src="../../images/16px_26px_V.png" alt="" />
+					</div>
+
+				</div>
+
+				<div class="message_time">
+					<span>7月13日 上午11:50</span>
+				</div>
+				<div class="message_square">
+					<div class="square_head">
+						等待确认
+					</div>
+					<div class="square_prize">
+						<span class="square_prize_num">220</span>
+						<span class="square_prize_unit">元</span>
+					</div>
+					<div class="square_body">
+						<div class="body_list">
+							<span>商家</span>
+							<span>:</span>
+							<span>玲玲美食</span>
+						</div>
+						<div class="body_list">
+							<span>操作员</span>
+							<span>:</span>
+							<span>超级管理员1</span>
+						</div>
+						<div class="body_list">
+							<span>交易时间</span>
+							<span>:</span>
+							<span>2015-06-22  10:23</span>
+						</div>
+
+					</div>
+
+					<div class="square_detial">
+						<span>查看详情</span>
+						<img src="../../images/16px_26px_V.png" alt="" />
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+
+		<div class="mui-content index_main_mine" style="display: none;">
+			<!--<img class="img-responsive" src="images/750px_400px_background.png" alt="图片不存在" />-->
+			<div class="head_msg">
+				<img class="head_icon" id="thumb" src="../../images/146px_146px_moren.png" alt="图片不存在" />
+				<div class="head_text" id="member_name">??</div>
+				<div class="head_data">
+					<div class="head_tel">
+						<div>
+							手机号
+						</div>
+						<div id="phone">
+							??
+						</div>
+					</div>
+					<div class="head_birth">
+						<div>
+							生日
+						</div>
+						<div id="birthday">
+							??
+						</div>
+					</div>
+				</div>
+			</div>
+			<ul class="mui-table-view mui-table-view-chevron mui-table-view-inverted mine_bg_list">
+				<li class="mui-table-view-cell" id="my_qr_code">
+					<a class="mui-navigate-right mine_list_head">
+						<img src="../../images/48px_48px_icon1.png" alt="图片不存在" />
+						<span>我的二维码</span>
+					</a>
+				</li>
+				<li class="mui-table-view-cell" id="my_payment">
+					<a class="mui-navigate-right mine_list_head">
+						<img src="../../images/48px_48px_icon2.png" alt="图片不存在" />
+						<span>我的付款码</span>
+					</a>
+				</li>
+				<li class="mui-table-view-cell" id="my_send_card">
+					<a class="mui-navigate-right mine_list_head">
+						<img src="../../images/48px_48px_icon3.png" alt="图片不存在" />
+						<span>我要发卡</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="mui-content index_main_setting" style="display: none;">
+			<ul class="mui-table-view mui-table-view-chevron mui-table-view-inverted setting_bg_list">
+				<li class="mui-table-view-cell" id="setting_security">
+					<a class="mui-navigate-right setting_list_head">
+						<img src="../../images/42px_42px_icon1.png" alt="图片不存在" />
+						<span>安全设置</span>
+					</a>
+				</li>
+				<li class="mui-table-view-cell" id="setting_message" style="display: none;">
+					<a class="mui-navigate-right setting_list_head">
+						<img src="../../images/42px_42px_icon2.png" alt="图片不存在" />
+						<span>消息设置</span>
+					</a>
+				</li>
+				<li class="mui-table-view-cell" id="setting_question">
+					<a class="mui-navigate-right setting_list_head">
+						<img src="../../images/42px_42px_icon3.png" alt="图片不存在" />
+						<span>问题解决</span>
+					</a>
+				</li>
+				<li class="mui-table-view-cell" id="setting_about">
+					<a class="mui-navigate-right setting_list_head">
+						<img src="../../images/42px_42px_icon4.png" alt="图片不存在" />
+						<span>关于BD</span>
+					</a>
+				</li>
+			</ul>
+
+			<div class="setting_out" id="setting_out">
+				退出登陆
+			</div>
+
+		</div>
+
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/config/web_config.js"></script>
+		<script src="../../js/plugin/qrcode.js"></script>
+		<script src="../../js/common/bdapp.js"></script>
+		<!--<script src="../../js/common/bd_port.js"></script>-->
+		<script type="text/javascript" charset="utf-8">
+			mui.plusReady(function() {
+				//mui初始化
+				mui.init({
+					pullRefresh: {
+						container: '#index_main_card',
+						down: {
+							auto: false,
+							callback: pulldownRefresh
+						},
+						up: {
+							//						contentrefresh: '正在加载...',
+							callback: pullupRefresh
+						}
+					}
+				});
+
+				/**
+				 * 下拉刷新具体业务实现
+				 */
+				function pulldownRefresh() {
+					setTimeout(function() {
+						page_num = 1;
+						GetVips(getvips_url, member_id, page_num, page_size, token);
+						mui('#index_main_card').pullRefresh().endPulldownToRefresh(); //refresh completed
+					}, 1500);
+				}
+				//			var count = 0;
+				/**
+				 * 上拉加载具体业务实现
+				 */
+				function pullupRefresh() {
+					setTimeout(function() {
+						page_num++;
+						GetVips(getvips_url, member_id, page_num, page_size, token);
+
+						mui('#index_main_card').pullRefresh().endPullupToRefresh();
+
+					}, 1500);
+				}
+//				if(mui.os.plus) {
+//					mui.plusReady(function() {
+//						setTimeout(function() {
+//							mui('#index_main_card').pullRefresh().pullupLoading();
+//						}, 1000);
+//
+//					});
+//				} else {
+//					mui.ready(function() {
+//						mui('#index_main_card').pullRefresh().pullupLoading();
+//					});
+//				}
+
+				var self = plus.webview.currentWebview();
+				var member_id = self.member_id;
+				console.log('index_main页面需要的member_id：' + member_id);
+				var token = self.token;
+				var Member = self.Member;
+				var getvips_url = test_url + '/api/member/GetVips';
+				var getstoreshopinfo_url = test_url + '/api/Store/GetStoreShopInfo';
+				var getunreadcount_url = test_url + '/api/member/GetUnreadCount';
+				var getvipdiminfo_url = yehongbing_url + '/api/member/GetVipDimInfo';
+				var page_num = 1;
+				var page_size = 10;
+				var store_id = 693;
+
+				function main_pinjie(data) {
+					if(page_num == 1) {
+						$('.card_area').empty();
+					}
+
+					var Vips = data.Data.Vips;
+					for(var i = 0; i < Vips.length; i++) {
+						var vip_id = Vips[i].id;
+						var store_id = Vips[i].store_id;
+						var store_name = Vips[i].store_name;
+						var store_tel = Vips[i].store_tel;
+						var cardtype_name = Vips[i].cardtype_name;
+						var tl_imgurl = Vips[i].tl_imgurl;
+						var tl_bagurl = Vips[i].tl_bagurl;
+						var tl_bagurl1 = Vips[i].tl_bagurl1;
+						var BalanceArray = Vips[i].BalanceArray;
+						var store_tel = Vips[i].store_tel;
+						var vip_sn = Vips[i].vip_sn;
+						if(i % 2 == 0) { //如果是偶数
+							var card_list_div = '<div class="card_list" store_tel="' + store_tel + '" store_id="' + store_id + '" vip_id="' + vip_id + '">' +
+								'<img class="card_in" src="' + tl_imgurl + '" alt="" />' +
+								'<img class="card_out" src="' + tl_bagurl1 + '" alt="" />' +
+								'<span class="card_shop_name">' + store_name + '</span>' +
+								'<span class="card_shop_num">' + vip_sn + '</span>' +
+								'<span class="card_shop_type">' + cardtype_name + '</span>' +
+								'<span class="card_shop_prize">' + BalanceArray + '</span>' +
+								'<img class="card_shop_tel" src="../../images/50px_50px_icon_P.png" alt="" />' +
+								'</div>';
+						} else {
+							var card_list_div = '<div class="card_list_c" store_tel="' + store_tel + '" store_id="' + store_id + '" vip_id="' + vip_id + '">' +
+								'<img class="card_out_c" src="' + tl_bagurl + '" alt="" />' +
+								'<img class="card_in_c" src="' + tl_imgurl + '" alt="" />' +
+								'<span class="card_shop_name_c">' + store_name + '</span>' +
+								'<span class="card_shop_num_c">' + vip_sn + '</span>' +
+								'<span class="card_shop_type_c">' + cardtype_name + '</span>' +
+								'<span class="card_shop_prize_c">' + BalanceArray + '</span>' +
+								'<img class="card_shop_tel_c" src="../../images/50px_50px_icon_P.png" alt="" />' +
+								'</div>';
+						}
+						$('.card_area').append(card_list_div);
+
+						mui(".card_area").on('tap', '.card_list,.card_list_c', function() {
+							var vip_id = $(this).attr('vip_id');
+							var store_id = $(this).attr('store_id');
+							var webview = mui.openWindow({
+								url: 'index_main_card/index_main_card_detail.html',
+								extras: {
+									member_id: member_id,
+									vip_id: vip_id,
+									token: token,
+									store_id: store_id
+								}
+							});
+						})
+
+					}
+				}
+
+				//				首页获取用户所有的会员卡接口
+				function GetVips(getvips_url, member_id, page_num, page_size, token) {
+					//					mui.get(getvips_url, {
+					//						member_id: member_id,
+					//						page_num: page_num,
+					//						page_size: page_size,
+					//						token: token
+					//					}, function(data) {
+					//						//获得服务器响应
+					//						console.log('获取首页获取用户所有的会员卡接口返回数据:' + JSON.stringify(data));
+					//					}, 'json');
+					mui.ajax(getvips_url, {
+						data: {
+							member_id: member_id,
+							page_num: page_num,
+							page_size: page_size,
+							token: token
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'get', //HTTP请求类型
+						success: function(data) {
+							//获得服务器响应
+							console.log('获取首页获取用户所有的会员卡接口返回数据:' + JSON.stringify(data));
+							main_pinjie(data);
+						}
+					});
+
+				};
+
+				//创建子页面，首个选项卡页面显示，其它均隐藏；
+
+				//				搜索功能
+				$('#search').change(function() {
+					var member_name = $('#search').val();
+					console.log('需要的member_name：' + member_name);
+					console.log(getvipdiminfo_url + '?member_id=' + member_id + '&member_name=' + member_name + '&token=' + token);
+					GetVipDimInfo(getvipdiminfo_url, member_id, member_name, token);
+				});
+
+				GetVips(getvips_url, member_id, page_num, page_size, token);
+
+				//获取分店信息接口
+				function GetStoreShopInfo(store_id, token) {
+					mui.get(getstoreshopinfo_url, {
+						store_id: store_id,
+						token: token
+					}, function(data) {
+						//获得服务器响应
+						console.log('获取分店信息接口返回数据:' + JSON.stringify(data));
+					}, 'json');
+				};
+				GetStoreShopInfo(store_id, token);
+
+				//获取未读消息接口
+				function GetUnreadCount(member_id, token) {
+					mui.get(getvipdiminfo_url, {
+						member_id: member_id,
+						token: token
+					}, function(data) {
+						//获得服务器响应
+						console.log('获取未读消息接口返回数据:' + JSON.stringify(data));
+					}, 'json');
+				};
+				//				GetUnreadCount(member_id, token);
+
+				//				搜索功能接口
+
+				function GetVipDimInfo(getvipdiminfo_url, member_id, member_name, token) {
+					mui.ajax(getvipdiminfo_url, {
+						data: {
+							member_id: member_id,
+							member_name: member_name,
+							token: token
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'get', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							console.log('获取搜索接口返回数据:' + JSON.stringify(data));
+							page_num = 1;
+							main_pinjie(data);
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							console.log(type);
+						}
+					});
+				};
+				//				GetVipDimInfo(member_id, member_name);
+
+				var getmembernotice_url = test_url + '/api/member/GetMemberNotice';
+
+				function GetMemberNotice(getmembernotice_url, member_id, page_num, page_size, token) {
+					mui.ajax(getmembernotice_url, {
+						data: {
+							member_id: member_id,
+							page_num: page_num,
+							page_size: page_size,
+							token: token
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'get', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							console.log('获取消息接口返回数据:' + JSON.stringify(data));
+							var Messages = data.Data.Messages;
+							for(var i = 0; i < Messages.length; i++) {
+								var store_name = Messages[i].store_name;
+								var type = Messages[i].type;
+								//							if(type == '002' || type == '011' || type == '012' || type == '013') {
+								//
+								//							}
+
+							}
+
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							console.log(type);
+						}
+					});
+				}
+
+				var getmsgcount_url = test_url + '/api/member/GetMsgCount';
+				//				获取消息数量
+				function GetMsgCount(getmsgcount_url, member_id, token) {
+					mui.ajax(getmsgcount_url, {
+						data: {
+							member_id: member_id,
+							token: token
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'get', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							console.log('获取消息数量接口返回数据:' + JSON.stringify(data));
+							var TradeCount = data.Data.TradeCount;
+							var ActivityCount = data.Data.ActivityCount;
+							if(TradeCount > 9) {
+								TradeCount = '...';
+							}
+							if(ActivityCount > 9) {
+								ActivityCount = '...';
+							}
+							$('#TradeCount').text(TradeCount);
+							$('#ActivityCount').text(ActivityCount);
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							console.log(type);
+						}
+					});
+				}
+
+				var getmsglist_url = test_url + '/api/member/GetMsgList';
+				//				获取消息列表
+				function GetMsgList(getmsglist_url, member_id, type, page_num, page_size) {
+					mui.ajax(getmsglist_url, {
+						data: {
+							member_id: member_id,
+							type: type,
+							page_num: page_num,
+							page_size: page_size
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'get', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							console.log('获取消息接口返回数据:' + JSON.stringify(data));
+							if(page_num == 1) {
+								$('.message_div').empty();
+							}
+							var Messages = data.Data.Messages;
+							for(var i = 0; i < Messages.length; i++) {
+								var Title = Messages[i].Title;
+								var HeightLightTxt = Messages[i].HeightLightTxt;
+								var ExtenVals = Messages[i].ExtenVals;
+								var ExtenVals_a_key = ExtenVals[0].key;
+								var ExtenVals_a_val = ExtenVals[0].val;
+								var ExtenVals_b_key = ExtenVals[1].key;
+								var ExtenVals_b_val = ExtenVals[1].val;
+								var ExtenVals_c_key = ExtenVals[2].key;
+								var ExtenVals_c_val = ExtenVals[2].val;
+								var message_div =
+									'<div class="message_time">' +
+									'<span>7月13日 上午11:50</span>' +
+									'</div>' +
+									'<div class="message_square">' +
+									'<div class="square_head">' +
+									Title +
+									'</div>' +
+									'<div class="square_prize">' +
+									'<span class="square_prize_num">' +
+									HeightLightTxt +
+									'</span>' +
+									'<span class="square_prize_unit">元</span>' +
+									'</div>' +
+									'<div class="square_body">' +
+									'<div class="body_list">' +
+									'<span>' +
+									ExtenVals_a_key +
+									'</span>' +
+									'<span>:</span>' +
+									'<span>' +
+									ExtenVals_a_val +
+									'</span>' +
+									'</div>' +
+									'<div class="body_list">' +
+									'<span>' +
+									ExtenVals_b_key +
+									'</span>' +
+									'<span>:</span>' +
+									'<span>' +
+									ExtenVals_b_val +
+									'</span>' +
+									'</div>' +
+									'<div class="body_list">' +
+									'<span>' +
+									ExtenVals_c_key +
+									'</span>' +
+									'<span>:</span>' +
+									'<span>' +
+									ExtenVals_c_val +
+									'</span>' +
+									'</div>' +
+									'</div>' +
+									'<div class="square_detial">' +
+									'<span>查看详情</span>' +
+									'<img src="../../images/16px_26px_V.png" alt="" />' +
+									'</div>' +
+									'</div>';
+								$('.message_div').append(message_div);
+							}
+
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							console.log(type);
+						}
+					});
+				}
+
+				var getqrcode_url = test_url + '/api/member/GetQRCode';
+
+				//			我的二维码
+				document.getElementById('my_qr_code').addEventListener('tap', function() {
+					var webview = mui.openWindow({
+						url: 'index_main_mine/index_main_mine_QR_code.html',
+						extras: {
+							member_id: member_id,
+							token: token,
+						},
+						createNew: true
+					});
+				})
+
+				//			我的付款吗
+				document.getElementById('my_payment').addEventListener('tap', function() {
+					var webview = mui.openWindow({
+						url: 'index_main_mine/index_main_mine_payment.html',
+						extras: {
+							member_id: member_id,
+							token: token,
+						},
+						createNew: true
+					});
+				})
+
+				//			我要发卡
+				document.getElementById('my_send_card').addEventListener('tap', function() {
+					var webview = mui.openWindow({
+						url: 'http://www.bdvip.net/mobile/faka.html',
+						createNew: true
+					});
+				})
+
+				//			点击头像修改个人信息
+				document.getElementById('thumb').addEventListener('tap', function() {
+					var name = $('#member_name').text();
+					var phone = $('#phone').text();
+					var webview = mui.openWindow({
+						url: 'index_main_mine/index_main_mine_personal.html',
+						extras: {
+							member_id: member_id,
+							name: name,
+							phone: phone,
+							token: token
+						},
+						createNew: true
+					});
+				})
+
+				//			退出登陸
+				document.getElementById('setting_out').addEventListener('tap', function() {
+					UserInfo.clear();
+					var webview = mui.openWindow({
+						url: '../login/login.html',
+						createNew: true
+					});
+				})
+
+				//选项卡点击事件
+				mui('.mui-bar-tab').on('tap', 'a', function(e) {
+
+					var label_name = this.querySelector('.mui-tab-label').innerHTML;
+					if(label_name == '卡包') {
+						$('.main_head').show();
+						$('.main_nav').hide();
+						$('.kabao_icon').attr('src', '../../images/48px_48px_card_red.png');
+						$('.message_icon').attr('src', '../../images/48px_48px_news_gray.png');
+						$('.mine_icon').attr('src', '../../images/48px_48px_me_gray.png');
+						$('.set_icon').attr('src', '../../images/48px_48px_set_gray.png');
+						$('.mui-tab-label').css('color', '#7d7c82');
+						$('.kabao_text').css('color', '#cb2920');
+						$('.mui-content').hide();
+						$('.index_main_card').show();
+						//					var w = plus.webview.create( "index_main_card.html" );
+						//					w.show(); // 显示窗口
+					} else if(label_name == '消息') {
+						$('.mui-title').text('消息中心');
+						$('.main_head').hide();
+						$('.main_nav').show();
+						$('.kabao_icon').attr('src', '../../images/48px_48px_card_gray.png');
+						$('.message_icon').attr('src', '../../images/48px_48px_news_red.png');
+						$('.mine_icon').attr('src', '../../images/48px_48px_me_gray.png');
+						$('.set_icon').attr('src', '../../images/48px_48px_set_gray.png');
+						$('.mui-tab-label').css('color', '#7d7c82');
+						$('.message_text').css('color', '#cb2920');
+						$('.mui-content').hide();
+						$('.index_main_message').show();
+						//						page_num = 1;
+						//						GetMemberNotice(getmembernotice_url, member_id, page_num, page_size, token);
+						GetMsgCount(getmsgcount_url, member_id, token);
+						var type = '001';
+						var page_num = 1;
+						var page_size = 20;
+						GetMsgList(getmsglist_url, member_id, type, page_num, page_size);
+
+						document.getElementById('message_left').addEventListener('tap', function() {
+							page_num = 1;
+							var type = '001';
+							GetMsgList(getmsglist_url, member_id, type, page_num, page_size);
+						})
+						document.getElementById('message_right').addEventListener('tap', function() {
+							page_num = 1;
+							var type = '002';
+							GetMsgList(getmsglist_url, member_id, type, page_num, page_size);
+						})
+
+					} else if(label_name == '我的') {
+						$('.mui-title').text('个人中心');
+						$('.main_head').hide();
+						$('.main_nav').show();
+						$('.kabao_icon').attr('src', '../../images/48px_48px_card_gray.png');
+						$('.message_icon').attr('src', '../../images/48px_48px_news_gray.png');
+						$('.mine_icon').attr('src', '../../images/48px_48px_me_red.png');
+						$('.set_icon').attr('src', '../../images/48px_48px_set_gray.png');
+						$('.mui-tab-label').css('color', '#7d7c82');
+						$('.mine_text').css('color', '#cb2920');
+						$('.mui-content').hide();
+						$('.index_main_mine').show();
+						var member_name = Member.member_name;
+						var phone = Member.phone;
+						var birthday = Member.birthday;
+						birthday = birthday.slice(0, 10);
+						var thumb = Member.thumb;
+
+						if(thumb == "" || !thumb) {
+							thumb = '../../images/146px_146px_moren.png';
+						}
+						$('#member_name').text(member_name);
+						$('#phone').text(phone);
+						$('#birthday').text(birthday);
+						$('#thumb').attr('src', thumb);
+
+					} else if(label_name == '设置') {
+						$('.mui-title').text('设置');
+						$('.main_head').hide();
+						$('.main_nav').show();
+						$('.kabao_icon').attr('src', '../../images/48px_48px_card_gray.png');
+						$('.message_icon').attr('src', '../../images/48px_48px_news_gray.png');
+						$('.mine_icon').attr('src', '../../images/48px_48px_me_gray.png');
+						$('.set_icon').attr('src', '../../images/48px_48px_set_red.png');
+						$('.mui-tab-label').css('color', '#7d7c82');
+						$('.set_text').css('color', '#cb2920');
+						$('.mui-content').hide();
+						$('.index_main_setting').show();
+						var phone = Member.phone;
+						//					安全设置
+						document.getElementById('setting_security').addEventListener('tap', function() {
+								var webview = mui.openWindow({
+									url: 'index_main_setting/index_main_setting_security.html',
+									extras: {
+										member_id: member_id,
+										name: name,
+										phone: phone,
+										token: token
+									}
+								});
+							})
+							//			消息设置
+						document.getElementById('setting_message').addEventListener('tap', function() {
+							var webview = mui.openWindow({
+								url: 'index_main_setting/index_main_setting_message.html',
+								extras: {
+									member_id: member_id,
+									name: name,
+									phone: phone,
+									token: token
+								},
+								createNew: true
+							});
+						})
+
+						//			问题解决
+						document.getElementById('setting_question').addEventListener('tap', function() {
+								var webview = mui.openWindow({
+									url: 'index_main_setting/index_main_setting_question.html',
+									extras: {
+										member_id: member_id,
+										name: name,
+										phone: phone,
+										token: token
+									},
+									createNew: true
+								});
+							})
+							//			关于BD
+						document.getElementById('setting_about').addEventListener('tap', function() {
+							var webview = mui.openWindow({
+								url: 'index_main_setting/index_main_setting_about.html',
+								extras: {
+									member_id: member_id,
+									name: name,
+									phone: phone,
+									token: token
+								},
+								createNew: true
+							});
+						})
+
+					}
+				});
+				//自定义事件，模拟点击“首页选项卡”
+				document.addEventListener('gohome', function() {
+					var defaultTab = document.getElementById("defaultTab");
+					//模拟首页点击
+					mui.trigger(defaultTab, 'tap');
+					//切换选项卡高亮
+					var current = document.querySelector(".mui-bar-tab>.mui-tab-item.mui-active");
+					if(defaultTab !== current) {
+						current.classList.remove('mui-active');
+						defaultTab.classList.add('mui-active');
+					}
+				});
+
+			})
+		</script>
+		<script>
+			//		页面部分逻辑
+			//		@author:SQ
+			//			$('.icon_close').click(function() {
+			//				$('.service_area').hide();
+			//			});
+			document.getElementById('icon_close').addEventListener('tap', function() {
+				$('.service_area').hide();
+			})
+
+		</script>
+	</body>
+	<script>
+		//各个屏幕大小适配
+		(function(doc, win) {
+			var docEl = doc.documentElement,
+				resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+				recalc = function() {
+					var clientWidth = docEl.clientWidth;
+					if(!clientWidth) return;
+					docEl.style.fontSize = 100 * (clientWidth / 375) + 'px';
+				};
+
+			if(!doc.addEventListener) return;
+			win.addEventListener(resizeEvt, recalc, false);
+			doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+
+</html>

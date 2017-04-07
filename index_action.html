@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/global.css" />
+		<link rel="stylesheet" href="css/index_action.css" />
+		<link rel="stylesheet" href="css/swiper.min.css">
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<header class="mui-bar mui-bar-nav nav_header">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">活动</h1>
+			</header>
+
+			<div class="action_accordin of_h">
+				<div class="action_accordin_left">
+					<span>全部活动</span>
+					<img class="action_accordin_icon" src="images/16px_10px_red.png" alt="" />
+				</div>
+				<div class="action_accordin_right">
+					<span>所有类型</span>
+					<img class="action_accordin_icon" src="images/16px_10px_g.png" alt="" />
+				</div>
+
+			</div>
+			<div class="action_accordin_list" style="display: none;">
+				<div>全部活动</div>
+				<div>进行中</div>
+				<div>未开始</div>
+			</div>
+			
+			<div class="action_content">
+				<img class="action_content_img" src="images/710px_305px_banner.png" alt="" />
+				<img class="action_content_img_over" src="images/120px_120px_over.png" alt="" />
+				<div class="action_already">已参与</div>
+				<div class="action_content_des of_h">
+					<div class="des_left">
+						店庆快来
+					</div>
+					<div class="des_right">
+						分享朋友即送100积分
+					</div>
+				</div>
+			</div>
+			<div class="action_content">
+				<img class="action_content_img" src="images/710px_305px_banner.png" alt="" />
+				<img class="action_content_img_over" src="images/120px_120px_over.png" alt="" />
+				<div class="action_already">已参与</div>
+				<div class="action_content_des of_h">
+					<div class="des_left">
+						店庆快来
+					</div>
+					<div class="des_right">
+						分享朋友即送100积分
+					</div>
+				</div>
+			</div>
+			
+			
+			
+			
+
+		</div>
+	</body>
+	<script src="js/mui.min.js"></script>
+	<script src="js/swiper.min.js"></script>
+	<script>
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+	</script>
+
+	<script>
+		//各个屏幕大小适配
+		(function(doc, win) {
+			var docEl = doc.documentElement,
+				resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+				recalc = function() {
+					var clientWidth = docEl.clientWidth;
+					if(!clientWidth) return;
+					docEl.style.fontSize = 100 * (clientWidth / 375) + 'px';
+				};
+
+			if(!doc.addEventListener) return;
+			win.addEventListener(resizeEvt, recalc, false);
+			doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" href="../../../css/mui.min.css">
+		<link rel="stylesheet" href="../../../css/global.css" />
+		<link rel="stylesheet" href="../../../css/index_account.css" />
+		<link rel="stylesheet" href="../../../css/swiper.min.css">
+		<link rel="stylesheet" href="../../../css/index_feedbacks_detail.css">
+		<style>
+			html,
+			body {
+				background-color: ;
+			}
+			
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<header class="mui-bar mui-bar-nav nav_header">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">意见反馈</h1>
+			</header>
+
+			<div class="chat_area">
+				<!--<span class="add_time">上午9：46</span>
+				<div class="reply_user">
+					<img class="logo_img" src="../../../images/touxiang.jpg" alt="" />
+					<span class="reply_user_content">
+						我利空释放大量进口水力发电关键费德勒看过来抗击非典快乐就
+					</span>
+				</div>
+				<span class="reply_time">下午9：45</span>
+				<div class="content">
+					<img class="thumb" src="../../../images/touxiang.jpg" alt="" />
+					<span class="content_content">
+						我利空释放大量进口水力发电关键费德勒看过来抗击非典快乐就
+					</span>
+
+				</div>-->
+			</div>
+
+			<div class="feedback_nav_bottom">
+				<input class="text_area" type="text" />
+				<button class="btn_send">发送</button>
+			</div>
+
+		</div>
+	</body>
+	<script src="../../../js/mui.min.js"></script>
+	<script src="../../../js/config/web_config.js"></script>
+	<script src="../../../js/jquery-1.11.3.js"></script>
+	<script src="../../../js/common/bdapp.js"></script>
+	<script>
+		if(navigator.userAgent.indexOf("Html5Plus") > 0) { //支持5+ API
+			mui.plusReady(function() {
+				mui.init({
+					swipeBack: true //启用右滑关闭功能
+				});
+
+				var self = plus.webview.currentWebview();
+				var logo_img = self.logo_img;
+				var content = self.content;
+				var reply_content = self.reply_content;
+				var add_time = self.add_time;
+				var reply_time = self.reply_time;
+				add_time = unix_to_datetime(add_time);
+				reply_time = unix_to_datetime(reply_time);
+				var chat_div =
+					'<span class="add_time">' + add_time + '</span>' +
+					'<div class="reply_user">' +
+					'<img class="logo_img" src="' + logo_img + '" alt="" />' +
+					'<span class="reply_user_content">' +
+					reply_content +
+					'</span>' +
+					'</div>' +
+					'<span class="reply_time">' + reply_time + '</span>' +
+					'<div class="content">' +
+					'<img class="thumb" src="' + reply_time + '" alt="" />' +
+					'<span class="content_content">' +
+					content +
+					'</span>' +
+					'</div>';
+				$('.chat_area').append(chat_div);
+
+			})
+		}
+	</script>
+	<script>
+		if(navigator.userAgent.indexOf("Html5Plus") < 0) { //不支持5+ API
+			mui.plusReady(function() {
+				mui.init({
+					swipeBack: true //启用右滑关闭功能
+				});
+
+				var logo_img = GetQueryString('logo_img');
+				var content = GetQueryString('content');
+				var reply_content = GetQueryString('reply_content');
+				var add_time = GetQueryString('add_time');
+				var reply_time = GetQueryString('reply_time');
+				add_time = unix_to_datetime(add_time);
+				reply_time = unix_to_datetime(reply_time);
+				var chat_div =
+					'<span class="add_time">' + add_time + '</span>' +
+					'<div class="reply_user">' +
+					'<img class="logo_img" src="' + logo_img + '" alt="" />' +
+					'<span class="reply_user_content">' +
+					reply_content +
+					'</span>' +
+					'</div>' +
+					'<span class="reply_time">' + reply_time + '</span>' +
+					'<div class="content">' +
+					'<img class="thumb" src="' + reply_time + '" alt="" />' +
+					'<span class="content_content">' +
+					content +
+					'</span>' +
+					'</div>';
+				$('.chat_area').append(chat_div);
+
+			})
+		}
+	</script>
+
+	<script>
+		//各个屏幕大小适配
+		(function(doc, win) {
+			var docEl = doc.documentElement,
+				resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+				recalc = function() {
+					var clientWidth = docEl.clientWidth;
+					if(!clientWidth) return;
+					docEl.style.fontSize = 100 * (clientWidth / 375) + 'px';
+				};
+
+			if(!doc.addEventListener) return;
+			win.addEventListener(resizeEvt, recalc, false);
+			doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+
+</html>

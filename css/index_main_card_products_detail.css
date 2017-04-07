@@ -1,0 +1,33 @@
+.detail_logo{
+	width: 100%;
+	display: block;
+	margin-top: 44px;
+}
+.detail_data{
+	border-top: 1px solid #eeeeee;
+	background: #fff;
+	height: 0.4rem;
+	line-height: 0.4rem;
+	color: #1c1c1c;
+	font-size: 0.15rem;
+}
+.data_left{
+	margin-left: 0.25rem;
+}
+.data_right{
+	float: right;
+	margin-right: 0.25rem;
+}
+.detail_des_title{
+	color: #1c1c1c;
+	font-size: 0.15rem;
+	line-height: 0.35rem;
+	margin-left: 0.25rem;
+	height:0.35rem;
+}
+.detail_des{
+	font-size: 0.11rem;
+	background: #fff;
+	line-height: 0.25rem;
+	padding: 0.1rem 0.22rem 0.22rem 0.22rem;
+}

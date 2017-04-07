@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" href="../../../css/mui.min.css">
+		<link rel="stylesheet" href="../../../css/global.css" />
+		<link rel="stylesheet" href="../../../css/index_main_card_detail.css" />
+		<link rel="stylesheet" href="../../../css/index_main_card_detail_points.css" />
+		<link rel="stylesheet" href="../../../css/index_main_card_detail_points_record.css" />
+		<link rel="stylesheet" href="../../../css/swiper.min.css">
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<header class="mui-bar mui-bar-nav nav_header">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">兑换记录</h1>
+			</header>
+
+			<div class="record_nav of_h">
+				<div class="record_list" id="wait">
+					<img src="../../../images/34px_34px_icon1.png" alt="" />
+					<span>等待确认</span>
+				</div>
+				<div class="record_list list_mid" id="already">
+					<img src="../../../images/34px_34px_icon2.png" alt="" />
+					<span>已确认</span>
+				</div>
+				<div class="record_list" id="cancel">
+					<img src="../../../images/34px_34px_icon3.png" alt="" />
+					<span>已取消</span>
+				</div>
+
+			</div>
+
+			<div class="record_data">
+				<!--<div class="record_data_list of_h">
+					<img class="record_data_img" src="../../../images/140px_120px_background.png" alt="" />
+					<div class="record_data_mid">
+						<div>
+							永生花钥匙扣（绒球）
+						</div>
+						<div>
+							1500积分
+						</div>
+					</div>
+					<div class="record_data_right">
+						<div>
+							2016-04-18 09:59
+						</div>
+						<div>
+							等待确认
+						</div>
+					</div>
+				</div>
+				<div class="record_data_list of_h">
+					<img class="record_data_img" src="../../../images/140px_120px_background.png" alt="" />
+					<div class="record_data_mid">
+						<div>
+							永生花钥匙扣（绒球）
+						</div>
+						<div>
+							1500积分
+						</div>
+					</div>
+					<div class="record_data_right">
+						<div>
+							2016-04-18 09:59
+						</div>
+						<div>
+							等待确认
+						</div>
+					</div>
+				</div>-->
+
+			</div>
+
+		</div>
+	</body>
+	<script src="../../../js/mui.min.js"></script>
+	<script src="../../../js/config/web_config.js"></script>
+	<script src="../../../js/jquery-1.11.3.js"></script>
+	<script src="../../../js/common/bdapp.js"></script>
+	<script>
+		if(navigator.userAgent.indexOf("Html5Plus") > 0) { //支持5+ API
+			mui.plusReady(function() {
+				mui.init({
+					swipeBack: true //启用右滑关闭功能
+				});
+
+				var self = plus.webview.currentWebview();
+				var Vip_id = self.Vip_id;
+				var token = self.token;
+				var store_id = self.store_id;
+				var member_id = self.member_id;
+				var page_num = 1;
+				var page_size = 10;
+				var type = 1;
+
+				var getexchanges_url = test_url + '/api/exchange/GetExchanges';
+
+				function GetExchanges(getexchanges_url, store_id, Vip_id, page_num, page_size, type, token, status) {
+					mui.ajax(getexchanges_url, {
+						data: {
+							store_id: store_id,
+							vip_id: Vip_id,
+							page_num: page_num,
+							page_size: page_size,
+							type: type,
+							token: token
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'get', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+
+						success: function(data) {
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							console.log('获取查看积分记录接口返回数据:' + JSON.stringify(data));
+							var Exchanges = data.Data.Exchanges;
+							if(Exchanges == '' && page_num == 1) {
+								var no_data_div =
+									'<div class="no_data">暂无数据</div>';
+								$('.record_data').append(no_data_div);
+							} else {
+								for(var i = 0; i < Exchanges.length; i++) {
+									var Items = Exchanges[i].Items;
+									var product_name = Items[0].product_name;
+									var add_time = Exchanges[i].add_time;
+									add_time = getLocalTime(add_time);
+									var useintegral = Exchanges[i].useintegral;
+									var thumb = Exchanges[i].thumb;
+									var exchange_id = Exchanges[i].exchange_id;
+									var list_div =
+										'<div class="record_data_list of_h" exchange_id="' + exchange_id + '">' +
+										'<img class="record_data_img" src="../../../images/140px_120px_background.png" alt="" />' +
+										'<div class="record_data_mid">' +
+										'<div>' +
+										product_name + '</div>' +
+										'<div>' +
+										useintegral + '积分' +
+										'</div>' +
+										'</div>' +
+										'<div class="record_data_right">' +
+										'<div>' +
+										add_time +
+										'</div>' +
+										'<div>' +
+										status + '</div>' +
+										'</div>' +
+										'</div>';
+									$('.record_data').append(list_div);
+								}
+							}
+
+							mui(".record_data").on('tap', '.record_data_list', function() {
+								var exchange_id = this.getAttribute("exchange_id");
+
+								var webview = mui.openWindow({
+									url: 'index_main_card_detail_points_detail.html',
+									extras: {
+										token: token,
+										exchange_id: exchange_id,
+										member_id: member_id
+									}
+								});
+							})
+
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							console.log(type);
+						}
+					});
+				}
+				var status = '等待确认';
+				GetExchanges(getexchanges_url, store_id, Vip_id, page_num, page_size, type, token, status);
+
+				//			等待确认
+				document.getElementById('wait').addEventListener('tap', function() {
+					type = 1;
+					$('.record_data').empty();
+					var status = '等待确认';
+					GetExchanges(getexchanges_url, store_id, Vip_id, page_num, page_size, type, token, status);
+				});
+
+				//			已确认
+				document.getElementById('already').addEventListener('tap', function() {
+					type = 2;
+					$('.record_data').empty();
+					var status = '已确认';
+					GetExchanges(getexchanges_url, store_id, Vip_id, page_num, page_size, type, token, status);
+
+				});
+
+				//			已取消
+				document.getElementById('cancel').addEventListener('tap', function() {
+					type = 4;
+					$('.record_data').empty();
+					var status = '已取消';
+					GetExchanges(getexchanges_url, store_id, Vip_id, page_num, page_size, type, token, status);
+
+				});
+
+			})
+
+		}
+	</script>
+	<script>
+		if(navigator.userAgent.indexOf("Html5Plus") < 0) { //不支持5+ API
+			var Vip_id = GetQueryString('Vip_id');
+			var token = GetQueryString('token');
+
+			var store_id = GetQueryString('store_id');
+			var member_id = GetQueryString('member_id');
+			var page_num = 1;
+			var page_size = 10;
+			var type = 1;
+
+			var getexchanges_url = test_url + '/api/exchange/GetExchanges';
+
+			function GetExchanges(getexchanges_url, store_id, Vip_id, page_num, page_size, type, token, status) {
+				mui.ajax(getexchanges_url, {
+					data: {
+						store_id: store_id,
+						vip_id: Vip_id,
+						page_num: page_num,
+						page_size: page_size,
+						type: type,
+						token: token
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'get', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+
+					success: function(data) {
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+						console.log(data);
+//						console.log('获取查看积分记录接口返回数据:' + JSON.stringify(data));
+						var Exchanges = data.Data.Exchanges;
+						if(Exchanges == '' && page_num == 1) {
+							var no_data_div =
+								'<div class="no_data">暂无数据</div>';
+							$('.record_data').append(no_data_div);
+						} else {
+							for(var i = 0; i < Exchanges.length; i++) {
+								var Items = Exchanges[i].Items;
+								var product_name = Items[0].product_name;
+								var thumb = Items[0].thumb;
+								var add_time = Exchanges[i].add_time;
+								add_time = getNowFormatDate(add_time);
+								
+								var useintegral = Exchanges[i].useintegral;
+//								var thumb = Exchanges[i].thumb;
+								var exchange_id = Exchanges[i].exchange_id;
+								var list_div =
+									'<div class="record_data_list of_h" exchange_id="' + exchange_id + '">' +
+									'<img class="record_data_img" src="'+thumb+'" alt="" />' +
+									'<div class="record_data_mid">' +
+									'<div>' +
+									product_name + '</div>' +
+									'<div>' +
+									useintegral + '积分' +
+									'</div>' +
+									'</div>' +
+									'<div class="record_data_right">' +
+									'<div>' +
+									add_time +
+									'</div>' +
+									'<div>' +
+									status + '</div>' +
+									'</div>' +
+									'</div>';
+								$('.record_data').append(list_div);
+							}
+						}
+
+						mui(".record_data").on('tap', '.record_data_list', function() {
+							var exchange_id = this.getAttribute("exchange_id");
+
+							//							var webview = mui.openWindow({
+							//								url: 'index_main_card_detail_points_detail.html',
+							//								extras: {
+							//									token: token,
+							//									exchange_id: exchange_id,
+							//									member_id: member_id
+							//								}
+							//							});
+							window.location.href = 'index_main_card_detail_points_detail.html?token=' + token + '&exchange_id=' + exchange_id + '&member_id=' + member_id;
+
+						})
+
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						console.log(type);
+					}
+				});
+			}
+
+			var status = '等待确认';
+			GetExchanges(getexchanges_url, store_id, Vip_id, page_num, page_size, type, token, status);
+
+			//			等待确认
+			document.getElementById('wait').addEventListener('tap', function() {
+				type = 1;
+				$('.record_data').empty();
+				var status = '等待确认';
+				GetExchanges(getexchanges_url, store_id, Vip_id, page_num, page_size, type, token, status);
+			});
+
+			//			已确认
+			document.getElementById('already').addEventListener('tap', function() {
+				type = 2;
+				$('.record_data').empty();
+				var status = '已确认';
+				GetExchanges(getexchanges_url, store_id, Vip_id, page_num, page_size, type, token, status);
+
+			});
+
+			//			已取消
+			document.getElementById('cancel').addEventListener('tap', function() {
+				type = 4;
+				$('.record_data').empty();
+				var status = '已取消';
+				GetExchanges(getexchanges_url, store_id, Vip_id, page_num, page_size, type, token, status);
+
+			});
+
+		}
+	</script>
+
+	<script>
+		//各个屏幕大小适配
+		(function(doc, win) {
+			var docEl = doc.documentElement,
+				resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+				recalc = function() {
+					var clientWidth = docEl.clientWidth;
+					if(!clientWidth) return;
+					docEl.style.fontSize = 100 * (clientWidth / 375) + 'px';
+				};
+
+			if(!doc.addEventListener) return;
+			win.addEventListener(resizeEvt, recalc, false);
+			doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+
+</html>

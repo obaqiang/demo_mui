@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" href="../../../css/mui.min.css">
+		<link rel="stylesheet" href="../../../css/global.css" />
+		<link rel="stylesheet" href="../../../css/index_main_card_package_detail.css" />
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<header class="mui-bar mui-bar-nav nav_header">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">储值套餐详情</h1>
+				<img class="nav_icon_right" src="../../../images/56px_42px_fff.png" alt="" />
+			</header>
+			
+			<ul class="nav_ul" style="display: none;">
+				<li>买赠</li>
+				<li>计时</li>
+				<li>储值</li>
+				<li>全部</li>
+			</ul>
+			
+			<div class="detail_a detail_head">
+				<span class='detail_a_name'>套餐类型</span>
+				<span class="detail_a_content">储值套餐</span>
+			</div>
+			<div class="detail_a">
+				<span class='detail_a_name'>套餐名称</span>
+				<span class="detail_a_content">双十一新套餐</span>
+			</div>
+			<div class="detail_a">
+				<span class='detail_a_name'>产品积分</span>
+				<span class="detail_a_content">11积分</span>
+			</div>
+			<div class="detail_a">
+				<span class='detail_a_name'>产品价格</span>
+				<span class="detail_a_content">500元/件</span>
+			</div>
+			
+			<div class="detail_b">
+				储值金额
+			</div>
+			
+			<div class="detail_c">
+				<span class="a">充</span>
+				<span class="b">500</span>
+				<span class="c">元</span>
+				<span class="a">送</span>
+				<span class="b">0</span>
+				<span class="c">元</span>
+				<div class="detail_c_right">
+					<span class="d">折扣</span>
+					<span class="e">10.0</span>	
+				</div>
+				
+			</div>
+			
+			<div class="detail_b">
+				储值项目
+			</div>
+			<div class="detail_d">
+				<div class="detail_d_left">
+					<div class="left_a">
+					shatg 盛大离开家第三方 
+					</div>
+					<div class="left_b">
+						488元/个
+					</div>	
+				</div>
+				<div class="detail_d_right">
+					<span class="right_a">折扣</span>
+					<span class="right_b">8.0</span>
+				</div>
+				
+				
+			</div>
+			
+			
+			<div class="detail_e">
+			</div>
+			<div class="detail_f">
+				<span class="detail_f_left">充值数量</span>
+				<div class="detail_f_right"> 
+					<span class="right_min">-</span>
+					<span class="right_num">2</span>
+					<span class="right_plus">+</span>
+				</div>
+			</div>
+			
+			<div class="nav_bottom">
+				确认订单
+			</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+
+		</div>
+	</body>
+	<script src="../../../js/mui.min.js"></script>
+	<script src="../../../js/config/web_config.js"></script>
+	<script src="../../../js/jquery-1.11.3.js"></script>
+	<script>
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+
+		mui.plusReady(function() {
+
+		})
+	</script>
+	<script>
+		//各个屏幕大小适配
+		(function(doc, win) {
+			var docEl = doc.documentElement,
+				resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+				recalc = function() {
+					var clientWidth = docEl.clientWidth;
+					if(!clientWidth) return;
+					docEl.style.fontSize = 100 * (clientWidth / 375) + 'px';
+				};
+
+			if(!doc.addEventListener) return;
+			win.addEventListener(resizeEvt, recalc, false);
+			doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+
+</html>

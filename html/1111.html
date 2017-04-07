@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<script>
+			var s = '我1234567890',
+				reg = /.{3}/g,
+				rs = s.match(reg);
+			rs.push(s.substring(rs.join('').length));
+			console.log(typeof(rs));
+			console.log(rs[0]);
+			console.log(rs[1]);
+			console.log(rs)
+			console.log(rs.length);
+			console.log(rs[rs.length-1]);
+			
+			
+			
+		</script>
+		
+	</body>
+
+</html>

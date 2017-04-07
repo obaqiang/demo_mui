@@ -1,0 +1,50 @@
+.prize_list{
+	margin-top: 44px;
+}
+.prize_list_right_body{
+	color: #aaaaaa !important;
+}
+.prize_list_right_head{
+	border: 1px solid #ffbe60;
+	border-radius: 0.05rem;
+	display: inline-block;
+	line-height: 0.2rem !important;
+	color: #fb7115;	
+	margin-top: 0.05rem;
+	padding-left: 0.05rem;
+	padding-right: 0.05rem;
+}
+.prize_list_left_head{
+	color: #000000;
+	/*background: #fffaef;*/
+}
+.qrcode{
+	display: inline-block;
+	background: #fff;
+	position: fixed;
+	top: 1rem;
+	left: 5%;
+	width: 90%;
+	height: 4rem;
+	text-align: center;
+	border-radius: 0.1rem;
+	padding-top: 5%;
+	z-index: 10;
+}
+.qrcode img{
+	margin: auto;
+}
+.qrcode span{
+	display: inline-block;
+	font-size:0.2rem;
+	margin-bottom: 0.2rem;
+}
+.mask{
+	width: 100%;
+	height:100%;
+	background: #000000;
+	opacity: 0.2;
+	position: absolute;
+	z-index: 9;
+	top: 0;
+}

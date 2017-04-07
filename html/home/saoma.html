@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link rel="stylesheet" href="../../css/index_main.css" />
+		<link rel="stylesheet" href="../../css/index_main_card.css" />
+		<link rel="stylesheet" href="../../css/index_main_message.css" />
+		<link rel="stylesheet" href="../../css/index_main_mine.css" />
+		<link rel="stylesheet" href="../../css/index_main_setting.css" />
+		<link rel="stylesheet" href="../../css/global.css" />
+		<link rel="stylesheet" href="../../css/saoma.css" />
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+		</style>
+		<script type="text/javascript" src="../../js/jquery-1.11.3.js"></script>
+		<script>
+			// 扩展API加载完毕后调用onPlusReady回调函数 
+			document.addEventListener("plusready", onPlusReady, false);
+			// 扩展API加载完毕，现在可以正常调用扩展API
+			function onPlusReady() {
+				var e = document.getElementById("scan");
+				e.removeAttribute("disabled");
+				//startRecognize();
+				//startScan();
+			}
+			var scan = null;
+
+			function onmarked(type, result) {
+				var text = '未知: ';
+				switch(type) {
+					case plus.barcode.QR:
+						text = 'QR: ';
+						break;
+					case plus.barcode.EAN13:
+						text = 'EAN13: ';
+						break;
+					case plus.barcode.EAN8:
+						text = 'EAN8: ';
+						break;
+				}
+				alert(text + result);
+				embed = plus.webview.create(result, "", {
+					top: "44px",
+					bottom: "0px"
+				});
+				plus.webview.currentWebview().append(embed);
+				$("#cl").show();
+			}
+
+			function startRecognize() {
+				scan = new plus.barcode.Barcode('bcid');
+				scan.onmarked = onmarked;
+			}
+
+			function startScan() {
+				scan.start();
+			}
+
+			function cancelScan() {
+				scan.cancel();
+			}
+
+			function setcc() {
+				scan.setFlash(true);
+			}
+
+			function closcc() {
+				scan.setFlash(false);
+			}
+
+			function back() {
+				alert(11);
+			}
+		</script>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<header class="mui-bar mui-bar-nav nav_header">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">扫描二维码</h1>
+			</header>
+
+			<div id="bcid">
+				<div id="scan"></div>
+			</div>
+		</div>
+
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/config/web_config.js"></script>
+		<script src="../../js/plugin/qrcode.js"></script>
+		<script src="../../js/common/bdapp.js"></script>
+		<!--<script src="../../js/common/bd_port.js"></script>-->
+		<script type="text/javascript" charset="utf-8">
+			mui.plusReady(function() {
+				startRecognize();
+				startScan();
+			})
+		</script>
+	</body>
+	<script>
+		//各个屏幕大小适配
+		(function(doc, win) {
+			var docEl = doc.documentElement,
+				resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+				recalc = function() {
+					var clientWidth = docEl.clientWidth;
+					if(!clientWidth) return;
+					docEl.style.fontSize = 100 * (clientWidth / 375) + 'px';
+				};
+
+			if(!doc.addEventListener) return;
+			win.addEventListener(resizeEvt, recalc, false);
+			doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+
+</html>

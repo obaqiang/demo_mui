@@ -1,0 +1,49 @@
+.list_area{
+	margin-top: 40px;
+	border-bottom: 1px solid #c8c7cc;
+}
+.list_info{
+	padding-top: 0.1rem;
+	padding-bottom: 0.1rem;
+	border-bottom: 1px solid #c8c7cc;
+	margin-left: 3%;
+}
+.list_info_last{
+	padding-top: 0.1rem;
+	padding-bottom: 0.1rem;
+	margin-left: 3%;
+}
+.list_info_img{
+	width: 0.19rem;
+	position: relative;
+	top: 0.04rem;
+}
+
+.list_info_title{
+	color: #1c1c1c;
+	display: inline-block;
+	margin-left: 4%;
+	font-size: 0.14rem;
+}
+.list_info_name{
+	color: #aaaaaa;
+	display: inline-block;
+	margin-left: 4%;
+	font-size: 0.14rem;
+}
+.list_info_content{
+	width: 85%;
+	color: #aaaaaa;
+	margin-top: 0.18rem;
+	font-size: 0.14rem;
+	line-height: 0.2rem;
+}
+.list_info_see{
+	padding-top: 0.1rem;
+}
+.list_info_see img{
+	width: 1.4rem;
+	height:1rem !important;
+	margin-left: 0.1rem;
+	border-radius: 0.05rem;
+}

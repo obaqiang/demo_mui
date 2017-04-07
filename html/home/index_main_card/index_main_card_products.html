@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" href="../../../css/mui.min.css">
+		<link rel="stylesheet" href="../../../css/global.css" />
+		<link rel="stylesheet" href="../../../css/index_main_card_products.css" />
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<header class="mui-bar mui-bar-nav nav_header">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title" id="back">所有商品</h1>
+			</header>
+			<div class="products_search">
+				<div class="search_area">
+					<img src="../../../images/26px_26px_search.png" alt="" />
+					<input id="search" type="text" name="" id="" value="" placeholder="搜索产品" />
+				</div>
+				<img id="search_img" class="search_img" src="../../../images/56px_42px_fenlei.png" alt="" />
+
+			</div>
+			<ul class="search_choose" style="display: none;">
+				<!--<li class="li_active">移动硬盘</li>
+				<li>显示器</li>
+				<li>电源</li>
+				<li>固态硬盘</li>-->
+			</ul>
+
+			<div class="products_list">
+				<!--<div class="list_head">
+					移动硬盘
+				</div>
+				<div class="list_body">
+					<img class="list_img" src="../../../images/164px_164px_chanpin.png" alt="" />
+					<span class="list_name">西部数据大数据库里富华大厦接口华盛顿佛挡杀佛是</span>
+					<span class="list_prize">1499.00元/件</span>
+					<img class="list_icon" src="../../../images/16px_26px_V.png" alt="" />
+				</div>
+				<div class="list_body">
+					<img class="list_img" src="../../../images/164px_164px_chanpin.png" alt="" />
+					<span class="list_name">西部数据大数据库里富华大厦接口华盛顿佛挡杀佛是</span>
+					<span class="list_prize">1499.00元/件</span>
+					<img class="list_icon" src="../../../images/16px_26px_V.png" alt="" />
+				</div>
+
+				<div class="list_head">
+					移动硬盘
+				</div>
+				<div class="list_body">
+					<img class="list_img" src="../../../images/164px_164px_chanpin.png" alt="" />
+					<span class="list_name">西部数据大数据库里富华大厦接口华盛顿佛挡杀佛是</span>
+					<span class="list_prize">1499.00元/件</span>
+					<img class="list_icon" src="../../../images/16px_26px_V.png" alt="" />
+				</div>
+				<div class="list_body">
+					<img class="list_img" src="../../../images/164px_164px_chanpin.png" alt="" />
+					<span class="list_name">西部数据大数据库里富华大厦接口华盛顿佛挡杀佛是</span>
+					<span class="list_prize">1499.00元/件</span>
+					<img class="list_icon" src="../../../images/16px_26px_V.png" alt="" />
+				</div>-->
+
+			</div>
+
+		</div>
+	</body>
+	<script src="../../../js/mui.min.js"></script>
+	<script src="../../../js/config/web_config.js"></script>
+	<script src="../../../js/jquery-1.11.3.js"></script>
+	<script src="../../../js/common/bdapp.js"></script>
+	<script>
+		if(navigator.userAgent.indexOf("Html5Plus") > 0) { //支持5+ API
+			mui.plusReady(function() {
+				mui.init({
+					swipeBack: true //启用右滑关闭功能
+				});
+
+				function products_pinjie(data) {
+					$('.products_list').empty();
+
+					var store_id = data.Data.store_id;
+					var ClassList = data.Data.ClassList;
+					if(!ClassList) {
+						return;
+					}
+					for(var i = 0; i < ClassList.length; i++) {
+						var class_name = ClassList[i].class_name;
+						var GoodsList = ClassList[i].GoodsList;
+						var products_list_div = '<div class="list_head">' + class_name + '</div>';
+						for(var j = 0; j < GoodsList.length; j++) {
+							var thumb = GoodsList[j].thumb;
+							if(thumb == '') {
+								thumb = '../../../images/164px_164px_chanpin_xing.png';
+							}
+							var goods_name = GoodsList[j].goods_name;
+							var goods_desc = GoodsList[j].goods_desc;
+							var goods_price = GoodsList[j].goods_price;
+							var unit_name = GoodsList[j].unit_name;
+							var prize = goods_price + '元/' + unit_name;
+							products_list_div += '<div class="list_body" goods_name="' + goods_name + '">' +
+								'<img class="list_img" src="' + thumb + '" alt="" />' +
+								'<span class="list_name">' + goods_desc + '</span>' +
+								'<span class="list_prize">' + prize + '</span>' +
+								'<img class="list_icon" src="../../../images/16px_26px_V.png" alt="" />' +
+								'</div>';
+						};
+						$('.products_list').append(products_list_div);
+
+						var search_choose_li =
+							'<li>' + ClassList[i].class_name + '</li>';
+						$('.search_choose').append(search_choose_li);
+
+					};
+				}
+
+				mui(".products_list").on('tap', '.list_body', function() {
+					var goods_name = $(this).attr('goods_name');
+					var thumb = $(this).children('img').attr('src');
+					var prize = $(this).children('list_prize').text();
+					var goods_desc = $(this).children('.list_name').text();
+					var webview = mui.openWindow({
+						url: 'index_main_card_products_detail.html',
+						extras: {
+							goods_name: goods_name,
+							thumb: thumb,
+							prize: prize,
+							goods_desc: goods_desc
+						}
+					});
+
+				})
+
+				var getallgoodsclient_url = test_url + '/api/goods/GetAllGoodsClient';
+				var self = plus.webview.currentWebview();
+				var token = self.token;
+				var store_id = self.store_id;
+
+				//			获取所有商品接口
+				function GetAllGoodsClient(getallgoodsclient_url, store_id, token) {
+					mui.ajax(getallgoodsclient_url, {
+						data: {
+							store_id: store_id,
+							token: token
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'get', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							console.log('获取所有商品接口接口返回数据:' + JSON.stringify(data));
+							products_pinjie(data);
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							console.log(type);
+							Alert('网络异常，请重试');
+						}
+					});
+
+				};
+				GetAllGoodsClient(getallgoodsclient_url, store_id, token);
+
+				var getgoods_url = test_url + '/api/goods/GetGoods';
+
+				//			搜索接口
+				function GetGoods(getgoods_url, store_id, goods_name, token) {
+					mui.ajax(getgoods_url, {
+						data: {
+							store_id: store_id,
+							goods_name: goods_name,
+							token: token
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'get', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							console.log('获取商品页面搜索接口返回数据:' + JSON.stringify(data));
+							products_pinjie(data);
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							console.log(type);
+							Alert('网络异常，请重试');
+						}
+					});
+				}
+
+				$('#search').change(function() {
+					var goods_name = $('#search').val();
+					if(goods_name == '') {
+						GetAllGoodsClient(getallgoodsclient_url, store_id, token);
+					} else {
+						console.log(getgoods_url + '?store_id=' + store_id + '&goods_name=' + goods_name + '&token=' + token);
+						GetGoods(getgoods_url, store_id, goods_name, token);
+					}
+
+				});
+
+				//			document.getElementById('back').addEventListener('tap', function() {
+				//				alert(11);
+				//				history.go(-1);
+				//			})
+
+				document.getElementById('search_img').addEventListener('tap', function() {
+					if($('.search_choose').is(':visible') == true) {
+						$('.search_choose').hide();
+					} else {
+						$('.search_choose').show();
+
+					}
+				})
+
+				mui(".search_choose").on('tap', 'li', function() {
+					var goods_name = $(this).text();
+					console.log(goods_name);
+					$('.search_choose li').removeClass('li_active');
+					$(this).addClass('li_active');
+					GetGoods(getgoods_url, store_id, goods_name, token);
+					$('.search_choose').hide();
+
+				})
+
+				mui(".products_list").on('tap', '.list_body', function() {
+					var goods_name = $(this).attr('goods_name');
+					var thumb = $(this).children('img').attr('src');
+					var prize = $(this).children('list_prize').text();
+					var goods_desc = $(this).children('.list_name').text();
+					var webview = mui.openWindow({
+						url: 'index_main_card_products_detail.html',
+						extras: {
+							goods_name: goods_name,
+							thumb: thumb,
+							prize: prize,
+							goods_desc: goods_desc
+						}
+					});
+
+				})
+
+			})
+		}
+	</script>
+	<script>
+		if(navigator.userAgent.indexOf("Html5Plus") < 0) { //不支持5+ API
+			function products_pinjie(data) {
+				$('.products_list').empty();
+
+				var store_id = data.Data.store_id;
+				var ClassList = data.Data.ClassList;
+				if(!ClassList) {
+					return;
+				}
+				for(var i = 0; i < ClassList.length; i++) {
+					var class_name = ClassList[i].class_name;
+					console.log(class_name);
+					var GoodsList = ClassList[i].GoodsList;
+					var products_list_div = '<div class="list_head">' + class_name + '</div>';
+					for(var j = 0; j < GoodsList.length; j++) {
+						var thumb = GoodsList[j].thumb;
+						if(thumb == '') {
+							thumb = '../../../images/164px_164px_chanpin_xing.png';
+						}
+						var goods_name = GoodsList[j].goods_name;
+						var goods_desc = GoodsList[j].goods_desc;
+						var goods_price = GoodsList[j].goods_price;
+						var unit_name = GoodsList[j].unit_name;
+						var prize = goods_price + '元/' + unit_name;
+						products_list_div += '<div class="list_body" goods_name="' + goods_name + '">' +
+							'<img class="list_img" src="' + thumb + '" alt="" />' +
+							'<span class="list_name">' + goods_name + '</span>' +
+							'<span class="list_prize">' + prize + '</span>' +
+							'<img class="list_icon" src="../../../images/16px_26px_V.png" alt="" />' +
+							'</div>';
+					};
+					$('.products_list').append(products_list_div);
+
+					var search_choose_li =
+						'<li>' + ClassList[i].class_name + '</li>';
+					$('.search_choose').append(search_choose_li);
+
+				};
+			}
+			mui(".products_list").on('tap', '.list_body', function() {
+				var goods_name = $(this).attr('goods_name');
+				var thumb = $(this).children('img').attr('src');
+				var prize = $(this).children('.list_prize').text();
+				var goods_desc = $(this).children('.list_name').text();
+				goods_name = encodeURI(goods_name);
+				prize = encodeURI(prize);
+				
+				goods_desc = encodeURI(goods_desc);
+				window.location.href = 'index_main_card_products_detail.html?goods_name=' + goods_name + '&thumb=' + thumb + '&prize=' + prize + '&goods_desc=' + goods_desc;
+
+			})
+			var getallgoodsclient_url = test_url + '/api/goods/GetAllGoodsClient';
+			var token = GetQueryString('token');
+			var store_id = GetQueryString('store_id');
+
+			//			获取所有商品接口
+			function GetAllGoodsClient(getallgoodsclient_url, store_id, token) {
+				mui.ajax(getallgoodsclient_url, {
+					data: {
+						store_id: store_id,
+						token: token
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'get', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+//						console.log('获取所有商品接口接口返回数据:' + JSON.stringify(data));
+ 						console.log(data);
+						products_pinjie(data);
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						console.log(type);
+						Alert('网络异常，请重试');
+					}
+				});
+
+			};
+			GetAllGoodsClient(getallgoodsclient_url, store_id, token);
+
+			var getgoods_url = test_url + '/api/goods/GetGoods';
+
+			//			搜索接口
+			function GetGoods(getgoods_url, store_id, goods_name, token) {
+				mui.ajax(getgoods_url, {
+					data: {
+						store_id: store_id,
+						goods_name: goods_name,
+						token: token
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'get', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+//						console.log('获取商品页面搜索接口返回数据:' + JSON.stringify(data));
+						products_pinjie(data);
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						console.log(type);
+						Alert('网络异常，请重试');
+					}
+				});
+			}
+
+			$('#search').change(function() {
+				var goods_name = $('#search').val();
+				if(goods_name == '') {
+					GetAllGoodsClient(getallgoodsclient_url, store_id, token);
+				} else {
+					console.log(getgoods_url + '?store_id=' + store_id + '&goods_name=' + goods_name + '&token=' + token);
+					GetGoods(getgoods_url, store_id, goods_name, token);
+				}
+
+			});
+
+			//			document.getElementById('back').addEventListener('tap', function() {
+			//				alert(11);
+			//				history.go(-1);
+			//			})
+
+			document.getElementById('search_img').addEventListener('tap', function() {
+				if($('.search_choose').is(':visible') == true) {
+					$('.search_choose').hide();
+				} else {
+					$('.search_choose').show();
+
+				}
+			})
+
+			mui(".search_choose").on('tap', 'li', function() {
+				var goods_name = $(this).text();
+				console.log(goods_name);
+				$('.search_choose li').removeClass('li_active');
+				$(this).addClass('li_active');
+				GetGoods(getgoods_url, store_id, goods_name, token);
+				$('.search_choose').hide();
+
+			})
+
+
+		}
+	</script>
+
+	<script>
+		//各个屏幕大小适配
+		(function(doc, win) {
+			var docEl = doc.documentElement,
+				resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+				recalc = function() {
+					var clientWidth = docEl.clientWidth;
+					if(!clientWidth) return;
+					docEl.style.fontSize = 100 * (clientWidth / 375) + 'px';
+				};
+
+			if(!doc.addEventListener) return;
+			win.addEventListener(resizeEvt, recalc, false);
+			doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+
+</html>

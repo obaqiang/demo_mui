@@ -1,0 +1,24 @@
+.list{
+	background: #fff;
+	border-bottom: 1px solid #dddddd;
+	font-size: 0.15rem;
+	line-height: 0.4rem;
+	overflow: hidden;
+}
+.list span{
+	margin-left: 0.2rem;
+	display: inline-block;
+	float: left;
+	width: 1rem;
+}
+.list input{
+	
+	width: 65%;
+	display: inline-block;
+	border: none;
+	float: left;
+	height: 0.4rem;
+	background: none;
+	font-size: 0.15rem;
+	margin-bottom: 0;
+}

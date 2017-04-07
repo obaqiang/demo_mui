@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="format-detection" content="telephone=no">
+		<title></title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/style.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/icons-extra.css" />
+		<link rel="stylesheet" href="../../css/login.css" />
+		<link rel="stylesheet" href="../../css/global.css" />
+		<link rel="stylesheet" href="../../css/login_register.css" />
+		<style>
+			.area {
+				margin: 20px auto 0px auto;
+			}
+			
+			.mui-input-group {
+				margin-top: 10px;
+			}
+			
+			.mui-input-group:first-child {
+				margin-top: 20px;
+			}
+			
+			.mui-input-group label {
+				width: 22%;
+			}
+			
+			.mui-input-row label~input,
+			.mui-input-row label~select,
+			.mui-input-row label~textarea {
+				width: 78%;
+			}
+			
+			.mui-checkbox input[type=checkbox],
+			.mui-radio input[type=radio] {
+				top: 6px;
+			}
+			
+			.mui-content-padded {
+				margin-top: 25px;
+			}
+			
+			.mui-btn {
+				padding: 10px;
+			}
+			
+			.link-area {
+				display: block;
+				margin-top: 25px;
+				text-align: center;
+			}
+			
+			.spliter {
+				color: #bbb;
+				padding: 0px 8px;
+			}
+			
+			.oauth-area {
+				position: absolute;
+				bottom: 20px;
+				left: 0px;
+				text-align: center;
+				width: 100%;
+				padding: 0px;
+				margin: 0px;
+			}
+			
+			.oauth-area .oauth-btn {
+				display: inline-block;
+				width: 50px;
+				height: 50px;
+				background-size: 30px 30px;
+				background-position: center center;
+				background-repeat: no-repeat;
+				margin: 0px 20px;
+				/*-webkit-filter: grayscale(100%); */
+				border: solid 1px #ddd;
+				border-radius: 25px;
+			}
+			
+			.oauth-area .oauth-btn:active {
+				border: solid 1px #aaa;
+			}
+			
+			.oauth-area .oauth-btn.disabled {
+				background-color: #ddd;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav nav_header">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">会员注册</h1>
+		</header>
+
+		<div class="mui-content bg_register">
+
+			<img style="width: 100%;" src="../../images/750px_374px_background.png" alt="" />
+			<span class="register_title">让你到哪都是VIP</span>
+			<span class="register_ex">存在手机里的会员卡</span>
+
+			<div class="register_content">
+				<div class="content_name">
+					<img class="name_img" src="../../images/36px_50px_icon1.png" alt="" />
+					<input type="text" class="name_in" id="content_name" placeholder="姓名" />
+				</div>
+				<div class="content_tel">
+					<img class="name_img" src="../../images/36px_50px_icon2.png" alt="" />
+					<input type="text" class="name_in" id="content_tel" placeholder="手机号码" />
+				</div>
+				<div class="content_ver">
+					<img class="name_img" src="../../images/36px_50px_icon3.png" alt="" />
+					<input type="text" class="name_in" id="content_ver" placeholder="短信验证码" />
+					<button class="mui-btn-danger btn_ver" id="btn_ver">
+						验证码
+					</button>
+				</div>
+
+			</div>
+
+			<div class="btn_reg" id="btn_reg">
+				注册
+			</div>
+
+		</div>
+		<script src="../../js/config/web_config.js"></script>
+		<script src="../../js/mui.js"></script>
+		<script src="../../js/mui.jsonp.js"></script>
+		<script src="../../js/mui.enterfocus.js"></script>
+		<script src="../../js/app.js"></script>
+		<script src="../../js/jquery-1.11.3.js"></script>
+		<script src="../../js/common/bdapp.js"></script>
+		<script src="../../js/config/web_config.js"></script>
+		<!--<script src="../../js/no_h5_plus/login.js"></script>-->
+		<script>
+			(function($, doc) {
+
+				$.init({
+					statusBarBackground: '#f7f7f7'
+				});
+			}(mui, document));
+		</script>
+		<script>
+			var content_name_status = false;
+			var content_tel_status = false;
+			var content_ver_status = false;
+
+			$('input').blur(function() {
+				if($(this).is('#content_tel')) {
+					if(!(/^1[34578]\d{9}$/.test(this.value))) {
+						var errorMsg = '手机号码错误';
+						Alert(errorMsg);
+						content_tel_status = false;
+					} else {
+						Alert('手机号输入正确');
+						content_tel_status = true;
+					}
+				} else if($(this).is('#content_name')) {
+					if(this.value == "") {
+						var errorMsg = '姓名不能为空';
+						Alert(errorMsg);
+						content_name_status = false;
+					} else {
+						Alert('姓名输入正确');
+						content_name_status = true;
+					}
+				} else if($(this).is('#content_ver')) {
+					if(this.value == "") {
+						var errorMsg = '验证码不能为空';
+						Alert(errorMsg);
+						content_ver_status = false;
+					} else {
+						content_ver_status = true;
+					}
+				}
+
+			});
+
+			var username;
+			var phone;
+			var storeid = GetQueryString('store_id');
+			var VerifyCode;
+			//			注册
+			var register_url = test_url + '/api/member/Register';
+
+			function Register(register_url, username, phone, storeid, VerifyCode) {
+				mui.ajax(register_url, {
+					data: {
+						username: username,
+						phone: phone,
+						storeid: storeid,
+						VerifyCode: VerifyCode
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+						console.log(data);
+						if(data.Data.IsError == false) {
+							Alert('开卡成功');
+							window.location.href = 'login.html?storeid='+storeid;
+						} else {
+							var ErrorMessage = data.Data.ErrorMessage;
+							Alert(ErrorMessage);
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						console.log(type);
+					}
+				});
+			}
+
+			var VerifyCodeType = 0; //（类型：0 注册页面  1 完善信息页面）
+			//			获取验证码
+			var vercodereg_url = test_url + '/api/member/VerCodeReg';
+
+			function VerCodeReg(vercodereg_url, phone, VerifyCodeType) {
+				mui.ajax(vercodereg_url, {
+					data: {
+						phone: phone,
+						VerifyCodeType: VerifyCodeType
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+						console.log(data);
+						if(data.IsError == false) {
+							Alert('验证码已发送');
+						} else {
+							Alert('信息填写有误');
+						}
+
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						Alert('信息填写有误');
+						console.log(type);
+					}
+				});
+			}
+
+			//			点击按钮验证码事件
+			$('#btn_ver').click(function() {
+				if(content_name_status == true && content_tel_status == true) {
+					phone = $('#content_tel').val();
+
+					VerCodeReg(vercodereg_url, phone, VerifyCodeType);
+				} else {
+					Alert('信息填写有误');
+				}
+
+			})
+
+			//			点击按钮注册事件
+			$('#btn_reg').click(function() {
+				if(content_name_status == true && content_tel_status == true) {
+					username = $('#content_name').val();
+					phone = $('#content_tel').val();
+					VerifyCode = $('#content_ver').val();
+					console.log(VerifyCode);
+					Register(register_url, username, phone, storeid, VerifyCode);
+				} else {
+					Alert('信息填写有误');
+				}
+			})
+		</script>
+
+		<script>
+			//各个屏幕大小适配
+			(function(doc, win) {
+				var docEl = doc.documentElement,
+					resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+					recalc = function() {
+						var clientWidth = docEl.clientWidth;
+						if(!clientWidth) return;
+						docEl.style.fontSize = 100 * (clientWidth / 375) + 'px';
+					};
+
+				if(!doc.addEventListener) return;
+				win.addEventListener(resizeEvt, recalc, false);
+				doc.addEventListener('DOMContentLoaded', recalc, false);
+			})(document, window);
+		</script>
+	</body>
+
+</html>

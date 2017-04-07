@@ -1,0 +1,23 @@
+.packets_head{
+	margin-top: 44px;
+	text-align: center;
+	line-height: 0.4rem;
+}
+.packets_head span{
+	color: #666666;
+	font-size: 0.14rem;
+}
+.head_num{
+	color: #CB2920  !important;
+	font-size: 0.19rem !important;
+}
+.packets_right{
+	float: right;
+	margin-right: 0.2rem;
+}
+.bill_table td{
+	line-height: 0.2rem;
+}
+.bill_table th{
+	width: 33%;
+}

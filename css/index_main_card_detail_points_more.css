@@ -1,0 +1,28 @@
+.points_more_body{
+	margin-top: 44px;
+}
+.points_more_list{
+	margin-left: 0.11rem;
+	border-bottom: 1px solid #c8c8c8;
+	background: #fff;
+	padding-right: 0.11rem;
+}
+.more_list_left{
+	float: left;
+	font-size: 0.13rem;
+	line-height: 0.6rem;
+	color: #CB2920;
+}
+.more_list_right{
+	float: right;
+}
+.more_list_right div:nth-child(1){
+	font-size: 0.12rem;
+	color: #1c1c1c;
+	line-height: 0.3rem;
+}
+.more_list_right div:nth-child(2){
+	font-size: 0.11rem;
+	color: #aaaaaa;
+	line-height: 0.2rem;
+}

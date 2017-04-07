@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>个人信息</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" href="../../../css/mui.min.css">
+		<link rel="stylesheet" href="../../../css/index_main_mine_personal.css" />
+		<link rel="stylesheet" href="../../../css/global.css">
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav mine_personal_header">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">修改昵称</h1>
+		</header>
+		<div class="mui-content">
+			<input id="name" type="text" value="???" />
+			<div class="change_msg">限1-16个字符，一个汉子为2哥字符</div>
+		</div>
+		<div class="nav_bottom" id="btn_sure">
+			确定
+		</div>
+
+	</body>
+	<script src="../../../js/mui.min.js"></script>
+	<script src="../../../js/config/web_config.js"></script>
+	<script src="../../../js/jquery-1.11.3.js"></script>
+	<script src="../../../js/common/bdapp.js"></script>
+	<script src="../../../js/plugin/qrcode.js"></script>
+	<script>
+		if(navigator.userAgent.indexOf("Html5Plus") > 0) { //支持5+ API
+			mui.plusReady(function() {
+				mui.init({
+					swipeBack: true //启用右滑关闭功能
+				});
+				var self = plus.webview.currentWebview();
+				var token = self.token;
+				var member_id = self.member_id;
+				var phone = self.phone;
+				var name = self.name;
+				$('#name').val(name);
+				console.log(token);
+				var changename_url = test_url + '/api/member/ChangeName';
+
+				function ChangeName(changename_url, member_id, name, token) {
+					mui.ajax(changename_url, {
+						data: {
+							member_id: member_id,
+							name: name,
+							token: token
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'get', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							console.log('获取修改名字信息接口返回数据:' + JSON.stringify(data));
+							var IsError = data.Data.IsError;
+							if(IsError == false) {
+								Alert('修改成功');
+							} else {
+								Alert('修改失败');
+							}
+
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							console.log(type);
+							Alert('修改失败');
+						}
+					});
+				}
+
+				document.getElementById('btn_sure').addEventListener('tap', function() {
+					name = $('#name').val();
+					console.log(name);
+					ChangeName(changename_url, member_id, name, token);
+
+				})
+			})
+		}
+	</script>
+	<script>
+		if(navigator.userAgent.indexOf("Html5Plus") < 0) { //不支持5+ API
+				mui.init({
+					swipeBack: true //启用右滑关闭功能
+				});
+				var token = GetQueryString('token');
+				var member_id = GetQueryString('member_id');
+				var phone = GetQueryString('phone');
+				var name = GetQueryString('name');
+				name = decodeURI(name);
+				$('#name').val(name);
+				console.log(token);
+				var changename_url = test_url + '/api/member/ChangeName';
+
+				function ChangeName(changename_url, member_id, name, token) {
+					mui.ajax(changename_url, {
+						data: {
+							member_id: member_id,
+							name: name,
+							token: token
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'get', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							console.log('获取修改名字信息接口返回数据:' + JSON.stringify(data));
+							var IsError = data.Data.IsError;
+							if(IsError == false) {
+								Alert('修改成功');
+							} else {
+								Alert('修改失败');
+							}
+
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							console.log(type);
+							Alert('修改失败');
+						}
+					});
+				}
+
+				document.getElementById('btn_sure').addEventListener('tap', function() {
+					name = $('#name').val();
+					console.log(name);
+					ChangeName(changename_url, member_id, name, token);
+
+				})
+		}
+	</script>
+	<script>
+		//各个屏幕大小适配
+		(function(doc, win) {
+			var docEl = doc.documentElement,
+				resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+				recalc = function() {
+					var clientWidth = docEl.clientWidth;
+					if(!clientWidth) return;
+					docEl.style.fontSize = 100 * (clientWidth / 375) + 'px';
+				};
+
+			if(!doc.addEventListener) return;
+			win.addEventListener(resizeEvt, recalc, false);
+			doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+
+</html>

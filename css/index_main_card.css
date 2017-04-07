@@ -1,0 +1,101 @@
+.card_head{
+	width: 100%;
+}
+.card_body{
+	width: 100%;
+}
+.card_list{
+	width: 95%;
+	margin: 0.2rem auto;
+	position: relative;
+}
+.card_in{
+	width: 2.3rem;
+	height: 1.37rem;
+}
+.card_out{
+	width: 2.39rem;
+	float: right;
+	position: absolute;
+	right: 0;
+	top: -0.05rem;
+	height: 1.5rem;
+}
+.card_list span{
+	font-size: 0.13rem;
+	color: #1c1c1c;
+}
+.card_list_c span{
+	font-size: 0.13rem;
+	color: #1c1c1c;
+}
+.card_shop_name{
+	position: absolute;
+	top:0.15rem;
+	left: 1.8rem;
+}
+.card_shop_num{
+	position: absolute;
+	top: 0.4rem;
+	left: 1.8rem;
+}
+.card_shop_type{
+	position: absolute;
+	top: 0.7rem;
+	left: 1.8rem;
+}
+.card_shop_prize{
+	position: absolute;
+	top: 1rem;
+	left: 1.8rem;
+}
+.card_shop_tel{
+	width: 0.4rem;
+	position: absolute;
+	top: 1rem;
+	right:0.2rem;
+	z-index: 10;
+}
+.card_list_c{
+	width: 95%;
+	margin: 0.2rem auto;
+	position: relative;
+	text-align: right;
+}
+.card_in_c{
+	width: 2.3rem;
+	
+}
+.card_out_c{
+	width: 2.39rem;
+	position: absolute;
+	top: -0.05rem;
+	left: 0;
+}
+.card_shop_name_c{
+	position: absolute;
+	top:0.15rem;
+	left: 0.2rem;
+}
+.card_shop_num_c{
+	position: absolute;
+	top: 0.4rem;
+	left: 0.2rem;
+}
+.card_shop_type_c{
+	position: absolute;
+	top: 0.7rem;
+	left: 0.2rem;
+}
+.card_shop_prize_c{
+	position: absolute;
+	top: 1rem;
+	left: 0.2rem;
+}
+.card_shop_tel_c{
+	width: 0.4rem;
+	position: absolute;
+	top: 0.95rem;
+	left:3rem;
+	z-index: 10;
+}

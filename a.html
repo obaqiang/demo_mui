@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="css/mui.min.css">
+		<script src="js/mui.min.js"></script>
+	</head>
+
+	<div class="mui-content">
+		<a>这是a页面</a>
+	</div>
+
+	<body>
+		<script>
+			mui.init({
+				preloadPages: [{
+					id: 'b.html',
+					url: 'b.html'
+				}]
+			});
+			var detailPage = null;
+			mui.plusReady(function() {
+				//添加列表项的点击事件
+				mui('.mui-content').on('tap', 'a', function(e) {
+					var id = this.getAttribute('id');
+					//获得详情页面
+					if(!detailPage) {
+						detailPage = plus.webview.getWebviewById('b.html');
+					}
+					//触发详情页面的newsId事件
+					mui.fire(detailPage, 'newsId', {
+						id: 'lala'
+					});
+					//打开详情页面
+					mui.openWindow({
+						id: 'b.html'
+					});
+				});
+			})
+		</script>
+	</body>
+
+</html>

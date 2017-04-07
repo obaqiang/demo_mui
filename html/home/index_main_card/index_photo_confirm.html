@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" href="../../../css/mui.min.css">
+		<link rel="stylesheet" href="../../../css/global.css" />
+		<link rel="stylesheet" href="../../../css/index_photo_confirm.css" />
+		<link rel="stylesheet" href="../../../css/index_main_card_detail_points_detail.css" />
+		<link rel="stylesheet" href="../../../css/swiper.min.css">
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<header class="mui-bar mui-bar-nav nav_header">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">交易拍照记录</h1>
+			</header>
+
+			<div class="photo_confirm_head">
+				您在<span id="store_name">?????</span>的交易拍照，请核对确认！
+			</div>
+
+			<div class="photo_confirm_title" id="content">
+				?????
+			</div>
+			<!-- Swiper -->
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<!--<div class="swiper-slide">
+						<img src="../../../images/140px_120px_background.png" />
+					</div>
+					<div class="swiper-slide">
+						<img src="../../../images/140px_120px_background.png" />
+					</div>
+					<div class="swiper-slide">
+						<img src="../../../images/140px_120px_background.png" />
+					</div>-->
+				</div>
+			</div>
+
+			<div class="photo_confirm_list">
+				<div class="list_content of_h">
+					<div class="list_content_head">
+						拍照时间
+					</div>
+					<div class="list_content_body" id="add_time">
+						???
+					</div>
+				</div>
+				<div class="list_content of_h">
+					<div class="list_content_head">
+						操作员
+					</div>
+					<div class="list_content_body" id="staff_name">
+						????
+					</div>
+				</div>
+				<div class="list_content of_h content_last">
+					<div class="list_content_head">
+						订单号
+					</div>
+					<div class="list_content_body" id="tradephoto_id">
+						?????
+					</div>
+				</div>
+
+			</div>
+
+			<div class="points_nav_bottom">
+				<div class="points_nav_bottom_left" id="points_nav_bottom_left" style="display: none;">
+					确定
+				</div>
+				<div class="points_nav_bottom_right" id="points_nav_bottom_right" style="display: none;">
+					取消
+				</div>
+			</div>
+
+		</div>
+	</body>
+	<script src="../../../js/mui.min.js"></script>
+	<script src="../../../js/plugin/swiper.min.js"></script>
+	<script src="../../../js/jquery-1.11.3.js"></script>
+	<script src="../../../js/common/bdapp.js"></script>
+	<script src="../../../js/config/web_config.js"></script>
+	<script>
+		if(navigator.userAgent.indexOf("Html5Plus") > 0) { //支持5+ API
+			mui.plusReady(function() {
+				mui.init({
+					swipeBack: true //启用右滑关闭功能
+				});
+				var self = plus.webview.currentWebview();
+				var tradephoto_id = self.tradephoto_id;
+				var token = self.token;
+				var type = self.type;
+				var store_id = self.store_id;
+				var vip_id = self.vip_id;
+				var page_num = 1;
+				var page_size = 10;
+				var hasitems = 1;
+
+				var gettradephoto_url = test_url + '/api/tradephoto/GetTradePhoto';
+
+				function GetTradePhoto(gettradephoto_url, tradephoto_id, token) {
+					mui.ajax(gettradephoto_url, {
+						data: {
+							tradephoto_id: tradephoto_id,
+							token: token
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'get', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							console.log('获取交易拍照记录详情接口返回数据:' + JSON.stringify(data));
+							var TradePhoto = data.Data.TradePhoto;
+							console.log(JSON.stringify(TradePhoto));
+							var store_name = TradePhoto.store_name;
+							$('#store_name').text(store_name);
+							console.log(store_name)
+							var staff_name = TradePhoto.staff_name;
+							$('#staff_name').text(staff_name);
+							var tradephoto_id = TradePhoto.tradephoto_id;
+							$('#tradephoto_id').text(tradephoto_id);
+							var content = TradePhoto.content;
+							$('#content').text(content);
+							var add_time = TradePhoto.add_time;
+							add_time = unix_to_datetime(add_time);
+							$('#add_time').text(add_time);
+							var Images = TradePhoto.Images;
+							for(var j = 0; j < Images.length; j++) {
+								var thumb_url = Images[j].thumb_url;
+								var swiper_content = "";
+								swiper_content +=
+									'<div class="swiper-slide">' +
+									'<img src="' + thumb_url + '" />' +
+									'</div>';
+								$('.swiper-wrapper').append(swiper_content);
+
+							}
+
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							console.log(type);
+						}
+					});
+				}
+				GetTradePhoto(gettradephoto_url, tradephoto_id, token);
+
+				//		var GetTradePhotos_url = test_url + '/api/tradephoto/GetTradePhotos';
+				//
+				//		function GetTradePhotos(GetTradePhotos_url, store_id, vip_id, type, page_num, page_size, hasitems, token) {
+				//			mui.ajax(GetTradePhotos_url, {
+				//				data: {
+				//					store_id: store_id,
+				//					vip_id: vip_id,
+				//					type: type,
+				//					page_num: page_num,
+				//					page_size: page_size,
+				//					hasitems: hasitems,
+				//					token: token
+				//				},
+				//				dataType: 'json', //服务器返回json格式数据
+				//				type: 'get', //HTTP请求类型
+				//				timeout: 10000, //超时时间设置为10秒；
+				//				success: function(data) {
+				//					//服务器返回响应，根据响应结果，分析是否登录成功；
+				//					console.log('获取交易拍照记录确定接口返回数据:' + JSON.stringify(data));
+				//					Alert('操作成功');
+				//					if(type == 2) {
+				//						$('.points_nav_bottom').text('已确定');
+				//					}
+				//
+				//				},
+				//				error: function(xhr, type, errorThrown) {
+				//					//异常处理；
+				//					console.log(type);
+				//					Alert('操作失败，请重试！');
+				//				}
+				//			});
+				//		}
+
+				var confirm_url = test_url + '/api/tradephoto/Confirm';
+
+				function Confirm(confirm_url, tradephoto_id, type, token) {
+					mui.ajax(confirm_url, {
+						data: {
+							tradephoto_id: tradephoto_id,
+							type: type,
+							token: token
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'get', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							console.log('获取交易拍照记录确定接口返回数据:' + JSON.stringify(data));
+							if(data.Data.IsError == false) {
+								Alert('操作成功');
+							}
+
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							console.log(type);
+							Alert('操作失败请重试');
+						}
+					});
+				}
+
+				//			console.log('过来的：'+type);
+
+				if(type == 1) {
+					$('.points_nav_bottom_left').show();
+					$('.points_nav_bottom_right').show();
+
+					document.getElementById('points_nav_bottom_left').addEventListener('tap', function() {
+						var type = 2;
+						Confirm(confirm_url, tradephoto_id, type, token);
+					})
+
+					document.getElementById('points_nav_bottom_right').addEventListener('tap', function() {
+						var type = 4;
+						Confirm(confirm_url, tradephoto_id, type, token);
+
+					})
+
+				} else if(type == 2) {
+					$('.points_nav_bottom').text('已确定');
+				} else if(type == 4) {
+					$('.points_nav_bottom').text('已取消');
+				}
+			})
+		}
+	</script>
+
+	<script>
+		if(navigator.userAgent.indexOf("Html5Plus") < 0) { //不支持5+ API
+				mui.init({
+					swipeBack: true //启用右滑关闭功能
+				});
+				var tradephoto_id = GetQueryString('tradephoto_id');
+				var token = GetQueryString('token');
+				var type = GetQueryString('type');
+				var store_id = GetQueryString('store_id');
+				var vip_id = GetQueryString('vip_id');
+				var page_num = 1;
+				var page_size = 10;
+				var hasitems = 1;
+
+				var gettradephoto_url = test_url + '/api/tradephoto/GetTradePhoto';
+
+				function GetTradePhoto(gettradephoto_url, tradephoto_id, token) {
+					mui.ajax(gettradephoto_url, {
+						data: {
+							tradephoto_id: tradephoto_id,
+							token: token
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'get', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							console.log('获取交易拍照记录详情接口返回数据:' + JSON.stringify(data));
+							var TradePhoto = data.Data.TradePhoto;
+							console.log(JSON.stringify(TradePhoto));
+							var store_name = TradePhoto.store_name;
+							$('#store_name').text(store_name);
+							console.log(store_name)
+							var staff_name = TradePhoto.staff_name;
+							$('#staff_name').text(staff_name);
+							var tradephoto_id = TradePhoto.tradephoto_id;
+							$('#tradephoto_id').text(tradephoto_id);
+							var content = TradePhoto.content;
+							$('#content').text(content);
+							var add_time = TradePhoto.add_time;
+							add_time = unix_to_datetime(add_time);
+							$('#add_time').text(add_time);
+							var Images = TradePhoto.Images;
+							for(var j = 0; j < Images.length; j++) {
+								var thumb_url = Images[j].thumb_url;
+								var swiper_content = "";
+								swiper_content +=
+									'<div class="swiper-slide">' +
+									'<img src="' + thumb_url + '" />' +
+									'</div>';
+								$('.swiper-wrapper').append(swiper_content);
+
+							}
+
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							console.log(type);
+						}
+					});
+				}
+				GetTradePhoto(gettradephoto_url, tradephoto_id, token);
+
+				//		var GetTradePhotos_url = test_url + '/api/tradephoto/GetTradePhotos';
+				//
+				//		function GetTradePhotos(GetTradePhotos_url, store_id, vip_id, type, page_num, page_size, hasitems, token) {
+				//			mui.ajax(GetTradePhotos_url, {
+				//				data: {
+				//					store_id: store_id,
+				//					vip_id: vip_id,
+				//					type: type,
+				//					page_num: page_num,
+				//					page_size: page_size,
+				//					hasitems: hasitems,
+				//					token: token
+				//				},
+				//				dataType: 'json', //服务器返回json格式数据
+				//				type: 'get', //HTTP请求类型
+				//				timeout: 10000, //超时时间设置为10秒；
+				//				success: function(data) {
+				//					//服务器返回响应，根据响应结果，分析是否登录成功；
+				//					console.log('获取交易拍照记录确定接口返回数据:' + JSON.stringify(data));
+				//					Alert('操作成功');
+				//					if(type == 2) {
+				//						$('.points_nav_bottom').text('已确定');
+				//					}
+				//
+				//				},
+				//				error: function(xhr, type, errorThrown) {
+				//					//异常处理；
+				//					console.log(type);
+				//					Alert('操作失败，请重试！');
+				//				}
+				//			});
+				//		}
+
+				var confirm_url = test_url + '/api/tradephoto/Confirm';
+
+				function Confirm(confirm_url, tradephoto_id, type, token) {
+					mui.ajax(confirm_url, {
+						data: {
+							tradephoto_id: tradephoto_id,
+							type: type,
+							token: token
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'get', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							console.log('获取交易拍照记录确定接口返回数据:' + JSON.stringify(data));
+							if(data.Data.IsError == false) {
+								Alert('操作成功');
+							}
+
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							console.log(type);
+							Alert('操作失败请重试');
+						}
+					});
+				}
+
+				//			console.log('过来的：'+type);
+
+				if(type == 1) {
+					$('.points_nav_bottom_left').show();
+					$('.points_nav_bottom_right').show();
+
+					document.getElementById('points_nav_bottom_left').addEventListener('tap', function() {
+						var type = 2;
+						Confirm(confirm_url, tradephoto_id, type, token);
+					})
+
+					document.getElementById('points_nav_bottom_right').addEventListener('tap', function() {
+						var type = 4;
+						Confirm(confirm_url, tradephoto_id, type, token);
+
+					})
+
+				} else if(type == 2) {
+					$('.points_nav_bottom').text('已确定');
+				} else if(type == 4) {
+					$('.points_nav_bottom').text('已取消');
+				}
+		}
+	</script>
+
+	<script>
+		var swiper = new Swiper('.swiper-container', {
+			pagination: '.swiper-pagination',
+			paginationClickable: true,
+			slidesPerView: 3
+
+		});
+	</script>
+
+	<script>
+		//各个屏幕大小适配
+		(function(doc, win) {
+			var docEl = doc.documentElement,
+				resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+				recalc = function() {
+					var clientWidth = docEl.clientWidth;
+					if(!clientWidth) return;
+					docEl.style.fontSize = 100 * (clientWidth / 375) + 'px';
+				};
+
+			if(!doc.addEventListener) return;
+			win.addEventListener(resizeEvt, recalc, false);
+			doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+
+</html>

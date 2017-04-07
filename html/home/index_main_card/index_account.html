@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" href="../../../css/mui.min.css">
+		<link rel="stylesheet" href="../../../css/global.css" />
+		<link rel="stylesheet" href="../../../css/index_account.css" />
+		<link rel="stylesheet" href="../../../css/swiper.min.css">
+		<style>
+			html,
+			body {
+				background-color: #fff;
+			}
+			
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<header class="mui-bar mui-bar-nav nav_header">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">余额</h1>
+			</header>
+
+			<div class="account_head">
+				<div class="account_head_title">
+					<div class="title_num">
+						000000.00
+					</div>
+					<div class="title_unit">
+						余额总计（元）
+					</div>
+				</div>
+
+				<div class="account_head_content of_h">
+					<div class="content_left" style="visibility: hidden;">
+						<div class="content_num" >
+							0
+						</div>
+						<div class="content_des">
+							积分（个）
+						</div>
+					</div>
+					<div class="content_right" style="visibility: hidden;"> 
+						<div class="content_num">
+							0
+						</div>
+						<div class="content_des">
+							套餐（种）
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="account_list">
+				<div class="type_001" style="display: none;">
+					<div class="account_list_head">
+						买赠套餐
+					</div>
+				</div>
+				<div class="type_002" style="display: none;">
+					<div class="account_list_head">
+						储值套餐
+					</div>
+				</div>
+				<div class="type_003" style="display: none;">
+					<div class="account_list_head">
+						计时套餐
+					</div>
+				</div>
+
+				<!--<div class="account_list_body">
+					<span class="list_body_name">超级豪华套餐</span>
+					<img class="list_body_img" src="../../../images/26px_16px.png" alt="" />
+					<span class="list_body_prize">￥110.00</span>
+					<div class="list_inner" style="display: none;">
+						<div class="list_inner_left">
+							<div class="list_inner_left_name">
+								毛巾
+							</div>
+							<div class="list_inner_left_prize">
+								原价￥100
+							</div>
+						</div>
+						<div class="list_inner_right">
+							￥100.00
+						</div>
+
+					</div>
+
+				</div>-->
+
+			</div>
+
+		</div>
+
+		</div>
+	</body>
+	<script src="../../../js/mui.min.js"></script>
+	<script src="../../../js/config/web_config.js"></script>
+	<script src="../../../js/jquery-1.11.3.js"></script>
+	<script src="../../../js/common/bdapp.js"></script>
+	<script>
+		if(navigator.userAgent.indexOf("Html5Plus") > 0) { //支持5+ API
+			mui.plusReady(function() {
+				mui.init({
+					swipeBack: true //启用右滑关闭功能
+				});
+
+				var self = plus.webview.currentWebview();
+				var vip_id = self.vip_id;
+				var token = self.token;
+				var store_id = self.store_id;
+				var prize = self.prize;
+				$('.title_num').text(prize);
+
+				var getpackages_url = test_url + '/api/order/GetPackages';
+				var store_id;
+				var vip_id;
+
+				function GetPackages(getpackages_url, store_id, vip_id, token) {
+					mui.ajax(getpackages_url, {
+						data: {
+							store_id: store_id,
+							vip_id: vip_id,
+							token: token
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'get', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							console.log('获取余额接口接口返回数据:' + JSON.stringify(data));
+							var Recharges = data.Data.Recharges;
+							for(var i = 0; i < Recharges.length; i++) {
+								var type = Recharges[i]['type'];
+								var package_name = Recharges[i]['package_name'];
+								var Items = Recharges[i]['Items'];
+								var price = Recharges[i]['price'];
+								function pinjie(type_name, Items, price) { //字符串拼接
+									if(Items.length == 0) {
+										var div_out =
+											//										'<div class="account_list_head">' +
+											//										type_name +
+											//										'</div>' +
+											'<div class="account_list_body list_ok">' +
+											'<span class="list_body_name">' + package_name + '</span>' +
+											//										'<img class="list_body_img" src="../../../images/26px_16px.png" alt="" />' +
+											'<span class="list_body_prize">￥' + price + '</span>' +
+											'</div>';
+										var account_div = div_out;
+									} else {
+										var div_in = '';
+										var div_out =
+											'<div class="account_list_body list_ok">' +
+											'<span class="list_body_name">' + package_name + '</span>' +
+											'<img class="list_body_img" Items=' + Items + ' src="../../../images/26px_16px.png" alt="" />' +
+											'<span class="list_body_prize">￥' + price + '</span>';
+
+										for(var i = 0; i < Items.length; i++) {
+											var goods_name = Items[i].goods_name;
+											var price = Items[i].price;
+											var origin_price = Items[i].origin_price;
+											div_in +=
+												"<div class=\"list_inner\" style=\"display:none;\">" +
+												"<div class=\"list_inner_left\">" +
+												"<div class=\"list_inner_left_name\">" +
+												goods_name +
+												"</div>" +
+												"<div class=\"list_inner_left_prize\">" +
+												"原价￥" + origin_price +
+												"</div>" +
+												"</div>" +
+												"<div class=\"list_inner_right\">" +
+												"￥" + price +
+												"</div>" +
+												"</div>";
+										}
+
+										var account_div = div_out + div_in + "</div>";
+										if(type_name == '买赠套餐') {
+											$('.type_001').append(account_div);
+											$('.type_001').show();
+										} else if(type_name == '储值套餐') {
+											$('.type_002').append(account_div);
+											$('.type_002').show();
+										} else if(type_name == '计时套餐') {
+											$('.type_003').append(account_div);
+											$('.type_003').show();
+										}
+
+									}
+
+								}
+
+								if(type == 001) {
+									var type_name = '买赠套餐';
+									pinjie(type_name, Items, price);
+								} else if(type_name, type == 002) {
+									var type_name = '储值套餐';
+									pinjie(type_name, Items, price);
+								} else if(type_name, type == 003) {
+									var type_name = '计时套餐';
+									pinjie(type_name, Items, price);
+								}
+								mui(".account_list").on('tap', '.list_ok', function() {
+									isOnline();
+									//								alert(11);
+									var src = $(this).children('img').attr('src');
+									$(this).removeClass('list_ok');
+									$(this).addClass('list_no');
+									$(this).children('.list_inner').show();
+									$(this).children('img').attr('src', '../../../images/26px_16px2.png');
+
+								});
+								mui(".account_list").on('tap', '.list_no', function() {
+									isOnline();
+									//								alert(22);
+									var src = $(this).children('img').attr('src');
+									$(this).removeClass('list_no');
+									$(this).addClass('list_ok');
+									$(this).children('.list_inner').hide();
+									$(this).children('img').attr('src', '../../../images/26px_16px.png');
+
+								});
+
+							}
+
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							console.log(type);
+						}
+					});
+
+				};
+				GetPackages(getpackages_url, store_id, vip_id, token);
+
+			})
+		}
+	</script>
+
+	<script>
+		if(navigator.userAgent.indexOf("Html5Plus") < 0) { //不支持5+ API
+			var vip_id = GetQueryString('vip_id');
+			var token = GetQueryString('token');
+			var store_id = GetQueryString('store_id');
+			var prize = GetQueryString('prize');
+			$('.title_num').text(prize);
+			var getpackages_url = test_url + '/api/order/GetPackages';
+			var store_id;
+			var vip_id;
+
+			function GetPackages(getpackages_url, store_id, vip_id, token) {
+				mui.ajax(getpackages_url, {
+					data: {
+						store_id: store_id,
+						vip_id: vip_id,
+						token: token
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'get', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+//						console.log('获取余额接口接口返回数据:' + JSON.stringify(data));
+						console.log(data);
+						var Recharges = data.Data.Recharges;
+						for(var i = 0; i < Recharges.length; i++) {
+							var type = Recharges[i]['type'];
+							var package_name = Recharges[i]['package_name'];
+							var Items = Recharges[i]['Items'];
+							var price = Recharges[i]['price'];
+
+							function pinjie(type_name, Items, price) { //字符串拼接
+								if(Items.length == 0) {
+									var div_out =
+										//										'<div class="account_list_head">' +
+										//										type_name +
+										//										'</div>' +
+										'<div class="account_list_body list_ok">' +
+										'<span class="list_body_name">' + package_name + '</span>' +
+										//										'<img class="list_body_img" src="../../../images/26px_16px.png" alt="" />' +
+										'<span class="list_body_prize">￥' + price + '</span>' +
+										'</div>';
+									var account_div = div_out;
+								} else {
+									var div_in = '';
+									var div_out =
+										'<div class="account_list_body list_ok">' +
+										'<span class="list_body_name">' + package_name + '</span>' +
+										'<img class="list_body_img" Items=' + Items + ' src="../../../images/26px_16px.png" alt="" />' +
+										'<span class="list_body_prize">￥' + price + '</span>';
+
+									for(var i = 0; i < Items.length; i++) {
+										var goods_name = Items[i].goods_name;
+										var price = Items[i].price;
+										var origin_price = Items[i].origin_price;
+										div_in +=
+											"<div class=\"list_inner\" style=\"display:none;\">" +
+											"<div class=\"list_inner_left\">" +
+											"<div class=\"list_inner_left_name\">" +
+											goods_name +
+											"</div>" +
+											"<div class=\"list_inner_left_prize\">" +
+											"原价￥" + origin_price +
+											"</div>" +
+											"</div>" +
+											"<div class=\"list_inner_right\">" +
+											"￥" + price +
+											"</div>" +
+											"</div>";
+									}
+
+									var account_div = div_out + div_in + "</div>";
+									if(type_name == '买赠套餐') {
+										$('.type_001').append(account_div);
+										$('.type_001').show();
+									} else if(type_name == '储值套餐') {
+										$('.type_002').append(account_div);
+										$('.type_002').show();
+									} else if(type_name == '计时套餐') {
+										$('.type_003').append(account_div);
+										$('.type_003').show();
+									}
+
+								}
+
+							}
+
+							if(type == 001) {
+								var type_name = '买赠套餐';
+								pinjie(type_name, Items, price);
+							} else if(type_name, type == 002) {
+								var type_name = '储值套餐';
+								pinjie(type_name, Items, price);
+							} else if(type_name, type == 003) {
+								var type_name = '计时套餐';
+								pinjie(type_name, Items, price);
+							}
+							mui(".account_list").on('tap', '.list_ok', function() {
+								isOnline();
+								//								alert(11);
+								var src = $(this).children('img').attr('src');
+								$(this).removeClass('list_ok');
+								$(this).addClass('list_no');
+								$(this).children('.list_inner').show();
+								$(this).children('img').attr('src', '../../../images/26px_16px2.png');
+
+							});
+							mui(".account_list").on('tap', '.list_no', function() {
+								isOnline();
+								//								alert(22);
+								var src = $(this).children('img').attr('src');
+								$(this).removeClass('list_no');
+								$(this).addClass('list_ok');
+								$(this).children('.list_inner').hide();
+								$(this).children('img').attr('src', '../../../images/26px_16px.png');
+
+							});
+
+						}
+
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						console.log(type);
+					}
+				});
+
+			};
+			GetPackages(getpackages_url, store_id, vip_id, token);
+
+		}
+	</script>
+
+	<script>
+		//各个屏幕大小适配
+		(function(doc, win) {
+			var docEl = doc.documentElement,
+				resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+				recalc = function() {
+					var clientWidth = docEl.clientWidth;
+					if(!clientWidth) return;
+					docEl.style.fontSize = 100 * (clientWidth / 375) + 'px';
+				};
+
+			if(!doc.addEventListener) return;
+			win.addEventListener(resizeEvt, recalc, false);
+			doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+
+</html>

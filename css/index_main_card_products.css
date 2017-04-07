@@ -1,0 +1,97 @@
+.products_search{
+	margin-top: 44px;
+	background: #fff;
+	padding-top: 0.05rem;
+	padding-bottom: 0.05rem;
+}
+.search_area{
+	border: 1px solid #cdcdcd;
+	width: 3.1rem;
+	display: inline-block;
+	margin-left: 0.1rem;
+	border-radius: 0.05rem;
+}
+.search_area img{
+	width: 0.13rem;
+	display: inline-block;
+	margin-left: 0.1rem;
+}
+.search_area input{
+	border: none;
+	display: inline-block;
+	width: 2.6rem;
+	height: 0.35rem;
+	line-height: 0.35rem;
+	padding: 0 !important;
+	font-size: 0.14rem;
+	margin-bottom: 0 !important;
+	margin-left: 0.1rem;
+}
+.search_img{
+	width: 0.28rem;
+	float: right;
+	margin-right: 0.1rem;
+	margin-top: 0.07rem;
+}
+.search_choose{
+	display: inline-block;
+	width: 0.81rem;
+	padding: 0;
+	background: #f4f4f4;
+	position: absolute;
+	top: 0.7rem;
+	right: 0;
+	z-index: 10;
+}
+.search_choose li{
+	list-style: none;
+	font-size: 0.14rem;
+	border-bottom: 1px solid #e4e4e4;
+	line-height: 0.36rem;
+	width: 0.86rem;
+	text-align: center;
+}
+.list_head{
+	height: 0.25rem;
+	line-height: 0.25rem;
+	font-size: 0.13rem;
+	padding-left: 0.1rem;
+}
+.list_body{
+	background: #fff;
+	position: relative;
+	border-bottom: 1px solid #cccccc;
+	padding: 0.1rem;
+}
+.list_img{
+	width: 0.82rem;
+	height:0.82rem;
+	border: 1px solid #cccccc;
+}
+.list_name{
+	position: absolute;
+	top: 0.1rem;
+	left: 1.1rem;
+	color: #1c1c1c;
+	font-size: 0.13rem;
+	display: inline-block;
+	width: 2.4rem;
+}
+.list_prize{
+	position: absolute;
+	top: 0.7rem;
+	left: 1.1rem;
+	color: #cb2920;
+	font-size: 0.15rem;
+	
+}
+.list_icon{
+	position: absolute;
+	width: 0.08rem;
+	top: 0.5rem;
+	right: 0.1rem;
+}
+.li_active{
+	background: #CB2920;
+	color: #fff;
+}

@@ -1,0 +1,128 @@
+.of_h{
+	overflow: hidden;
+}
+.message_nav_wh{
+	height: 40px;
+}
+.message_head{
+	position: fixed;
+	width: 100%;
+	height: 0.4rem;
+	line-height: 0.4rem;
+	border-bottom: 1px solid #dddddd;
+	background: #fff;
+}
+.head_pay{
+	float: left;
+	width: 50%;
+	text-align: center;
+	
+}
+.head_pay img{
+	width: 14px;
+}
+.head_pay span{
+	color: #1c1c1c;
+	font-size: 13px;
+}
+.head_action{
+	float: left;
+	width: 50%;
+	text-align: center;
+	border-left: 1px solid #dddddd;
+}
+.head_action img{
+	width: 14px;
+}
+.head_action span:nth-child(2){
+	color: #1c1c1c;
+	font-size: 13px;
+}
+.head_action span:nth-child(3){
+	background: red;
+	color:#ffffff;
+	position: relative;
+	top: -10px;
+	left: -5px;
+
+}
+.head_pay span:nth-child(3){
+	background: red;
+	color:#ffffff;
+	position: relative;
+	top: -10px;
+	left: -5px;
+}
+.message_time{
+	text-align: center;
+	margin-top: 10px;
+}
+.message_time span{
+	background: #cdcdcd;
+	display: inline-block;
+	width: 119px;
+	font-size: 9px;
+	border-radius: 5px;
+	margin-top: 15px;
+}
+.message_square{
+	background: #ffffff;
+	border-radius: 5px;
+	width: 90%;
+	margin: 15px auto 0;
+}
+.square_head{
+	color: #1c1c1c;
+	font-size: 14px;
+	margin-left: 10px;
+	padding-top: 10px;
+}
+.square_prize{
+	text-align: center;
+	border-bottom: 1px solid #dddddd;
+	width: 95%;
+	margin: 25px auto 0;
+	padding-bottom: 18px;
+}
+.square_prize_num{
+	color: #df2b2b;
+	font-size: 23px;
+}
+.square_prize_num_unit{
+	color: #1c1c1c;
+	font-size: 11px;
+}
+.square_body{
+	width: 95%;
+	margin: 20px auto 0;
+	border-bottom: 1px solid #dddddd;
+	padding-bottom: 20px;
+}
+.body_list{
+	line-height: 30px;
+}
+.body_list span:nth-child(1){
+	display: inline-block;
+	width: 20%;
+	color: #1c1c1c;
+	font-size: 14px;
+	text-align: center;
+}
+.body_list span:nth-child(3){
+	color: #777777;
+	font-size: 14px;
+}
+.square_detial{
+	color: #1c1c1c;
+	line-height: 44px;
+	margin-left: 10px;
+}
+.square_detial span{
+	font-size: 14px;
+}
+.square_detial img{
+	float: right;
+	width: 8px;
+	margin-top: 15px;
+	margin-right: 10px;
+}

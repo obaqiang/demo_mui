@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>我的付款码</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" href="../../../css/mui.min.css">
+		<link rel="stylesheet" href="../../../css/index_main_mine.css" />
+		<link rel="stylesheet" href="../../../css/index_main_mine_payment.css" />
+		<link rel="stylesheet" href="../../../css/code128.css" />
+		<style>
+			html,
+			body {
+				background-color: #f5f5f5;
+			}
+			
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav mine_nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">我的付款码</h1>
+		</header>
+		<div class="mui-content bg_f5">
+			<div class="payment_area">
+				<!--<img class="payment_area_tiao" src="../../../images/588px_146px_tiao.png" alt="图片不存在" />-->
+				<div class="barcode2" id="Barcode"></div>
+				<!--<img class="payment_area_code" src="../../../images/364px_364px_fu.png" alt="图片不存在" />-->
+				<div class="qrcode" id="qrcode"></div>
+				<div class="payment_area_refresh" id="payment_area_refresh">
+					<img src="../../../images/24px_24px_shuaxin.png" alt="图片不存在" />
+					<span>每分钟自动更新</span>
+				</div>
+			</div>
+		</div>
+
+	</body>
+	<script src="../../../js/mui.min.js"></script>
+	<script src="../../../js/config/web_config.js"></script>
+	<script src="../../../js/jquery-1.11.3.js"></script>
+	<script src="../../../js/common/bdapp.js"></script>
+	<script src="../../../js/plugin/code128.js"></script>
+	<script src="../../../js/plugin/qrcode.js"></script>
+	<script>
+		//				var qrcode = new QRCode(document.getElementById("qrcode"), {
+		//					width: 132, //设置宽高
+		//					height: 132
+		//				});
+		//				qrcode.makeCode('啦啦啦啦');
+		//				var qrcode = new QRCode(document.getElementById("qrcode"), {
+		//					width: 132, //设置宽高
+		//					height: 132
+		//				});
+		//				qrcode.makeCode('啦啦啦啦');
+		if(navigator.userAgent.indexOf("Html5Plus") > 0) { //支持5+ API
+			mui.plusReady(function() {
+
+				mui.init({
+					swipeBack: true //启用右滑关闭功能
+				});
+				//		createBarcode('Barcode','251322301300730880','B')
+
+				var self = plus.webview.currentWebview();
+				var member_id = self.member_id;
+				var token = self.token;
+
+				console.log(member_id);
+				console.log(token);
+				var buildtradecode_url = test_url + '/api/member/BuildTradeCode';
+				var qrcode;
+
+				function BuildTradeCode(buildtradecode_url, member_id, token) {
+					mui.ajax(buildtradecode_url, {
+						data: {
+							member_id: member_id,
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: {
+							'Content-Type': 'application/json',
+							'token': token
+						},
+						success: function(data) {
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							console.log('获取我的付款码接口返回数据:' + JSON.stringify(data));
+							var TradeCode = data.Data.TradeCode;
+							createBarcode('Barcode', TradeCode, 'B');
+							qrcode = new QRCode(document.getElementById("qrcode"), {
+								width: 132, //设置宽高
+								height: 132
+							});
+							qrcode.makeCode(TradeCode);
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							console.log(type);
+							console.log(errorThrown);
+						}
+					});
+				}
+				BuildTradeCode(buildtradecode_url, member_id, token);
+
+				setInterval(function() {
+					$('.qrcode').empty();
+					BuildTradeCode(buildtradecode_url, member_id, token);
+				}, 60000);
+
+				document.getElementById('payment_area_refresh').addEventListener('tap', function() {
+					$('.qrcode').empty();
+					BuildTradeCode(buildtradecode_url, member_id, token);
+				})
+
+			})
+		}
+	</script>
+	<script>
+		if(navigator.userAgent.indexOf("Html5Plus") < 0) { //不支持5+ API
+
+				mui.init({
+					swipeBack: true //启用右滑关闭功能
+				});
+				//		createBarcode('Barcode','251322301300730880','B')
+
+				var member_id = GetQueryString('member_id');
+				var token = GetQueryString('token');
+
+				console.log(member_id);
+				console.log(token);
+				var buildtradecode_url = test_url + '/api/member/BuildTradeCode';
+				var qrcode;
+
+				function BuildTradeCode(buildtradecode_url, member_id, token) {
+					mui.ajax(buildtradecode_url, {
+						data: {
+							member_id: member_id,
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: {
+							'Content-Type': 'application/json',
+							'token': token
+						},
+						success: function(data) {
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							console.log('获取我的付款码接口返回数据:' + JSON.stringify(data));
+							var TradeCode = data.Data.TradeCode;
+							createBarcode('Barcode', TradeCode, 'B');
+							qrcode = new QRCode(document.getElementById("qrcode"), {
+								width: 132, //设置宽高
+								height: 132
+							});
+							qrcode.makeCode(TradeCode);
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							console.log(type);
+							console.log(errorThrown);
+						}
+					});
+				}
+				BuildTradeCode(buildtradecode_url, member_id, token);
+
+				setInterval(function() {
+					$('.qrcode').empty();
+					BuildTradeCode(buildtradecode_url, member_id, token);
+				}, 60000);
+
+				document.getElementById('payment_area_refresh').addEventListener('tap', function() {
+					$('.qrcode').empty();
+					BuildTradeCode(buildtradecode_url, member_id, token);
+				})
+
+		}
+	</script>
+	<script>
+		//各个屏幕大小适配
+		(function(doc, win) {
+			var docEl = doc.documentElement,
+				resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+				recalc = function() {
+					var clientWidth = docEl.clientWidth;
+					if(!clientWidth) return;
+					docEl.style.fontSize = 100 * (clientWidth / 375) + 'px';
+				};
+
+			if(!doc.addEventListener) return;
+			win.addEventListener(resizeEvt, recalc, false);
+			doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+
+</html>

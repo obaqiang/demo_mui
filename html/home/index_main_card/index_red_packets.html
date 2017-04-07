@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" href="../../../css/mui.min.css">
+		<link rel="stylesheet" href="../../../css/global.css" />
+		<link rel="stylesheet" href="../../../css/index_bill.css" />
+		<link rel="stylesheet" href="../../../css/index_red_packets.css" />
+		<link rel="stylesheet" href="../../../css/swiper.min.css">
+		<style>
+			html,
+			body {
+				background-color: #fff;
+			}
+			
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content mui-scroll-wrapper" id="red_packets">
+			<header class="mui-bar mui-bar-nav nav_header">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">已领红包</h1>
+			</header>
+
+			<div class=" mui-scroll">
+				<div class="packets_head">
+					<span>
+					红包剩余金额:
+				</span>
+					<span class="head_num" id="InMoney">?.00</span>
+					<span>元</span>
+				</div>
+
+				<div class="swiper-container">
+					<div class="swiper-wrapper bill_month">
+						<span class="swiper-slide">1月</span>
+						<span class="swiper-slide">2月</span>
+						<span class="swiper-slide">3月</span>
+						<span class="swiper-slide">4月</span>
+						<span class="swiper-slide">5月</span>
+						<span class="swiper-slide">6月</span>
+						<span class="swiper-slide">7月</span>
+						<span class="swiper-slide">8月</span>
+						<span class="swiper-slide">9月</span>
+						<span class="swiper-slide">10月</span>
+						<span class="swiper-slide">11月</span>
+						<span class="swiper-slide">12月</span>
+						<span class="swiper-slide">全部</span>
+					</div>
+					<!-- Add Pagination -->
+					<!--<div class="swiper-pagination"></div>-->
+				</div>
+
+				<div class="bill_charge">
+					<span>合计充值：</span>
+					<span id="total_money">?.00</span>
+					<span>元</span>
+					<div class="packets_right">
+						<span>已用金额</span>
+						<span id="OutMoney">?.00</span>
+						<span>元</span>
+					</div>
+				</div>
+
+				<table class="bill_table" border="0" cellspacing="" cellpadding="">
+					<tr>
+						<th>名称</th>
+						<th>金额</th>
+						<th>时间</th>
+					</tr>
+					<!--<tr>
+					<td>10.00元</td>
+					<td>领取</td>
+					<td>
+						<span>2016-11-22</span><br />
+						<span>13:22:52</span>
+					</td>
+				</tr>
+
+				<tr>
+					<td>10.00元</td>
+					<td>领取</td>
+					<td>
+						<span>2016-11-22</span><br />
+						<span>13:22:52</span>
+					</td>
+				</tr>-->
+
+				</table>
+			</div>
+
+		</div>
+	</body>
+	<script src="../../../js/mui.min.js"></script>
+	<script src="../../../js/jquery-1.11.3.js"></script>
+	<script src="../../../js/common/bdapp.js"></script>
+	<script src="../../../js/config/web_config.js"></script>
+	<script src="../../../js/plugin/swiper.min.js"></script>
+	<script>
+		if(navigator.userAgent.indexOf("Html5Plus") > 0) { //支持5+ API
+			mui.plusReady(function() {
+
+				mui.init({
+					pullRefresh: {
+						container: '#red_packets',
+						down: {
+
+							callback: pulldownRefresh
+						},
+						up: {
+							contentrefresh: '',
+							//						contentrefresh: '正在加载...',
+							callback: pullupRefresh
+						}
+					}
+				});
+
+				/**
+				 * 下拉刷新具体业务实现
+				 */
+				function pulldownRefresh() {
+					setTimeout(function() {
+						page_num = 1;
+						GetRedpacketItemsOfVip(getredpacketitemsofvip_url, vip_id, begin_time, end_time, page_num, page_size, token);
+
+						mui('#red_packets').pullRefresh().endPulldownToRefresh(); //refresh completed
+					}, 1500);
+				}
+				//			var count = 0;
+				/**
+				 * 上拉加载具体业务实现
+				 */
+				function pullupRefresh() {
+					setTimeout(function() {
+
+						page_num++;
+						GetRedpacketItemsOfVip(getredpacketitemsofvip_url, vip_id, begin_time, end_time, page_num, page_size, token);
+						mui('#red_packets').pullRefresh().endPullupToRefresh();
+
+					}, 1500);
+				}
+				//			if(mui.os.plus) {
+				//				mui.plusReady(function() {
+				//					setTimeout(function() {
+				//						mui('#red_packets').pullRefresh().pullupLoading();
+				//					}, 1000);
+				//
+				//				});
+				//			} else {
+				//				mui.ready(function() {
+				//					mui('#red_packets').pullRefresh().pullupLoading();
+				//				});
+				//			}
+
+				var self = plus.webview.currentWebview();
+				var vip_id = self.vip_id;
+				var token = self.token;
+
+				var getredpacketitemsofvip_url = test_url + '/api/redpacket/GetRedpacketItemsOfVip';
+				var page_num = 1;
+				var page_size = 20;
+				var myDate = new Date();
+				var time_time = myDate.getTime();
+				var month_time = myDate.getMonth(); //获取当前月份(0-11,0代表1月)
+				var year_time = myDate.getFullYear();
+				month_time += 1;
+				monthShow(month_time);
+				var sec_time = time_time / 1000;
+				sec_time = parseInt(sec_time);
+				if(month_time < 10) {
+					month_time = '0' + month_time;
+				}
+				var begin_time = year_time + '-' + month_time + '-' + '01' + ' ' + '00:00:00';
+				//		var begin_time = '2016' + '-' + month_time + '-' + '01' + ' ' + '00:00:00';
+				begin_time = datetime_to_unix(begin_time);
+				var end_time = sec_time;
+
+				function GetRedpacketItemsOfVip(getredpacketitemsofvip_url, vip_id, begin_time, end_time, page_num, page_size, token) {
+					mui.ajax(getredpacketitemsofvip_url, {
+						data: {
+							vip_id: vip_id,
+							begin_time: begin_time,
+							end_time: end_time,
+							page_num: page_num,
+							page_size: page_size,
+							token: token
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'get', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+
+						success: function(data) {
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							console.log('获取红包接口返回数据:' + JSON.stringify(data));
+							if(page_num == 1) {
+								$('.bill_table').empty();
+								var head_div = '<tr><th>名称</th><th>金额</th><th>时间</th></tr>';
+								$('.bill_table').append(head_div);
+							}
+							var Items = data.Data.Items;
+							var InMoney = data.Data.InMoney;
+							var OutMoney = data.Data.OutMoney;
+							var total_money = InMoney + OutMoney;
+							$('#InMoney').text(InMoney);
+							$('#OutMoney').text(OutMoney);
+							$('#total_money').text(total_money);
+							if(Items == '') {
+
+							} else {
+								for(var i = 0; i < Items.length; i++) {
+									var type = Items[i].type;
+									var in_money = Items[i].in_money;
+									var money = Items[i].money;
+									var last_time = Items[i].last_time;
+
+									var year = last_time.slice(0, 10);
+									//						console.log(year);
+									var time = last_time.slice(12, 19);
+									//						console.log(time);
+									if(type == 001) {
+										var table_type = '领取';
+										var table_money = in_money;
+									} else if(type == 002 || type == 003) {
+										table_type = '已用';
+										var table_money = money;
+									} else if(type == 004) {
+										table_type = '过期';
+										var table_money = in_money;
+									}
+
+									var talbe_div =
+										'<tr>' +
+										'<td>' + table_money + '元</td>' +
+										'<td>' + table_type + '</td>' +
+										'<td>' +
+										'<span>' + year + '</span><br />' +
+										'<span>' + time + '</span>' +
+										'</td>' +
+										'</tr>';
+									$('.bill_table').append(talbe_div);
+
+								}
+							}
+
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							console.log(type);
+						}
+					});
+				}
+
+				GetRedpacketItemsOfVip(getredpacketitemsofvip_url, vip_id, begin_time, end_time, page_num, page_size, token);
+
+				function month_Change(month_begin, month_end, year_time) {
+
+					page_num == 1;
+					begin_time = year_time + '-' + month_begin + '-' + '01' + ' ' + '00:00:00';
+					begin_time = datetime_to_unix(begin_time);
+					end_time = year_time + '-' + month_end + '-' + '01' + ' ' + '00:00:00';
+					end_time = datetime_to_unix(end_time);
+					GetRedpacketItemsOfVip(getredpacketitemsofvip_url, vip_id, begin_time, end_time, page_num, page_size, token);
+				}
+
+				mui(".bill_month").on('tap', 'span', function() {
+					var month_text = $(this).text();
+					if(month_text == '1月') {
+						var month_begin = '01';
+						var month_end = '02';
+						$('.bill_month').children().removeClass('bg_cb');
+						$(this).addClass('bg_cb');
+						month_Change(month_begin, month_end, year_time);
+					} else if(month_text == '2月') {
+						var month_begin = '02';
+						var month_end = '03';
+						$('.bill_month').children().removeClass('bg_cb');
+						$(this).addClass('bg_cb');
+						month_Change(month_begin, month_end, year_time);
+					} else if(month_text == '3月') {
+						var month_begin = '03';
+						var month_end = '04';
+						$('.bill_month').children().removeClass('bg_cb');
+						$(this).addClass('bg_cb');
+						month_Change(month_begin, month_end, year_time);
+					} else if(month_text == '4月') {
+						var month_begin = '04';
+						var month_end = '05';
+						$('.bill_month').children().removeClass('bg_cb');
+						$(this).addClass('bg_cb');
+						month_Change(month_begin, month_end, year_time);
+					} else if(month_text == '5月') {
+						var month_begin = '05';
+						var month_end = '06';
+						$('.bill_month').children().removeClass('bg_cb');
+						$(this).addClass('bg_cb');
+						month_Change(month_begin, month_end, year_time);
+					} else if(month_text == '6月') {
+						var month_begin = '06';
+						var month_end = '07';
+						$('.bill_month').children().removeClass('bg_cb');
+						$(this).addClass('bg_cb');
+						month_Change(month_begin, month_end, year_time);
+					} else if(month_text == '7月') {
+						var month_begin = '07';
+						var month_end = '08';
+						$('.bill_month').children().removeClass('bg_cb');
+						$(this).addClass('bg_cb');
+						month_Change(month_begin, month_end, year_time);
+					} else if(month_text == '8月') {
+						var month_begin = '08';
+						var month_end = '09';
+						$('.bill_month').children().removeClass('bg_cb');
+						$(this).addClass('bg_cb');
+						month_Change(month_begin, month_end, year_time);
+					} else if(month_text == '9月') {
+						var month_begin = '09';
+						var month_end = '10';
+						$('.bill_month').children().removeClass('bg_cb');
+						$(this).addClass('bg_cb');
+						month_Change(month_begin, month_end, year_time);
+					} else if(month_text == '10月') {
+						var month_begin = '10';
+						var month_end = '11';
+						$('.bill_month').children().removeClass('bg_cb');
+						$(this).addClass('bg_cb');
+						month_Change(month_begin, month_end, year_time);
+					} else if(month_text == '11月') {
+						var month_begin = '12';
+						var month_end = '12';
+						$('.bill_month').children().removeClass('bg_cb');
+						$(this).addClass('bg_cb');
+						month_Change(month_begin, month_end, year_time);
+					} else if(month_text == '12月') {
+						var month_begin = '12';
+						var month_end = '03';
+						$('.bill_month').children().removeClass('bg_cb');
+						$(this).addClass('bg_cb');
+						year_time += 1;
+						month_Change(month_begin, month_end, year_time);
+					} else if(month_text == '全部') {
+						$('.bill_month').children().removeClass('bg_cb');
+						$(this).addClass('bg_cb');
+						begin_time = year_time + '-' + '01' + '-' + '01' + ' ' + '00:00:00';
+						begin_time = datetime_to_unix(begin_time);
+						GetRedpacketItemsOfVip(getredpacketitemsofvip_url, vip_id, begin_time, end_time, page_num, page_size, token);
+					}
+
+				})
+
+			})
+		}
+	</script>
+
+	<script>
+		if(navigator.userAgent.indexOf("Html5Plus") < 0) { //不支持5+ API
+	
+
+				mui.init({
+					pullRefresh: {
+						container: '#red_packets',
+						down: {
+
+							callback: pulldownRefresh
+						},
+						up: {
+							contentrefresh: '',
+							//						contentrefresh: '正在加载...',
+							callback: pullupRefresh
+						}
+					}
+				});
+
+				/**
+				 * 下拉刷新具体业务实现
+				 */
+				function pulldownRefresh() {
+					setTimeout(function() {
+						page_num = 1;
+						GetRedpacketItemsOfVip(getredpacketitemsofvip_url, vip_id, begin_time, end_time, page_num, page_size, token);
+
+						mui('#red_packets').pullRefresh().endPulldownToRefresh(); //refresh completed
+					}, 1500);
+				}
+				//			var count = 0;
+				/**
+				 * 上拉加载具体业务实现
+				 */
+				function pullupRefresh() {
+					setTimeout(function() {
+
+						page_num++;
+						GetRedpacketItemsOfVip(getredpacketitemsofvip_url, vip_id, begin_time, end_time, page_num, page_size, token);
+						mui('#red_packets').pullRefresh().endPullupToRefresh();
+
+					}, 1500);
+				}
+				//			if(mui.os.plus) {
+				//				mui.plusReady(function() {
+				//					setTimeout(function() {
+				//						mui('#red_packets').pullRefresh().pullupLoading();
+				//					}, 1000);
+				//
+				//				});
+				//			} else {
+				//				mui.ready(function() {
+				//					mui('#red_packets').pullRefresh().pullupLoading();
+				//				});
+				//			}
+
+				var vip_id = GetQueryString('vip_id');
+				var token = GetQueryString('token');
+
+				var getredpacketitemsofvip_url = test_url + '/api/redpacket/GetRedpacketItemsOfVip';
+				var page_num = 1;
+				var page_size = 20;
+				var myDate = new Date();
+				var time_time = myDate.getTime();
+				var month_time = myDate.getMonth(); //获取当前月份(0-11,0代表1月)
+				var year_time = myDate.getFullYear();
+				month_time += 1;
+				monthShow(month_time);
+				var sec_time = time_time / 1000;
+				sec_time = parseInt(sec_time);
+				if(month_time < 10) {
+					month_time = '0' + month_time;
+				}
+				var begin_time = year_time + '-' + month_time + '-' + '01' + ' ' + '00:00:00';
+				//		var begin_time = '2016' + '-' + month_time + '-' + '01' + ' ' + '00:00:00';
+				begin_time = datetime_to_unix(begin_time);
+				var end_time = sec_time;
+
+				function GetRedpacketItemsOfVip(getredpacketitemsofvip_url, vip_id, begin_time, end_time, page_num, page_size, token) {
+					mui.ajax(getredpacketitemsofvip_url, {
+						data: {
+							vip_id: vip_id,
+							begin_time: begin_time,
+							end_time: end_time,
+							page_num: page_num,
+							page_size: page_size,
+							token: token
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'get', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+
+						success: function(data) {
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							console.log('获取红包接口返回数据:' + JSON.stringify(data));
+							if(page_num == 1) {
+								$('.bill_table').empty();
+								var head_div = '<tr><th>名称</th><th>金额</th><th>时间</th></tr>';
+								$('.bill_table').append(head_div);
+							}
+							var Items = data.Data.Items;
+							var InMoney = data.Data.InMoney;
+							var OutMoney = data.Data.OutMoney;
+							var total_money = InMoney + OutMoney;
+							$('#InMoney').text(InMoney);
+							$('#OutMoney').text(OutMoney);
+							$('#total_money').text(total_money);
+							if(Items == '') {
+
+							} else {
+								for(var i = 0; i < Items.length; i++) {
+									var type = Items[i].type;
+									var in_money = Items[i].in_money;
+									var money = Items[i].money;
+									var last_time = Items[i].last_time;
+									console.log(last_time);
+									var year = last_time.slice(0, 10);
+									//						console.log(year);
+									var time = last_time.slice(11, 19);
+									//						console.log(time);
+									if(type == 001) {
+										var table_type = '领取';
+										var table_money = in_money;
+									} else if(type == 002 || type == 003) {
+										table_type = '已用';
+										var table_money = money;
+									} else if(type == 004) {
+										table_type = '过期';
+										var table_money = in_money;
+									}
+
+									var talbe_div =
+										'<tr>' +
+										'<td>' + table_money + '元</td>' +
+										'<td>' + table_type + '</td>' +
+										'<td>' +
+										'<span>' + year + '</span><br />' +
+										'<span>' + time + '</span>' +
+										'</td>' +
+										'</tr>';
+									$('.bill_table').append(talbe_div);
+
+								}
+							}
+
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							console.log(type);
+						}
+					});
+				}
+
+				GetRedpacketItemsOfVip(getredpacketitemsofvip_url, vip_id, begin_time, end_time, page_num, page_size, token);
+
+				function month_Change(month_begin, month_end, year_time) {
+
+					page_num == 1;
+					begin_time = year_time + '-' + month_begin + '-' + '01' + ' ' + '00:00:00';
+					begin_time = datetime_to_unix(begin_time);
+					end_time = year_time + '-' + month_end + '-' + '01' + ' ' + '00:00:00';
+					end_time = datetime_to_unix(end_time);
+					GetRedpacketItemsOfVip(getredpacketitemsofvip_url, vip_id, begin_time, end_time, page_num, page_size, token);
+				}
+
+				mui(".bill_month").on('tap', 'span', function() {
+					var month_text = $(this).text();
+					if(month_text == '1月') {
+						var month_begin = '01';
+						var month_end = '02';
+						$('.bill_month').children().removeClass('bg_cb');
+						$(this).addClass('bg_cb');
+						month_Change(month_begin, month_end, year_time);
+					} else if(month_text == '2月') {
+						var month_begin = '02';
+						var month_end = '03';
+						$('.bill_month').children().removeClass('bg_cb');
+						$(this).addClass('bg_cb');
+						month_Change(month_begin, month_end, year_time);
+					} else if(month_text == '3月') {
+						var month_begin = '03';
+						var month_end = '04';
+						$('.bill_month').children().removeClass('bg_cb');
+						$(this).addClass('bg_cb');
+						month_Change(month_begin, month_end, year_time);
+					} else if(month_text == '4月') {
+						var month_begin = '04';
+						var month_end = '05';
+						$('.bill_month').children().removeClass('bg_cb');
+						$(this).addClass('bg_cb');
+						month_Change(month_begin, month_end, year_time);
+					} else if(month_text == '5月') {
+						var month_begin = '05';
+						var month_end = '06';
+						$('.bill_month').children().removeClass('bg_cb');
+						$(this).addClass('bg_cb');
+						month_Change(month_begin, month_end, year_time);
+					} else if(month_text == '6月') {
+						var month_begin = '06';
+						var month_end = '07';
+						$('.bill_month').children().removeClass('bg_cb');
+						$(this).addClass('bg_cb');
+						month_Change(month_begin, month_end, year_time);
+					} else if(month_text == '7月') {
+						var month_begin = '07';
+						var month_end = '08';
+						$('.bill_month').children().removeClass('bg_cb');
+						$(this).addClass('bg_cb');
+						month_Change(month_begin, month_end, year_time);
+					} else if(month_text == '8月') {
+						var month_begin = '08';
+						var month_end = '09';
+						$('.bill_month').children().removeClass('bg_cb');
+						$(this).addClass('bg_cb');
+						month_Change(month_begin, month_end, year_time);
+					} else if(month_text == '9月') {
+						var month_begin = '09';
+						var month_end = '10';
+						$('.bill_month').children().removeClass('bg_cb');
+						$(this).addClass('bg_cb');
+						month_Change(month_begin, month_end, year_time);
+					} else if(month_text == '10月') {
+						var month_begin = '10';
+						var month_end = '11';
+						$('.bill_month').children().removeClass('bg_cb');
+						$(this).addClass('bg_cb');
+						month_Change(month_begin, month_end, year_time);
+					} else if(month_text == '11月') {
+						var month_begin = '12';
+						var month_end = '12';
+						$('.bill_month').children().removeClass('bg_cb');
+						$(this).addClass('bg_cb');
+						month_Change(month_begin, month_end, year_time);
+					} else if(month_text == '12月') {
+						var month_begin = '12';
+						var month_end = '03';
+						$('.bill_month').children().removeClass('bg_cb');
+						$(this).addClass('bg_cb');
+						year_time += 1;
+						month_Change(month_begin, month_end, year_time);
+					} else if(month_text == '全部') {
+						$('.bill_month').children().removeClass('bg_cb');
+						$(this).addClass('bg_cb');
+						begin_time = year_time + '-' + '01' + '-' + '01' + ' ' + '00:00:00';
+						begin_time = datetime_to_unix(begin_time);
+						GetRedpacketItemsOfVip(getredpacketitemsofvip_url, vip_id, begin_time, end_time, page_num, page_size, token);
+					}
+
+				})
+
+
+		}
+	</script>
+
+	<script>
+		var swiper = new Swiper('.swiper-container', {
+			pagination: '.swiper-pagination',
+			paginationClickable: true,
+
+			slidesPerView: 6,
+
+		});
+		//各个屏幕大小适配
+		(function(doc, win) {
+			var docEl = doc.documentElement,
+				resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+				recalc = function() {
+					var clientWidth = docEl.clientWidth;
+					if(!clientWidth) return;
+					docEl.style.fontSize = 100 * (clientWidth / 375) + 'px';
+				};
+
+			if(!doc.addEventListener) return;
+			win.addEventListener(resizeEvt, recalc, false);
+			doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+
+</html>

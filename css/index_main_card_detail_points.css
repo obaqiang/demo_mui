@@ -1,0 +1,41 @@
+.points_head{
+	margin-top: 44px;
+	background: #fff !important;
+	padding-top:0.2rem;
+	padding-bottom: 0.1rem;
+	border-bottom: 1px solid #cccccc;
+}
+.points_head_list{
+	width: 33%;
+	display: inline-block;
+	float: left;
+	text-align: center;
+	font-size: 0.13rem;
+	color: #666666;
+	padding-bottom: 0.1rem;
+}
+.points_head_list img{
+	width: 0.22rem;
+	margin-top:0.23rem;
+}
+.points_head_mid{
+	border-left:1px solid #d0d0d0;
+	border-right: 1px solid #d0d0d0;
+}
+.points_head_num{
+	color: #ef6d6d;
+	margin-top: 0.23rem;
+}
+.points_goods{
+	margin-top:0.11rem;
+	background: #ffffff;
+	font-size: 0.12rem;
+	line-height: 0.35rem;
+	padding-left: 0.1rem;
+}
+.mui-media-body{
+	font-size: 0.13rem;
+}
+.mui-ellipsis{
+	font-size: 0.13rem;
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>我的付款码</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/index_main_mine.css" />
+		<link rel="stylesheet" href="css/index_main_mine_payment.css" />
+		<style>
+			html,body {
+				background-color: #f5f5f5;
+			}
+			.title{
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav mine_nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">我的付款码</h1>
+		</header>
+		<div class="mui-content bg_f5">
+			<div class="payment_area">
+				<img class="payment_area_tiao" src="images/588px_146px_tiao.png" alt="图片不存在" />
+				<img class="payment_area_code" src="images/364px_364px_fu.png" alt="图片不存在" />
+				<div class="payment_area_refresh">
+					<img src="images/24px_24px_shuaxin.png" alt="图片不存在" />
+					<span>每分钟自动更新</span>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="js/mui.min.js"></script>
+	<script>
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+	</script>
+</html>

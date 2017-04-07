@@ -1,0 +1,26 @@
+.coupon_detail_img{
+	width: 95%;
+	margin: 0.1rem auto;
+	display: block;
+}
+.coupon_detail_head{
+	margin-top:44px;
+}
+.coupon_detail_title{
+	font-size: 0.15rem;
+	line-height: 0.4rem;
+	margin-left: 0.1rem;
+	font-weight: bold;
+}
+.coupon_detail_goods{
+	background: #fff;
+	width: 95%;
+	margin: auto;
+}
+.coupon_detail_goods_list{
+	font-size: 0.14rem;
+	line-height: 0.39rem;
+	border-bottom: 1px solid #d0d0d0;
+	height: 0.39rem;
+	padding-left: 0.1rem;
+}

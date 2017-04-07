@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" href="../../../css/mui.min.css">
+		<link rel="stylesheet" href="../../../css/global.css" />
+		<link rel="stylesheet" href="../../../css/index_main_card_detail.css" />
+		<link rel="stylesheet" href="../../../css/index_main_card_detail_shop.css" />
+		<link rel="stylesheet" href="../../../css/swiper.min.css">
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<header class="mui-bar mui-bar-nav nav_header">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">商家简介</h1>
+			</header>
+
+			<div class="list_area">
+				<div class="list_info">
+					<img class="list_info_img" src="../../../images/38px_38px_icon3.png" alt="" />
+					<span class="list_info_title">行业类型:</span>
+					<span class="list_info_name" id="store_name">???</span>
+				</div>
+
+				<div class="list_info">
+					<img class="list_info_img" src="../../../images/38px_38px_icon2.png" alt="" />
+					<span class="list_info_title">商家简介</span>
+					<div class="list_info_content" id="store_desc">
+						????
+					</div>
+				</div>
+
+				<div class="list_info_last">
+					<img class="list_info_img" src="../../../images/38px_38px_icon1.png" alt="" />
+					<span class="list_info_title">商家环境</span>
+					<div class="list_info_see">
+						<div class="swiper-container">
+							<div class="swiper-wrapper" id="image_div">
+								<!--<img src="../../../images/140px_120px_background.png" alt="" />
+								<img src="../../../images/140px_120px_background.png" alt="" />
+								<img src="../../../images/140px_120px_background.png" alt="" />
+								<img src="../../../images/140px_120px_background.png" alt="" />-->
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</body>
+	<script src="../../../js/mui.min.js"></script>
+	<script src="../../../js/config/web_config.js"></script>
+	<script src="../../../js/jquery-1.11.3.js"></script>
+	<script src="../../../js/common/bdapp.js"></script>
+	<script src="../../../js/plugin/swiper.min.js"></script>
+	<script>
+		if(navigator.userAgent.indexOf("Html5Plus") > 0) { //支持5+ API
+			mui.plusReady(function() {
+				mui.init({
+					swipeBack: true //启用右滑关闭功能
+				});
+
+				var self = plus.webview.currentWebview();
+				var data = self.data;
+				console.log(JSON.stringify(data));
+
+				var Store = data.Data.Store;
+				var store_name = Store.store_name;
+				$('#store_name').text(store_name);
+				var store_desc = Store.store_desc;
+				$('#store_desc').text(store_desc);
+				var Images = data.Data.Images;
+				for(var i = 0; i < Images.length; i++) {
+					var thumb_url = Images[i].thumb_url;
+					var image_div = '<img src="' + thumb_url + '" alt="" />';
+					$('#image_div').append(image_div);
+				}
+
+			})
+		}
+	</script>
+	<script>
+		if(navigator.userAgent.indexOf("Html5Plus") < 0) { //不支持5+ API
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+
+			var vip_id = GetQueryString('vip_id');
+			var token = GetQueryString('token');
+			var getvipinfo_url = test_url + '/api/member/getvipinfo';
+			function getvipinfo(getvipinfo_url, vip_id, token) {
+				mui.ajax(getvipinfo_url, {
+					data: {
+						vip_id: vip_id,
+						token: token
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'get', //HTTP请求类型
+					crossDomain: true,
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						console.log(data);
+						var Store = data.Data.Store;
+						var store_name = Store.store_name;
+						$('#store_name').text(store_name);
+						var store_desc = Store.store_desc;
+						$('#store_desc').text(store_desc);
+						var Images = data.Data.Images;
+						for(var i = 0; i < Images.length; i++) {
+							var thumb_url = Images[i].thumb_url;
+							var image_div = '<img src="' + thumb_url + '" alt="" />';
+							$('#image_div').append(image_div);
+						}
+
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						console.log(type);
+					}
+				})
+			}
+			getvipinfo(getvipinfo_url, vip_id, token);
+
+		}
+	</script>
+	<script>
+		var swiper = new Swiper('.swiper-container', {
+			pagination: '.swiper-pagination',
+			paginationClickable: true,
+
+			slidesPerView: 3.5,
+
+		});
+		//各个屏幕大小适配
+		(function(doc, win) {
+			var docEl = doc.documentElement,
+				resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+				recalc = function() {
+					var clientWidth = docEl.clientWidth;
+					if(!clientWidth) return;
+					docEl.style.fontSize = 100 * (clientWidth / 375) + 'px';
+				};
+
+			if(!doc.addEventListener) return;
+			win.addEventListener(resizeEvt, recalc, false);
+			doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+
+</html>

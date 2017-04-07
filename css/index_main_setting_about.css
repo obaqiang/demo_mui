@@ -1,0 +1,29 @@
+.about_icon{
+	width: 77px;
+	height: 77px;
+	display: block;
+	margin: 36px auto 11px;
+}
+.about_text{
+	text-align: center;
+	color: #000000;
+	font-size: 17px;
+}
+.about_version{
+	text-align: center;
+	color: #808080;
+	font-size: 10px;
+}
+.about_bg_list{
+	background: #ffffff;
+}
+.mui-table-view-inverted:before{
+	display: none;
+}
+.mui-table-view-inverted .mui-table-view-cell:after{
+	background: #c8c7cc;
+}
+.mui-table-view-inverted:after{
+	background: #c8c7cc;
+}
+

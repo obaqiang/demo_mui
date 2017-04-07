@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/style.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/icons-extra.css" />
+		<link rel="stylesheet" href="../../css/login.css" />
+		<link rel="stylesheet" href="../../css/global.css" />
+		<style>
+			.area {
+				margin: 20px auto 0px auto;
+			}
+			
+			.mui-input-group {
+				margin-top: 10px;
+			}
+			
+			.mui-input-group:first-child {
+				margin-top: 20px;
+			}
+			
+			.mui-input-group label {
+				width: 22%;
+			}
+			
+			.mui-input-row label~input,
+			.mui-input-row label~select,
+			.mui-input-row label~textarea {
+				width: 78%;
+			}
+			
+			.mui-checkbox input[type=checkbox],
+			.mui-radio input[type=radio] {
+				top: 6px;
+			}
+			
+			.mui-content-padded {
+				margin-top: 25px;
+			}
+			
+			.mui-btn {
+				padding: 10px;
+			}
+			
+			.link-area {
+				display: block;
+				margin-top: 25px;
+				text-align: center;
+			}
+			
+			.spliter {
+				color: #bbb;
+				padding: 0px 8px;
+			}
+			
+			.oauth-area {
+				position: absolute;
+				bottom: 20px;
+				left: 0px;
+				text-align: center;
+				width: 100%;
+				padding: 0px;
+				margin: 0px;
+			}
+			
+			.oauth-area .oauth-btn {
+				display: inline-block;
+				width: 50px;
+				height: 50px;
+				background-size: 30px 30px;
+				background-position: center center;
+				background-repeat: no-repeat;
+				margin: 0px 20px;
+				/*-webkit-filter: grayscale(100%); */
+				border: solid 1px #ddd;
+				border-radius: 25px;
+			}
+			
+			.oauth-area .oauth-btn:active {
+				border: solid 1px #aaa;
+			}
+			
+			.oauth-area .oauth-btn.disabled {
+				background-color: #ddd;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav login_vip">
+			<h1 class="mui-title">BD贵宾卡</h1>
+		</header>
+		<div class="login_alert" style="display: none;">
+			<img src="../../images/40px_40px_!.png" alt="" />
+			<span>手机号码不能为空</span>
+		</div>
+		<div class="mui-content bg_login">
+			<div class="no_login_mask">
+				<img class="touxiang" src="../../images/146px_146px_moren.png" alt="图片不存在" />
+			</div>
+
+			<form id='login-form' class="mui-input-group no_line">
+				<div class="mui-input-row no_line new_line">
+					<label class="login_label">
+						<img class="login_tel_icon" src="../../images/40px_50px_tel.png" alt="图片不存在" />
+					</label>
+
+					<input id='account' type="text" required="required" class="mui-input-clear mui-input login_text" placeholder="请输入手机号码">
+				</div>
+				<div class="mui-input-row no_line new_line">
+					<label class="login_label">
+						<img class="login_lock_icon" src="../../images/40px_50px_lock.png" alt="图片不存在" />
+					</label>
+					<input id='password' type="password" required="required" class="mui-input-clear mui-input login_text" placeholder="请输入密码">
+				</div>
+				<div id="identify" class="mui-input-row no_line new_line" style="display: none;">
+					<label class="login_label">
+						<img class="login_lock_icon" src="../../images/40px_50px_yanzhengma.png" alt="图片不存在" />
+					</label>
+					<input id='identify_code' type="text" required="required" class="mui-input-clear mui-input login_text" placeholder="请输入验证码">
+					<img id="identify_img" class="identify_img" src="" alt="" />
+				</div>
+			</form>
+			<!--<form class="mui-input-group">
+				<ul class="mui-table-view mui-table-view-chevron">
+					<li class="mui-table-view-cell">
+						自动登录
+						<div id="autoLogin" class="mui-switch">
+							<div class="mui-switch-handle"></div>
+						</div>
+					</li>
+				</ul>
+			</form>-->
+			<div class=" login_btn">
+				<button id="login" class="login_btn_ok">登录</button>
+				<div class="link-area">
+					<img class="login_nohook_icon" id="login_nohook_icon" src="../../images/34px_34px_nohook.png" alt="图片不存在" />
+					<span class="login_agree" id="login_nohook_text">记住密码</span>
+					<!--<span class="login_service">服务信息</span>-->
+					<span class="login_forget_pwd" id="login_forget_pwd">忘记密码？</span>
+					<!--<img src="https://api.bdvip.net/api/member/verifycode?phone=13776336512" alt="" />-->
+					<!--<a id='reg'>注册账号</a>
+					<span class="spliter">|</span> 
+					<a id='forgetPassword'>忘记密码</a>-->
+				</div>
+			</div>
+			<!--<div class="mui-content-padded oauth-area">
+				<div class="login_bottom_line">
+				</div>
+				<div class="weixin_login">
+					<div class="weixin_po">
+						<img class="weixin_icon" src="images/96px_96px_weixin.png" alt="图片不存在" />
+						<span class="weixin_text">微信登录</span>
+					</div>
+
+				</div>
+
+			</div>-->
+			<div class="mui-content-padded oauth-area">
+			</div>
+
+		</div>
+		<script src="../../js/config/web_config.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/mui.jsonp.js"></script>
+		<script src="../../js/mui.enterfocus.js"></script>
+		<script src="../../js/app.js"></script>
+		<script src="../../js/jquery-1.11.3.js"></script>
+		<script src="../../js/common/bdapp.js"></script>
+		<script src="../../js/config/web_config.js"></script>
+		<script src="../../js/no_h5_plus/login.js"></script>
+		<script>
+			(function($, doc) {
+				
+				$.init({
+					statusBarBackground: '#f7f7f7'
+				});
+			}(mui, document));
+		</script>
+
+		<script>
+		
+		
+		
+			if(navigator.userAgent.indexOf("Html5Plus") > 0) { //支持5+ API
+//				alert("支持5+ API");
+				mui.plusReady(function() {
+					//			用户名手机密码验证
+					//文本框失去焦点后
+					var account = 'false';
+					var pwd = 'false';
+					var identify;
+
+					var pwd_hook_status = 'false'; //必须以字符串形式，否则无法存储
+					console.log('最上面的pwd_hook_status：' + pwd_hook_status);
+
+					function rem_pwd() {
+						//					alert(pwd_hook_status);
+						if(pwd_hook_status == 'false') {
+							pwd_hook_status = 'true';
+
+							$('#login_nohook_icon').attr('src', '../../images/34px_34px_hook.png');
+						} else {
+							pwd_hook_status = 'false';
+							UserInfo.pwd_hook_status(pwd_hook_status);
+							$('#login_nohook_icon').attr('src', '../../images/34px_34px_nohook.png');
+						}
+					}
+
+					document.getElementById('login_nohook_icon').addEventListener('tap', function() {
+						rem_pwd();
+					})
+					document.getElementById('login_nohook_text').addEventListener('tap', function() {
+						rem_pwd();
+					})
+
+					document.getElementById('login_forget_pwd').addEventListener('tap', function() {
+						Alert('请联系发卡商家解决');
+					})
+
+					//				点击图片刷新验证码方法
+
+					$('form :input').blur(function() {
+						//验证用户名
+
+						if($(this).is('#account')) {
+							if(this.value == "") {
+								var errorMsg = '用户名不能为空';
+								//						console.log(errorMsg);
+								$('.login_alert span').text(errorMsg);
+								account = 'false';
+
+							} else {
+								account = 'true';
+							}
+						}
+						//验证密码
+						if($(this).is('#password')) {
+							if(this.value == "") {
+								var errorMsg = '密码不能为空';
+								//						console.log(errorMsg);
+								$('.login_alert span').text(errorMsg);
+								pwd = 'false';
+							} else {
+								pwd = 'true';
+							}
+						}
+						//验证验证码
+						if($(this).is('#identify_code')) {
+							if(this.value == "") {
+								var errorMsg = '我的验证码不能为空';
+								//						console.log(errorMsg);
+								$('.login_alert span').text(errorMsg);
+								identify = 'false';
+							} else {
+								identify = 'true';
+
+							}
+						}
+
+					}).keyup(function() {
+						$(this).triggerHandler("blur");
+
+					}).focus(function() {
+						$(this).triggerHandler("blur");
+					}); //end blur
+
+					function alertHide() {
+						$('.login_alert').fadeOut();
+						$('.login_vip').fadeIn();
+					}
+
+					function loginAlert() {
+						$('.login_alert').fadeIn();
+						$('.login_vip').fadeOut();
+						setTimeout("alertHide()", 2000);
+					}
+
+					function verifycode(url_login, data_list) {
+						console.log('需要的data_list:' + JSON.stringify(data_list));
+						mui.get(url_login, data_list, function(data) {
+							console.log('登陆接口返回的数据:' + JSON.stringify(data));
+							//					console.log('需要的member_id:' + data.Data.Member.id);
+							//					console.log('需要的Token：' + data.Data.Token);
+							var thumb = data.Data.thumb;
+							if(thumb != '') {
+								$('.touxiang').attr('src', thumb);
+							}
+
+							if(data.ErrorCode == 4) { //此时需要输入验证码
+								//								
+
+								var errorMsg = data.ErrorMessage;
+								//							$('.login_alert span').text(errorMsg);
+								//							loginAlert();
+								Alert(errorMsg);
+								$('#identify').show();
+								var tel = $('#account').val();
+								var tel_url = test_url + '/api/member/verifycode?deviceToken=&phone=';
+								var identify_url = tel_url + tel + '&t=' + new Date().getTime();
+								$('#identify_img').attr('src', identify_url);
+								document.getElementById('identify_img').addEventListener('tap', function() {
+									var tel = $('#account').val();
+									var tel_url = test_url + '/api/member/verifycode?deviceToken=&phone=';
+									var identify_url = tel_url + tel + '&t=' + new Date().getTime();
+									$('.identify_img').attr('src', identify_url);
+								});
+							} else if(data.ErrorCode == 0) { //正常登陆跳转首页
+								UserInfo.username(data_list.account);
+								UserInfo.password(data_list.pwd);
+								UserInfo.member_id(data.Data.Member.id);
+								UserInfo.token(data.Data.Token);
+								console.log('里面的pwd_hook_status：' + data_list.pwd_hook_status);
+								UserInfo.pwd_hook_status(data_list.pwd_hook_status);
+								console.log('此时需要的data:' + JSON.stringify(data));
+								var webview = mui.openWindow({
+									url: '../home/index_main_anzhuo.html',
+									id: 'index_main_anzhuo',
+									extras: {
+										member_id: data.Data.Member.id,
+										token: data.Data.Token,
+										Member: data.Data.Member
+									},
+									createNew: true
+								});
+
+							} else { //账号密码错误
+								var errorMsg = data.ErrorMessage;
+								$('.login_alert span').text(errorMsg);
+								loginAlert();
+							}
+
+						}, 'json');
+					}
+
+					if(UserInfo.has_login() == true) { //判断是否已经登陆过
+						console.log('方法中的已经登陆过');
+						//				如果已经登陆过,则直接跳转到首页,并将member_id和token传给首页
+
+						var token = UserInfo.token();
+						console.log('需要的token:' + token);
+						var username = UserInfo.username();
+						var password = UserInfo.password();
+						console.log('UserInfo:' + UserInfo);
+						var data_list = {};
+						data_list.account = username;
+						data_list.pwd = password;
+						//					console.log('需要的' + data_list.VerifyCode);
+						var url_login = test_url + '/api/member/LoginVerify';
+						//					verifycode(url_login, data_list);
+						pwd_hook_status = UserInfo.pwd_hook_status();
+						if(pwd_hook_status == 'true') {
+							$('#login_nohook_icon').attr('src', '../../images/34px_34px_hook.png');
+							$('#account').val(username);
+							$('#password').val(password);
+							account = 'true';
+							pwd = 'true';
+							identify = 'true';
+						} else {
+							$('#login_nohook_icon').attr('src', '../../images/34px_34px_nohook.png');
+						}
+
+						var member_id = UserInfo.member_id();
+						//					console.log('需要的member_id：' + member_id);
+						//					var webview = mui.openWindow({
+						//						url: '../home/index_main_anzhuo.html',
+						//						extras: {
+						//							member_id: member_id,
+						//							token: token
+						//						}
+						//					});
+					}
+
+					document.getElementById('login').addEventListener('tap', function() {
+						if(account == 'false') {
+							var errorMsg = '用户名不能为空';
+							//						$('.login_alert span').text(errorMsg);
+							//						loginAlert();
+							Alert(errorMsg);
+						} else if(pwd == 'false') {
+							var errorMsg = '密码不能为空';
+							//						$('.login_alert span').text(errorMsg);
+							//						loginAlert();
+							Alert(errorMsg);
+						} else if(identify == 'false') {
+							//						alert(11);
+							var errorMsg = '验证码不能为空';
+							//						$('.login_alert span').text(errorMsg);
+							//						loginAlert();
+							Alert(errorMsg);
+						} else { //这里请求接口
+							//					先判断是否断网
+							if(!navigator.onLine) { //如果断网
+								//						alert('断网了');
+								return;
+							}
+
+							var data_list = {};
+							data_list.account = $('#account').val();
+							data_list.pwd = $('#password').val();
+							data_list.VerifyCode = $('#identify_code').val();
+							console.log('需要的VerifyCode：' + data_list.VerifyCode);
+							data_list.pwd_hook_status = pwd_hook_status;
+							console.log('btn里的pwd_hook_status:' + pwd_hook_status);
+							//					console.log('需要的' + data_list.VerifyCode);
+							var url_login = test_url + '/api/member/LoginVerify';
+							console.log(data_list);
+							verifycode(url_login, data_list);
+						}
+					})
+
+				})
+			}
+
+			//			给登陆按钮绑定事件
+		</script>
+		<script>
+			//各个屏幕大小适配
+			(function(doc, win) {
+				var docEl = doc.documentElement,
+					resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+					recalc = function() {
+						var clientWidth = docEl.clientWidth;
+						if(!clientWidth) return;
+						docEl.style.fontSize = 100 * (clientWidth / 375) + 'px';
+					};
+
+				if(!doc.addEventListener) return;
+				win.addEventListener(resizeEvt, recalc, false);
+				doc.addEventListener('DOMContentLoaded', recalc, false);
+			})(document, window);
+		</script>
+	</body>
+
+</html>

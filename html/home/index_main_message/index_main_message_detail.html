@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" href="../../../css/mui.min.css">
+		<link rel="stylesheet" href="../../../css/global.css" />
+		<link rel="stylesheet" href="../../../css/index_main_message.css" />
+		<link rel="stylesheet" href="../../../css/index_main_message_detail.css" />
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav message_detail_header">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">结账详情</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view detail_ul" id="list_pay">
+				<li class="mui-table-view-cell detail_ul_head">
+					付款明细
+				</li>
+				<li class="mui-table-view-cell detail_ul_body">
+					<span>订单号</span>
+					<span id="order_id">???</span>
+				</li>
+				<li class="mui-table-view-cell detail_ul_body">
+					<span>交易时间</span>
+					<span id="add_time">???</span>
+				</li>
+				<li class="mui-table-view-cell detail_ul_body">
+					<span>操作员</span>
+					<span id="staff_name">???</span>
+				</li>
+				<li class="mui-table-view-cell detail_ul_body" style="display: none;">
+					<span>结账类型</span>
+					<span>正常</span>
+				</li>
+				<!--<li class="mui-table-view-cell detail_ul_body">
+					<span>会员卡支付</span>
+					<span class="prize_text" id="amount_payable">????</span>
+				</li>-->
+				<li class="mui-table-view-cell detail_ul_body" style="display: none;">
+					<span>剩余套餐总计</span>
+					<span class="prize_text">￥4420.00</span>
+				</li>
+			</ul>
+
+			<ul class="mui-table-view detail_ul" id="package_data">
+				<li class="mui-table-view-cell detail_ul_head">
+					使用明细
+				</li>
+				<!--<li class="mui-table-view-cell detail_ul_body">
+					<span id="package_name">套餐</span>
+					<span id="price" class="prize_text">????</span>
+				</li>-->
+			</ul>
+
+			<ul class="mui-table-view detail_ul" id="total_price">
+				<li class="mui-table-view-cell detail_ul_head">
+					<img class="ul_img_icon" src="../../../images/28px_28px_iconshop.png" alt="" />
+					<span></span>
+					<span id="status_text" class="confirm_text"></span>
+				</li>
+				<!--<li class="mui-table-view-cell detail_ul_body">
+
+					<span id="goods_name">套餐</span>
+					<span class="prize_text" id="total_price">????</span>
+				</li>-->
+			</ul>
+
+			<div class="detail_list" style="display: none;">
+				<img src="../../../images/touxiang.jpg" alt="" />
+				<div class="detail_list_info">
+					<span>辣子鸡丁</span>
+					<span>$220.00</span>
+				</div>
+				<span class="detail_list_num">
+					x2
+				</span>
+			</div>
+
+			<div class="detail_list" style="display: none;">
+				<img src="../../../images/touxiang.jpg" alt="" />
+				<div class="detail_list_info">
+					<span>辣子鸡丁</span>
+					<span>$220.00</span>
+				</div>
+				<span class="detail_list_num">
+					x2
+				</span>
+			</div>
+
+			<div class="detail_sum" style="display: none;">
+				共4件商品 合计：￥440.00元
+			</div>
+			<div class="detail_nav_bot" style="display: none;">
+				<span id="confirm_left">确定</span>
+				<span id="confirm_right">取消</span>
+			</div>
+
+		</div>
+	</body>
+	<script src="../../../js/mui.min.js"></script>
+	<script src="../../../js/config/web_config.js"></script>
+	<script src="../../../js/jquery-1.11.3.js"></script>
+	<script src="../../../js/common/bdapp.js"></script>
+	<script src="../../../js/plugin/code128.js"></script>
+	<script src="../../../js/plugin/qrcode.js"></script>
+	<script>
+		if(navigator.userAgent.indexOf("Html5Plus") < 0) { //不支持5+ API
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+
+			var bill_id = GetQueryString('bill_id');
+			var token = GetQueryString('token');
+			var member_id = GetQueryString('member_id');
+			var type = GetQueryString('type');
+			var store_id = GetQueryString('store_id');
+			var getorder_url = test_url + '/api/order/GetOrder';
+			
+
+			var getpayments_url=test_url+'/api/store/GetPayments';
+//			function GetPayments(getpayments_url,type,store_id) {
+//				mui.ajax(getpayments_url, {
+//					data: {
+//						type: type,
+//						store_id: store_id
+//					},
+//					dataType: 'json', //服务器返回json格式数据
+//					type: 'get', //HTTP请求类型
+//					timeout: 10000, //超时时间设置为10秒；
+//					success: function(data) {
+//						//服务器返回响应，根据响应结果，分析是否登录成功；
+//						console.log(data);
+//					},
+//					error: function(xhr, type, errorThrown) {
+//						//异常处理；
+//						console.log(type);
+//					}
+//				});
+//			}
+//			GetPayments(getpayments_url,type,store_id);
+
+			function GetOrder(getorder_url, bill_id, token) {
+				console.log(getorder_url+'?order_id='+bill_id+'&token='+token);
+				mui.ajax(getorder_url, {
+					data: {
+						order_id: bill_id,
+						token: token
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'get', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					headers:{
+						'api-version':'2'
+//						'Accept': 'application/vnd.haveibeenpwned.v2+json'
+					},
+					success: function(data) {
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+						//						console.log(JSON.stringify(data));
+						console.log(data);
+						var Order = data.Data.Order;
+						var order_id = Order.order_id;
+						$('#order_id').text(order_id);
+						var add_time = Order.add_time;
+						add_time = userDate(add_time);
+						$('#add_time').text(add_time);
+
+						var staff_name = Order.staff_name;
+						$('#staff_name').text(staff_name);
+						var store_name = Order.store_name;
+//						var amount_payable = Order.amount_payable;
+//						$('#amount_payable').text(amount_payable);
+						var redpacket_money = Order.redpacket_money;
+						if(redpacket_money>0){
+							var pay_div=
+							'<li class="mui-table-view-cell detail_ul_body">'+
+							'<span>红包支付</span>'+
+							'<span class="prize_text">'+redpacket_money+'</span>'+
+							'</li>';
+							$('#list_pay').append(pay_div);
+						}
+						var point_money= Order.point_money;
+						if(point_money>0){
+							point_money=point_money/100;
+							point_money=point_money.toFixed(2);
+							var pay_div=
+							'<li class="mui-table-view-cell detail_ul_body">'+
+							'<span>积分折扣</span>'+
+							'<span class="prize_text">'+point_money+'</span>'+
+							'</li>';
+							$('#list_pay').append(pay_div);
+						}
+						var ticket_money = Order.ticket_money;
+						if(ticket_money>0){
+							var pay_div=
+							'<li class="mui-table-view-cell detail_ul_body">'+
+							'<span>优惠券</span>'+
+							'<span class="prize_text">'+ticket_money+'</span>'+
+							'</li>';
+							$('#list_pay').append(pay_div);
+						}
+						var Packages = Order.Packages;
+						for(var i = 0; i < Packages.length; i++) {
+							var package_name = Packages[i].package_name;
+							var price = Packages[i].price;
+							var div=
+							'<li class="mui-table-view-cell detail_ul_body">'+
+							'<span id="goods_name">'+package_name+'</span>'+
+							'<span class="prize_text" >'+price+'</span>'+
+							'</li>';
+							$('#total_price').append(div);
+						}
+
+						var PayList = Order.PayList;
+						for(var i = 0; i < PayList.length; i++){
+							var pay_name = PayList[i].pay_name;
+							var pay_money = PayList[i].pay_money;
+							var div=
+							'<li class="mui-table-view-cell detail_ul_body">'+
+							'<span>'+pay_name+'</span>'+
+							'<span class="prize_text" >'+pay_money+'</span>'+
+							'</li>';
+							$('#list_pay').append(div);
+						}
+
+						var Items = Order.Items;
+						for(var i = 0; i < Items.length; i++) {
+							var goods_name = Items[i].goods_name;
+							var total_price = Items[i].price;
+							var qty = Items[i].qty;
+							var price = '￥'+total_price+' '+'x'+' '+qty;
+							var div=
+							'<li class="mui-table-view-cell detail_ul_body">'+
+							'<span id="goods_name">'+goods_name+'</span>'+
+							'<span class="prize_text" id="total_price">'+price+'</span>'+
+							'</li>';							
+							$('#package_data').append(div);
+						}
+						var status = Order.status;
+						var status_text;
+						if(status == 1) {
+							status_text = '等待确认';
+							$('.detail_nav_bot').show();
+						} else if(status == 2) {
+							status_text = '已确认';
+						} else if(status == 3) {
+							status_text = '已超时';
+						} else if(status == 4) {
+							status_text = '已取消';
+						} else if(status == 5) {
+							status_text = '已退款';
+						} else if(status == 6) {
+							status_text = '部分退款';
+						} else if(status == 7) {
+							status_text = '挂单';
+						}
+						$('#status_text').text(status_text);
+
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						console.log(type);
+					}
+				});
+			}
+			GetOrder(getorder_url, bill_id, token);
+
+			var confirm_url = test_url + '/api/order/Confirm';
+
+			function Confirm(confirm_url, bill_id, type, token) {
+				mui.ajax(confirm_url, {
+					data: {
+						order_id: bill_id,
+						type: type,
+						token: token
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'get', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+						console.log(JSON.stringify(data));
+						var IsError = data.Data.IsError;
+						if(IsError == false) {
+							if(type == 2) {
+								Alert('确定成功');
+							} else if(type == 4) {
+								Alert('取消成功');
+							}
+
+						} else {
+							var ErrorMessage = data.Data.ErrorMessage;
+							Alert(ErrorMessage);
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						console.log(type);
+					}
+				});
+			}
+			document.getElementById('confirm_left').addEventListener('tap', function() {
+				var type = 2;
+				Confirm(confirm_url, bill_id, type, token);
+			})
+			document.getElementById('confirm_right').addEventListener('tap', function() {
+				var type = 4;
+				Confirm(confirm_url, bill_id, type, token);
+			})
+
+			//			将消息标记为已读
+			var setreadflag_url = test_url + '/api/member/SetReadFlag';
+
+			function SetReadFlag(setreadflag_url, bill_id, token, member_id, type) {
+				mui.ajax(setreadflag_url, {
+					data: {
+						billid: bill_id,
+						token: token,
+						member_id: member_id,
+						type: type
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'get', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+//						console.log(data);
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						console.log(type);
+					}
+				});
+			}
+			SetReadFlag(setreadflag_url, bill_id, token, member_id, type);
+
+		}
+	</script>
+	<script>
+		//各个屏幕大小适配
+		(function(doc, win) {
+			var docEl = doc.documentElement,
+				resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+				recalc = function() {
+					var clientWidth = docEl.clientWidth;
+					if(!clientWidth) return;
+					docEl.style.fontSize = 100 * (clientWidth / 375) + 'px';
+				};
+
+			if(!doc.addEventListener) return;
+			win.addEventListener(resizeEvt, recalc, false);
+			doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+
+</html>

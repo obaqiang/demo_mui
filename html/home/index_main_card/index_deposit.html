@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" href="../../../css/mui.min.css">
+		<link rel="stylesheet" href="../../../css/global.css" />
+		<link rel="stylesheet" href="../../../css/index_deposit.css" />
+		<link rel="stylesheet" href="../../../css/swiper.min.css">
+		<style>
+			html,
+			body {
+				background-color: #fff;
+			}
+			
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<header class="mui-bar mui-bar-nav nav_header">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">托管</h1>
+			</header>
+
+			<div class="deposit_content">
+				<ul class="mui-table-view">
+					<!--<li class="mui-table-view-cell">
+						<span class="deposit_list">
+							<img src="../../../images/140px_120px_background.png" alt="" />
+							<span>超级管理员</span>
+							<span class="deposit_status">审核中</span>
+						</span>
+						<div class="mui-switch mui-switch-mini mui-active ">
+							<div class="mui-switch-handle"></div>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<span class="deposit_list">
+							<img src="../../../images/140px_120px_background.png" alt="" />
+							<span>超级管理员</span>
+							<span class="deposit_status">审核中</span>
+						</span>
+						<div class="mui-switch mui-switch-mini">
+							<div class="mui-switch-handle"></div>
+						</div>
+					</li>-->
+				</ul>
+			</div>
+
+			<div class="deposit_btn" id="deposit_btn">
+				确认
+			</div>
+
+		</div>
+	</body>
+	<script src="../../../js/mui.min.js"></script>
+	<script src="../../../js/plugin/swiper.min.js"></script>
+	<script src="../../../js/jquery-1.11.3.js"></script>
+	<script src="../../../js/common/bdapp.js"></script>
+	<script src="../../../js/config/web_config.js"></script>
+	<script>
+		if(navigator.userAgent.indexOf("Html5Plus") > 0) { //支持5+ API
+			mui.plusReady(function() {
+				mui.init({
+					swipeBack: true //启用右滑关闭功能
+				});
+				//		$('.mui-switch').click(function(){
+				//			console.log($(this).parent().children().children('.deposit_status').text());
+				//		});
+
+				var self = plus.webview.currentWebview();
+				var store_id = self.store_id;
+				var member_id = self.member_id;
+				var vip_id = self.vip_id;
+				var token = self.token;
+
+				var getentrustmans_url = test_url + '/api/entrust/GetEntrustMans';
+
+				function GetEntrustMans(getentrustmans_url, store_id, member_id, token) {
+					mui.ajax(getentrustmans_url, {
+						data: {
+							store_id: store_id,
+							member_id: member_id,
+							token: token
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'get', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							console.log('获取托管列表接口返回数据:' + JSON.stringify(data));
+							var Staffs = data.Data.Staffs;
+							var has_apply = data.Data.has_apply;
+							for(var i = 0; i < Staffs.length; i++) {
+								var staff_id = Staffs[i].id;
+								var staff_name = Staffs[i].staff_name;
+								var thumb = Staffs[i].thumb;
+								var is_selected = Staffs[i].is_selected;
+								var is_selected_class;
+								var has_apply_class;
+								if(is_selected == 0 && has_apply == 0) { //审核通过且没有选中的
+									is_selected_class = '';
+									has_apply_class = 'bd_h';
+								} else if(is_selected == 0 && has_apply == 1) { //正在审核且没有选中的
+									is_selected_class = '';
+									has_apply_class = 'bd_h';
+								} else if(is_selected == 1 && has_apply == 0) { //审核通过且有选中的
+									is_selected_class = 'mui-active';
+									has_apply_class = 'bd_h';
+								} else if(is_selected == 1 && has_apply == 1) { //正在审核且有选中的
+									is_selected_class = 'mui-active';
+									has_apply_class = '';
+								}
+
+								var deposit_div =
+									'<li class="mui-table-view-cell">' +
+									'<span class="deposit_list">' +
+									'<img src="' + thumb + '" alt="" />' +
+									'<span>' + staff_name + '</span>' +
+									'<span class="deposit_status ' + has_apply_class + '" >审核中</span>' +
+									'</span>' +
+									'<div staff_id="' + staff_id + '" class="mui-switch mui-switch-mini ' + is_selected_class + '">' +
+									'<div class="mui-switch-handle"></div>' +
+									'</div>' +
+									'</li>';
+								$('.mui-table-view').append(deposit_div);
+
+							}
+							mui(".mui-table-view").on('tap', '.mui-switch', function() {
+								if($(this).hasClass('mui-active')) {
+									$(this).removeClass('mui-active');
+									$('.deposit_status').hide();
+								} else {
+									$('.mui-table-view .mui-switch').removeClass('mui-active');
+									$(this).addClass('mui-active');
+									//							$(this).parent().parent().children('.deposit_status').show();
+									$('.deposit_status').hide();
+									$(this).parent().children().children('.deposit_status').show();
+								}
+
+							})
+
+							//		给确认按钮绑定事件
+							document.getElementById('deposit_btn').addEventListener('tap', function() {
+								if($('.mui-table-view .mui-switch').hasClass('mui-active')) {
+									console.log(1);
+									var staff_id = $('.mui-active').attr('staff_id');
+									console.log(applyentrust_url + '?store_id=' + store_id + '&vip_id=' + vip_id + '&token=' + token + '&member_id=' + member_id + '&staff_id=' + staff_id);
+									ApplyEntrust(applyentrust_url, store_id, vip_id, member_id, staff_id, token);
+								} else {
+									console.log(2);
+									console.log(cancelentrust_url + '?store_id=' + store_id + '&vip_id=' + vip_id + '&token=' + token);
+									var is_apply;
+									if(has_apply == 0) {
+										is_apply = 0; //已经是托管时取消
+									} else { //此时已经是托管
+										is_apply = 1;
+									}
+
+									CancelEntrust(cancelentrust_url, store_id, vip_id, token, is_apply);
+								}
+
+							})
+
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							console.log(type);
+						}
+					});
+
+				}
+				GetEntrustMans(getentrustmans_url, store_id, member_id, token);
+
+				var cancelentrust_url = test_url + '/api/entrust/CancelEntrust';
+				//取消托管
+				function CancelEntrust(cancelentrust_url, store_id, vip_id, token, is_apply) {
+					mui.ajax(cancelentrust_url, {
+						data: {
+							store_id: store_id,
+							vip_id: vip_id,
+							token: token,
+							is_apply: is_apply
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'get', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							console.log('获取取消托管接口返回数据:' + JSON.stringify(data));
+							Alert('操作成功');
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							console.log(type);
+							Alert('操作失败请重试');
+						}
+					});
+
+				}
+
+				var applyentrust_url = test_url + '/api/entrust/ApplyEntrust';
+				//		申请托管
+				function ApplyEntrust(applyentrust_url, store_id, vip_id, member_id, staff_id, token) {
+					mui.ajax(applyentrust_url, {
+						data: {
+							store_id: store_id,
+							vip_id: vip_id,
+							member_id: member_id,
+							staff_id: staff_id,
+							token: token
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'get', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							console.log('获取申请托管接口返回数据:' + JSON.stringify(data));
+							Alert('操作成功');
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							console.log(type);
+
+							Alert('操作失败请重试');
+						}
+					});
+				}
+
+			})
+		}
+	</script>
+
+	<script>
+		if(navigator.userAgent.indexOf("Html5Plus") < 0) { //不支持5+ API
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+			//		$('.mui-switch').click(function(){
+			//			console.log($(this).parent().children().children('.deposit_status').text());
+			//		});
+
+			var store_id = GetQueryString('store_id');
+			var member_id = GetQueryString('member_id');
+			var vip_id = GetQueryString('vip_id');
+			var token = GetQueryString('token');
+
+			var getentrustmans_url = test_url + '/api/entrust/GetEntrustMans';
+
+			function GetEntrustMans(getentrustmans_url, store_id, member_id, token) {
+				mui.ajax(getentrustmans_url, {
+					data: {
+						store_id: store_id,
+						member_id: member_id,
+						token: token
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'get', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+						console.log('获取托管列表接口返回数据:' + JSON.stringify(data));
+						var Staffs = data.Data.Staffs;
+						var has_apply = data.Data.has_apply;
+						for(var i = 0; i < Staffs.length; i++) {
+							var staff_id = Staffs[i].id;
+							var staff_name = Staffs[i].staff_name;
+							var thumb = Staffs[i].thumb;
+							var is_selected = Staffs[i].is_selected;
+							var is_selected_class;
+							var has_apply_class;
+							if(is_selected == 0 && has_apply == 0) { //审核通过且没有选中的
+								is_selected_class = '';
+								has_apply_class = 'bd_h';
+							} else if(is_selected == 0 && has_apply == 1) { //正在审核且没有选中的
+								is_selected_class = '';
+								has_apply_class = 'bd_h';
+							} else if(is_selected == 1 && has_apply == 0) { //审核通过且有选中的
+								is_selected_class = 'mui-active';
+								has_apply_class = 'bd_h';
+							} else if(is_selected == 1 && has_apply == 1) { //正在审核且有选中的
+								is_selected_class = 'mui-active';
+								has_apply_class = '';
+							}
+
+							var deposit_div =
+								'<li class="mui-table-view-cell">' +
+								'<span class="deposit_list">' +
+								'<img src="' + thumb + '" alt="" />' +
+								'<span>' + staff_name + '</span>' +
+								'<span class="deposit_status ' + has_apply_class + '" >审核中</span>' +
+								'</span>' +
+								'<div staff_id="' + staff_id + '" class="mui-switch mui-switch-mini ' + is_selected_class + '">' +
+								'<div class="mui-switch-handle"></div>' +
+								'</div>' +
+								'</li>';
+							$('.mui-table-view').append(deposit_div);
+
+						}
+						mui(".mui-table-view").on('tap', '.mui-switch', function() {
+							if($(this).hasClass('mui-active')) {
+								$(this).removeClass('mui-active');
+								$('.deposit_status').hide();
+							} else {
+								if(has_apply == 1) {
+									Alert('托管申请正在处理中，若要重新托管给其人管理员，请先取消托管申请');
+								} else {
+									$('.mui-table-view .mui-switch').removeClass('mui-active');
+									$(this).addClass('mui-active');
+									//							$(this).parent().parent().children('.deposit_status').show();
+									$('.deposit_status').hide();
+									$(this).parent().children().children('.deposit_status').show();
+								}
+
+							}
+
+						})
+
+						//		给确认按钮绑定事件
+						document.getElementById('deposit_btn').addEventListener('tap', function() {
+							if($('.mui-table-view .mui-switch').hasClass('mui-active')) {
+								var staff_id = $('.mui-active').attr('staff_id');
+								alert(staff_id);
+								console.log(applyentrust_url + '?store_id=' + store_id + '&vip_id=' + vip_id + '&token=' + token + '&member_id=' + member_id + '&staff_id=' + staff_id);
+								ApplyEntrust(applyentrust_url, store_id, vip_id, member_id, staff_id, token);
+							} else {
+								
+								var is_apply;
+								if(has_apply == 0) {
+									is_apply = 0; //已经是托管时取消
+								} else { //此时已经是托管
+									is_apply = 1;
+								}
+								console.log(cancelentrust_url + '?store_id=' + store_id + '&vip_id=' + vip_id + '&token=' + token+'&is_apply='+is_apply);
+								CancelEntrust(cancelentrust_url, store_id, vip_id, token, is_apply);
+							}
+
+						})
+
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						console.log(type);
+					}
+				});
+
+			}
+			GetEntrustMans(getentrustmans_url, store_id, member_id, token);
+
+			var cancelentrust_url = test_url + '/api/entrust/CancelEntrust';
+			//取消托管
+			function CancelEntrust(cancelentrust_url, store_id, vip_id, token, is_apply) {
+				mui.ajax(cancelentrust_url, {
+					data: {
+						store_id: store_id,
+						vip_id: vip_id,
+						token: token,
+						is_apply: is_apply
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'get', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+						console.log('获取取消托管接口返回数据:' + JSON.stringify(data));
+						Alert('操作成功');
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						console.log(type);
+						Alert('操作失败请重试');
+					}
+				});
+
+			}
+
+			var applyentrust_url = test_url + '/api/entrust/ApplyEntrust';
+			//		申请托管
+			function ApplyEntrust(applyentrust_url, store_id, vip_id, member_id, staff_id, token) {
+				mui.ajax(applyentrust_url, {
+					data: {
+						store_id: store_id,
+						vip_id: vip_id,
+						member_id: member_id,
+						staff_id: staff_id,
+						token: token
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'get', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+						console.log('获取申请托管接口返回数据:' + JSON.stringify(data));
+						Alert('操作成功');
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						console.log(type);
+
+						Alert('操作失败请重试');
+					}
+				});
+			}
+
+		}
+	</script>
+
+	<script>
+		//各个屏幕大小适配
+		(function(doc, win) {
+			var docEl = doc.documentElement,
+				resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+				recalc = function() {
+					var clientWidth = docEl.clientWidth;
+					if(!clientWidth) return;
+					docEl.style.fontSize = 100 * (clientWidth / 375) + 'px';
+				};
+
+			if(!doc.addEventListener) return;
+			win.addEventListener(resizeEvt, recalc, false);
+			doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+
+</html>

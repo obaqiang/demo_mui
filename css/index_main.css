@@ -1,0 +1,162 @@
+.main_head{
+	background: #cb2920;
+}
+.main_head_icon{
+	width: 0.86rem;
+	margin-top: 0.1rem;
+}
+.main_head_pay{
+	float: right;
+	margin-right: 0.14rem;
+	margin-top: 0.05rem;
+	text-align: center;
+}
+.main_head_pay img{
+	width:0.2rem;
+	/*height: 20px;*/
+	
+}
+.main_head_pay span{
+	font-size: 0.08rem;
+	line-height: 0.08rem;
+	color: #fff;
+	display: block;
+}
+.main_head_sao{
+	float: right;
+	/*margin-right: 14px;*/
+	margin-top: 5px;	
+	text-align: center;
+}
+.main_head_sao img{
+	width:0.2rem;
+	height: 0.2rem;
+}
+.main_head_sao span{
+	display: block;
+	font-size: 0.08rem;
+	line-height: 0.08rem;
+	color: #FFF;
+}
+.main_no_icon:before{
+	display: none;
+}
+.kabao_icon{
+	width:24px;
+	height: 24px;
+}
+.kabao_text{
+	font-size: 9px;
+	color: #CB2920;
+}
+.message_icon{
+	width: 24px;
+	height: 24px;
+}
+.message_text{
+	font-size: 9px;
+	color: #7d7c82;
+}
+.mine_icon{
+	width: 24px;
+	height: 24px;
+}
+.mine_text{
+	font-size: 9px;
+	color: #7d7c82;
+}
+.set_icon{
+	width: 24px;
+	height: 24px;
+}
+.set_text{
+	font-size: 9px;
+	color: #7d7c82;
+}
+.service_area{
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.7);  
+	z-index: 10;
+}
+.icon_close{
+	float: left;
+	width: 27px;
+	height: 27px;
+}
+.icon_b{
+	width: 49px;
+	height: 49px;
+	line-height: 70px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+}
+.area_text{
+	display: inline-block;
+	font-size: 12px;
+	color: #fff;
+	font-weight: bold;
+	position: relative;
+	top:-20px;
+	left: 5px;
+}
+.use_now{
+	display: inline-block;
+	border: 1px solid #fff;
+	border-radius: 5px;
+	padding:10px;
+	color: #fff;
+	float: right;
+	margin-top: 15px;
+	margin-right: 20px;
+}
+.main_nav{
+	background: #cb2920;
+}
+.main_nav h1{
+	color: #FFFFFF;
+}
+.main_nav a{
+	color: #FFFFFF;
+}
+.mui-bar{
+	padding-left: 0.1rem;
+	padding-right: 0.1rem;
+	height: 0.44rem;
+}
+.main_head_search{
+	display: inline-block;
+	height:0.3rem;
+	width: 1.5rem;
+	background: #a71a12;
+	position: relative;
+	top: 0.05rem;
+	left: 0.06rem;
+	border-radius: 0.05rem;
+}
+
+.main_head_search img{
+	width: 0.13rem;
+	position: absolute;
+	top: 0.09rem;
+	left: 0.09rem;
+}
+.main_head_search input{
+	position: absolute;
+	display: inline-block;
+	width: 1.3rem;
+	height: 0.3rem;
+	left: 0.2rem;
+	background: none;
+	border: none;
+	color: #fff;
+	font-size: 0.12rem;
+}
+.scroll_area{
+	margin-top: 60px;
+}
+.index_main_message{
+	z-index: 10;
+}

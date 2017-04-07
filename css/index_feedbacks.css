@@ -1,0 +1,91 @@
+.text_bg{
+	margin: 54px auto 0;
+	height: 1.87rem;
+	width: 95%;
+	background: #fff;
+	border: 1px solid #dbdbdb;
+	border-radius: 0.05rem;
+}
+.text_area{
+	border: none;
+	margin-bottom: 0.15rem;
+	padding: 0.1rem 0.15rem;
+	line-height: 0.21rem;
+}
+.img_upload{
+	width: 0.7rem;
+	height: 0.55rem;
+	margin-left: 0.1rem;
+	margin-top:0.2rem;
+}
+.img_upload_icon{
+	width: 0.7rem;
+	height: 0.55rem;
+	margin-right: 0.1rem;
+	margin-top:0.2rem;
+	float: right;
+}
+.suggestion{
+	color: #b2b2b2;
+	padding: 0.1rem;
+	font-size: 0.11rem;
+}
+.btn{
+	width: 95%;
+	margin: auto;
+	display: block;
+	font-size: 0.13rem;
+	background: #CB2920;
+	color: #fff;
+	padding: 0.1rem;
+}
+.btn_wait{
+	background: #dbdbdb;
+}
+.list_head{
+	margin: 0.1rem;
+	font-weight: bold;
+	font-size: 0.13rem;
+	color: #1c1c1c;
+}
+.list_area{
+	background: #fff;
+	padding-left: 0.15rem;
+	color: #1c1c1c;
+	font-size: 0.14rem;
+	border-bottom: 1px solid #dbdbdb;
+	/*line-height: 0.5rem;*/
+	/*padding-top: 0.1rem;
+	padding-bottom: 0.1rem;*/
+}
+.question{
+	height: 0.5rem;
+	line-height: 0.5rem;
+}
+.question_status{
+	background: #EFEFF4;
+	display: inline-block;
+	float: right;
+	height: 0.25rem;
+	line-height: 0.25rem;
+	padding-left: 0.1rem;
+	padding-right: 0.1rem;
+	margin-top: 0.13rem;
+	margin-right: 0.15rem;
+	border-radius: 0.05rem;
+}
+form input{
+	display: none;
+}
+.input_img{
+	color: red;
+	background: red;
+	width: 0.7rem;
+	height: 0.55rem;
+	position: absolute;
+	z-index: 10;
+	top: 1.8rem;
+	right: 0.2rem;
+	opacity: 0;
+	display: block;
+}
