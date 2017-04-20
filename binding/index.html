@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<!-- saved from url=(0036)http://vip.bdvip.net/home/bindweixin -->
+<html lang="en">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/weui.min.css">
+		<link rel="stylesheet" href="css/custom.css">
+		<title>用户绑定</title>
+	</head>
+
+	<body>
+		<div id="bindMenu" class="container-fluid" style="display: block;">
+			<div class="row">
+				<div class="col-xs-12">
+					<img src="img/pic1.jpg" class="img-responsive">
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-xs-12 ">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">用户绑定</h3>
+						</div>
+						<div class="panel-body">
+							<div class="form-horizontal">
+								<div class="form-group">
+									<label for="phone" class="col-sm-2 control-label">手机号</label>
+									<div class="col-sm-10">
+										<input type="email" class="form-control" id="phone" placeholder="手机号">
+										<input type="hidden" id="open_id">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="pwd" class="col-sm-2 control-label">密码</label>
+									<div class="col-sm-10">
+										<input type="password" class="form-control" id="pwd" placeholder="密码">
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-offset-2 col-sm-10 text-center">
+										<button type="button" class="btn btn-primary" onclick="submitBind()">&nbsp;&nbsp;绑 定&nbsp;&nbsp;</button>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-offset-2 col-sm-10 text-center">
+										<label id="errorInfo" style="color:red"></label>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-12">
+
+				</div>
+			</div>
+
+		</div>
+
+		<div id="bindResult" class="page" style="display:none;">
+			<div class="weui_msg">
+				<div class="weui_icon_area"><i class="weui_icon_success weui_icon_msg"></i></div>
+				<div class="weui_text_area">
+					<h2 class="weui_msg_title">绑定成功</h2>
+					<p class="weui_msg_desc">您已成功绑定微信，点击确定开始使用</p>
+				</div>
+				<div class="weui_opr_area">
+					<p class="weui_btn_area">
+						<a href="javascript:;" class="weui_btn weui_btn_primary" onclick="jumpVipCard()">确定</a>
+					</p>
+				</div>
+				<div class="weui_extra_area">
+
+				</div>
+			</div>
+		</div>
+		<script src="../js/config/web_config.js"></script>
+		<script src="../js/mui.js"></script>
+
+		<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+		<script src="js/jquery.min.js"></script>
+		<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+		<script src="js/bootstrap.min.js"></script>
+		<script type="text/javascript">
+			function GetQueryString(name) {
+				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+				var r = window.location.search.substr(1).match(reg);
+				if(r != null) return(r[2]);
+				return null;
+			}
+
+			var isSubmit = false;
+			var jumpUrl = undefined;
+			var open_id = GetQueryString('open_id');
+
+			function submitBind() {
+				if(isSubmit) {
+					return;
+				}
+				isSubmit = true;
+				var phone = $("#phone").val();
+
+				var pwd = $("#pwd").val();
+
+				var url = test_url + "/api/member/BindWeiXin";
+				$.post(
+					url, {
+						phone: phone,
+						pwd: pwd,
+						open_id: open_id
+					},
+					function(data, status) {
+						if(data != undefined) {
+							// alert(JSON.stringify(data));
+							if(data.ErrorCode == "0") {
+								jumpUrl = "../html/home/index_main_card.html?member_id=" + data.Data.Member.id + "&phone=" + data.Data.Member.phone + "&token=" + data.Data.Token;
+								$("#bindMenu").hide();
+								$("#bindResult").show();
+							} else {
+								$("#errorInfo").text("用户名密码错，或已绑定！");
+								setTimeout(function() { $("#errorInfo").text(""); }, 5000);
+							}
+						}
+						isSubmit = false;
+					});
+			}
+
+			function jumpVipCard() {
+				if(jumpUrl != undefined) {
+					window.location.href = jumpUrl;
+				}
+			}
+		</script>
+
+	</body>
+
+</html>

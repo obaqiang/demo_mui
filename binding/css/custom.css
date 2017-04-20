@@ -1,0 +1,67 @@
+.space-4 {
+    max-height: 8px;
+    min-height: 8px;
+    overflow: hidden;
+    margin: 12px 0;
+    margin: 4px 0 3px;
+}
+
+
+.card_waiwei
+{
+    position: relative;
+    width: 290px;
+    margin: auto;
+}
+
+.card_katao
+{
+    position: absolute;
+    top: 20px;
+    left: 10px;
+    z-index: 101;
+}
+
+.card_kapian
+{
+    width:220px;
+    height: 150px;
+    position: absolute;
+    z-index:10;
+}
+
+.card_katao1
+{
+    position: absolute;
+    top: 20px;
+    left: 40px;
+    z-index: 101;
+}
+
+.card_kapian1
+{
+    width:220px;
+    height: 150px;
+    position: absolute;
+    right:0px;
+    z-index:10;
+}
+
+
+ .bd {
+    padding: 30px 0;
+    text-align: center;
+}
+
+.vipMenu 
+{
+    border-radius: 35px;     
+    width: 70px; 
+    height: 70px; 
+    background-color: #83d271;
+    float: left;
+    margin-left: 8px;
+    margin-right:8px; 
+    margin-bottom: 30px; 
+    text-align: center ;
+}

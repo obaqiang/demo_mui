@@ -414,7 +414,7 @@
 								var content = TradePhotos[i].content;
 								var Images = TradePhotos[i].Images;
 								var confirm_time = TradePhotos[i].confirm_time;
-								confirm_time = unix_to_datetime(confirm_time);
+								confirm_time = getNowFormatDate(confirm_time);
 								var tradephoto_id = TradePhotos[i].tradephoto_id;
 								var photo_div =
 									'<div class="photo_list of_h" tradephoto_id="' + tradephoto_id + '">' +

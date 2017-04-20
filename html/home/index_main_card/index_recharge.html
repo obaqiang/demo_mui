@@ -368,7 +368,7 @@
 							for(var i = 0; i < Recharges.length; i++) {
 								var package_names = Recharges[i].package_names;
 								var add_time = Recharges[i].add_time;
-								add_time = unix_to_datetime(add_time);
+								add_time = getNowFormatDate(add_time);
 								var total_money = Recharges[i].total_money;
 								var recharge_div =
 									'<div class="recharge_list_content of_h">' +
